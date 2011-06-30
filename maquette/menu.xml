@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xsl/menu.xsl"?>
+<menu>
+    <sub-menu title="Accueil">
+        <menu-entry href="javascript:displayContent('./data/presentation.xml');">Présentation</menu-entry>
+        <menu-entry href="#">Actualités</menu-entry>
+        <menu-entry href="#">Blablabla</menu-entry>
+    </sub-menu>
+    <menu-entry href="#">XeMeLios</menu-entry>
+    <sub-menu title="Schémas">
+        <menu-entry href="#">Paye</menu-entry>
+        <menu-entry href="#">Etat de frais</menu-entry>
+        <menu-entry href="#">Pes Aller</menu-entry>
+    </sub-menu>
+    <menu-entry href="#">Utilitaires</menu-entry>
+    <menu-entry href="#"><abbr title="Foire aux questions">FAQ</abbr></menu-entry>
+</menu>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8"/>
+	<title>XeMeLios</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css"/>
+	<script type="text/javascript">
+		function loadXMLDoc(dname) {
+			if (window.XMLHttpRequest) {
+				xhttp=new XMLHttpRequest();
+			} else {
+				xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xhttp.open("GET",dname,false);
+			xhttp.send(null);
+			return xhttp.responseXML;
+		}
+		
+		function transform(srcXml, srcXsl) {
+			xml=loadXMLDoc(srcXml);
+			xsl=loadXMLDoc(srcXsl);
+			// code for IE
+			if (window.ActiveXObject) {
+				ex=xml.transformNode(xsl);
+				return ex;
+			}
+			// code for Mozilla, Firefox, Opera, etc.
+			else if (document.implementation && document.implementation.createDocument) {
+				xsltProcessor=new XSLTProcessor();
+				xsltProcessor.importStylesheet(xsl);
+				resultDocument = xsltProcessor.transformToFragment(xml,document);
+				return resultDocument;
+			}
+		}
+		function loadData() {
+			// menu
+			menu = transform("menu.xml", "xsl/menu.xsl");
+			if(window.ActiveXObject) {
+				document.getElementById("menu").innerHTML = menu;
+			} else {
+				document.getElementById("menu").appendChild(menu);
+			}
+		}
+		function displayContent(url) {
+			xml = loadXMLDoc(url);
+			if(window.ActiveXObject) {
+				document.getElementById("main-content").innerHTML = xml;
+			} else {
+				xsltProcessor=new XSLTProcessor();
+				xsltProcessor.importStylesheet(null);
+				resultDocument = xsltProcessor.transformToFragment(xml,document);
+				element  = document.getElementById("main-content");
+				while(element.childCount>0) {
+					element.removeChild(0);
+				}
+				element.appendChild(resultDocument);
+			}
+		}
+		function hideShowMenu(menuId) {
+			element = document.getElementById(menuId);
+			if(element.style.display=='block') {
+				element.style.display='none';
+				element.parentNode.style.paddingBottom='12px';
+			} else {
+				element.style.display='block';
+				element.parentNode.style.paddingBottom='0';
+			}
+		}
+	</script>
+</head>
+
+<body onLoad="javascript:loadData();">
+	<div id="wrapper">
+		<h1><a href="#"><img src="img/xemelios.png" width="487" height="77" alt="XeMeLios" /></a></h1>
+		<!--div id="presentation">XeMe</div-->
+		<div id="nav">
+			<div id="menu">&nbsp;</div>
+		</div>
+		<div id="content">
+			<div id="main-content">
+				<h2 class="first">Actualités</h2>
+				<ul id="actualite">
+					<li class="first open">
+						<span>Sortie de XéMéLios 3.3.0</span> 22/06/2011
+						<p>XéMéLios 3.3.0 apporte de nouvelles fonctionnalités, comme l'export au format Excel, la possibilité de visualiser directement tous les bulletins d'un agent, la possibilité d'exporter un rapport d'analyse. Ces nouvelles fonctionnalités sont détaillées dans le guide utilisateur.</p>
+					</li>
+					<li><span>Sortie de XéMéLios 3.2.0</span> 22/05/2011</li>
+					<li><span>Sortie de XéMéLios 3.1.2</span> 22/04/2011</li>
+					<li><span>Sortie de XéMéLios 3.1.1</span> 22/03/2011</li>
+					<li><span>Sortie de XéMéLios 3.1.0</span> 22/02/2011</li>
+				</ul>
+
+				<h2>Installation</h2>
+				<p>La version 3.3.0 de XéMélios étant une mise à jour majeure, il est impératif de passer par le <a href="#">programme d'installation</a> pour installer ou mettre à une ancienne version de XéMélios.
+					<br />La documentation d'installation complète est disponible <a href="#">en ligne</a>.</p>
+
+					<h2>Documentation d'installation</h2>
+					<p>La documentation d'installation de Xemelios V3 est disponible sous deux formats :</p>
+					<ul>
+						<li>en ligne au format <a href="#">HTML</a></li>
+						<li>en téléchargement au format <a href="#">PDF</a></li>
+					</ul>
+			</div>
+		</div><!-- #content-->
+		<div id="footer">
+			<span>Site sous la responsabilité de la <a href="#"><abbr title="Direction Générale des Finances Publiques">DGFiP</abbr></a></span>
+			Powered by <a href="#">axYus</a>
+		</div>
+	</div><!-- #wrapper-->
+</body>
+</html>
