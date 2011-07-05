@@ -3,7 +3,7 @@
 <menu>
     <sub-menu title="Accueil">
         <menu-entry href="javascript:displayContent('./data/presentation.xml');">Présentation</menu-entry>
-        <menu-entry href="#">Actualités</menu-entry>
+        <menu-entry href="#">Toto Actus</menu-entry>
         <menu-entry href="#">Blablabla</menu-entry>
     </sub-menu>
     <menu-entry href="#">XeMeLios</menu-entry>
