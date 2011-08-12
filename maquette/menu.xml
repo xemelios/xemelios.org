@@ -2,14 +2,14 @@
 <?xml-stylesheet type="text/xsl" href="xsl/menu.xsl"?>
 <menu>
     <sub-menu title="Accueil">
-        <menu-entry href="javascript:displayContent('./data/presentation.xml');">Présentation</menu-entry>
+        <menu-entry href="javascript:displayContentByXsl('data/presentation.xml','xsl/displayPresentation.xsl');">Présentation</menu-entry>
         <menu-entry href="#">Toto Actus</menu-entry>
         <menu-entry href="#">Blablabla</menu-entry>
     </sub-menu>
     <menu-entry href="#">XeMeLios</menu-entry>
     <sub-menu title="Schémas">
         <menu-entry href="#">Paye</menu-entry>
-        <menu-entry href="#">Etat de frais</menu-entry>
+        <menu-entry href="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')">Etats de frais</menu-entry>        
         <menu-entry href="#">Pes Aller</menu-entry>
     </sub-menu>
     <menu-entry href="#">Utilitaires</menu-entry>

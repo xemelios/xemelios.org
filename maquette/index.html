@@ -7,58 +7,87 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<script type="text/javascript">
 		function loadXMLDoc(dname) {
+			var xhttp=null;
 			if (window.XMLHttpRequest) {
 				xhttp=new XMLHttpRequest();
 			} else {
 				xhttp=new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			xhttp.open("GET",dname,false);
+			xhttp.open("GET",dname,false);			
 			xhttp.send(null);
 			return xhttp.responseXML;
 		}
-		
+
+		function Xajax(url) {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange =  function() {
+				if(this.readyState == 4) {
+					var element  = document.getElementById("main-content");
+					element.innerHTML="";
+					element.innerHTML = xhr.responseText;
+				}
+			};
+						
+			//xhr.open('GET', url, true);
+ 			xhr.open("GET", url+"?nocache="+Math.random(), true); 
+			//xhr.setRequestHeader('Content-type', 'application/xml');			
+			xhr.send(null);
+		}
 		function transform(srcXml, srcXsl) {
-			xml=loadXMLDoc(srcXml);
-			xsl=loadXMLDoc(srcXsl);
+			var xml=loadXMLDoc(srcXml);
+			var xsl=loadXMLDoc(srcXsl);
 			// code for IE
 			if (window.ActiveXObject) {
-				ex=xml.transformNode(xsl);
+				var ex=xml.transformNode(xsl);
 				return ex;
-			}
-			// code for Mozilla, Firefox, Opera, etc.
-			else if (document.implementation && document.implementation.createDocument) {
-				xsltProcessor=new XSLTProcessor();
+			} else if (document.implementation && document.implementation.createDocument) { // code for Mozilla, Firefox, Opera, etc.
+				var xsltProcessor = new XSLTProcessor();
 				xsltProcessor.importStylesheet(xsl);
-				resultDocument = xsltProcessor.transformToFragment(xml,document);
-				return resultDocument;
+				return xsltProcessor.transformToFragment(xml,document);
 			}
 		}
+
 		function loadData() {
 			// menu
-			menu = transform("menu.xml", "xsl/menu.xsl");
+			var menu = transform("menu.xml", "xsl/menu.xsl");
 			if(window.ActiveXObject) {
 				document.getElementById("menu").innerHTML = menu;
 			} else {
 				document.getElementById("menu").appendChild(menu);
 			}
-		}
+		} 
+
+
+
 		function displayContent(url) {
-			xml = loadXMLDoc(url);
+			var xml = loadXMLDoc(url);			
 			if(window.ActiveXObject) {
 				document.getElementById("main-content").innerHTML = xml;
 			} else {
-				xsltProcessor=new XSLTProcessor();
+				var xsltProcessor=new XSLTProcessor();
 				xsltProcessor.importStylesheet(null);
-				resultDocument = xsltProcessor.transformToFragment(xml,document);
-				element  = document.getElementById("main-content");
+				var resultDocument = xsltProcessor.transformToFragment(xml,document);
+				var element  = document.getElementById("main-content");
 				while(element.childCount>0) {
 					element.removeChild(0);
 				}
 				element.appendChild(resultDocument);
 			}
 		}
+
+		function displayContentByXsl(srcXml,srcXsl) {
+			var page = transform(srcXml,srcXsl);
+			if(window.ActiveXObject) {
+				document.getElementById("main-content").innerHTML = page;
+			} else {
+				var element  = document.getElementById("main-content");
+				element.innerHTML="";
+				element.appendChild(page);
+			}
+		}
+
 		function hideShowMenu(menuId) {
-			element = document.getElementById(menuId);
+			var element = document.getElementById(menuId);
 			if(element.style.display=='block') {
 				element.style.display='none';
 				element.parentNode.style.paddingBottom='12px';
@@ -104,8 +133,8 @@
 			</div>
 		</div><!-- #content-->
 		<div id="footer">
-			<span>Site sous la responsabilité de la <a href="#"><abbr title="Direction Générale des Finances Publiques">DGFiP</abbr></a></span>
-			Powered by <a href="#">axYus</a>
+			<span>Site sous la responsabilité de la <a href="https://portail.dgfip.finances.gouv.fr/" target="_blank"><abbr title="Direction Générale des Finances Publiques">DGFiP</abbr></a></span>
+			Powered by <a href="http://www.axyus.com" target="_blank">axYus</a>
 		</div>
 	</div><!-- #wrapper-->
 </body>

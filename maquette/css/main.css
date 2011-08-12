@@ -106,6 +106,8 @@ h2 {
 }
 h2.first { margin-top: 0 }
 
+a:hover {cursor: pointer;}
+
 /* actualite */
 #actualite li {
 	margin-left: 0;
