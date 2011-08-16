@@ -11,6 +11,7 @@
         <menu-entry href="#">Paye</menu-entry>
         <menu-entry href="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')">Etats de frais</menu-entry>        
         <menu-entry href="#">Pes Aller</menu-entry>
+        <menu-entry href="javascript:Xajax('http://xemelios.org/schemas/AideSociale/aide-sociale.html')">Aide Sociale</menu-entry>
     </sub-menu>
     <menu-entry href="#">Utilitaires</menu-entry>
     <menu-entry href="#"><abbr title="Foire aux questions">FAQ</abbr></menu-entry>
