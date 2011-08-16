@@ -7,13 +7,15 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<script type="text/javascript">
 		function loadXMLDoc(dname) {
+			var cacheDisable = Math.random(1000);
+			 
 			var xhttp=null;
 			if (window.XMLHttpRequest) {
 				xhttp=new XMLHttpRequest();
 			} else {
 				xhttp=new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			xhttp.open("GET",dname,false);			
+			xhttp.open("GET",dname+"?nocache="+Math.random(),false);
 			xhttp.send(null);
 			return xhttp.responseXML;
 		}
@@ -30,9 +32,11 @@
 						
 			//xhr.open('GET', url, true);
  			xhr.open("GET", url+"?nocache="+Math.random(), true); 
+			//xhr.setHeader("Cache-Control", "no-cache");
 			//xhr.setRequestHeader('Content-type', 'application/xml');			
 			xhr.send(null);
 		}
+
 		function transform(srcXml, srcXsl) {
 			var xml=loadXMLDoc(srcXml);
 			var xsl=loadXMLDoc(srcXsl);
@@ -56,8 +60,6 @@
 				document.getElementById("menu").appendChild(menu);
 			}
 		} 
-
-
 
 		function displayContent(url) {
 			var xml = loadXMLDoc(url);			
@@ -96,10 +98,19 @@
 				element.parentNode.style.paddingBottom='0';
 			}
 		}
+
+		function hideShowActu(actuId) {
+			var element = document.getElementById(actuId);
+			if(element.style.display=='block') {
+				element.style.display='none';
+			} else {
+				element.style.display='block';
+			}
+		}
 	</script>
 </head>
 
-<body onLoad="javascript:loadData();">
+<body onLoad="javascript:loadData();javascript:displayContentByXsl('data/accueil.xml','xsl/displayAccueil.xsl');">
 	<div id="wrapper">
 		<h1><a href="#"><img src="img/xemelios.png" width="487" height="77" alt="XeMeLios" /></a></h1>
 		<!--div id="presentation">XeMe</div-->
@@ -108,28 +119,27 @@
 		</div>
 		<div id="content">
 			<div id="main-content">
-				<h2 class="first">Actualités</h2>
+				<!--h2 class="first">Actualités</h2>
 				<ul id="actualite">
 					<li class="first open">
-						<span>Sortie de XéMéLios 3.3.0</span> 22/06/2011
-						<p>XéMéLios 3.3.0 apporte de nouvelles fonctionnalités, comme l'export au format Excel, la possibilité de visualiser directement tous les bulletins d'un agent, la possibilité d'exporter un rapport d'analyse. Ces nouvelles fonctionnalités sont détaillées dans le guide utilisateur.</p>
+						<span>Sortie de XéMéLios 5.0.0</span> 01/08/2011
+						<p>XéMéLios 5.0.0 apporte de nouvelles fonctionnalités telles que les abonements qui permettent de s'abonner à des types des données (ex: SPL, PES ...), les profils.
+							<br/>Les mises à jour ont été révues, améliorées et sont "transparentes" et mieux orientées utilisateur.
+							<br/>XéMéLios stocke ses données dans une base de données plus performante.</p>
 					</li>
-					<li><span>Sortie de XéMéLios 3.2.0</span> 22/05/2011</li>
-					<li><span>Sortie de XéMéLios 3.1.2</span> 22/04/2011</li>
-					<li><span>Sortie de XéMéLios 3.1.1</span> 22/03/2011</li>
-					<li><span>Sortie de XéMéLios 3.1.0</span> 22/02/2011</li>
+					<li><span>Sortie de XéMéLios 5.0.0</span> 01/08/2011</li>
 				</ul>
 
 				<h2>Installation</h2>
-				<p>La version 3.3.0 de XéMélios étant une mise à jour majeure, il est impératif de passer par le <a href="#">programme d'installation</a> pour installer ou mettre à une ancienne version de XéMélios.
-					<br />La documentation d'installation complète est disponible <a href="#">en ligne</a>.</p>
+				<p>La version 5.0.0 de XéMélios étant une mise à jour majeure, il est impératif de passer par le <a href="http://xemelios.org/v5/setup-xemelios-V5-2011-06-28.exe">programme d'installation</a> pour installer ou mettre à une ancienne version de XéMélios.
+				<br/>La documentation d'installation complète est disponible <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">en ligne</a>.</p>
 
-					<h2>Documentation d'installation</h2>
-					<p>La documentation d'installation de Xemelios V3 est disponible sous deux formats :</p>
-					<ul>
-						<li>en ligne au format <a href="#">HTML</a></li>
-						<li>en téléchargement au format <a href="#">PDF</a></li>
-					</ul>
+				<h2>Documentation d'installation</h2>
+				<p>La documentation d'installation de Xemelios V5 est disponible sous deux formats :</p>
+				<ul>
+					<li>en ligne au format <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">HTML</a></li>
+					<li>en téléchargement au format <a href="#">PDF</a></li>
+				</ul-->
 			</div>
 		</div><!-- #content-->
 		<div id="footer">

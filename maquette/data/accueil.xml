@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <h2>Actualités</h2>
+    <ul>
+        <li>
+            <span>Sortie de XéMéLios 5.0.0</span> 01/07/2011
+            <p>XéMéLios 5.0.0 apporte de nouvelles fonctionnalités telles que les abonements qui permettent de s'abonner à des types des données (ex: SPL, PES ...), les profils.
+                <br/>Les mises à jour ont été révues, améliorées et sont "transparentes" et mieux orientées utilisateur.
+                <br/>XéMéLios stocke ses données dans une base de données plus performante.</p>
+        </li>
+        <li>
+            <span>Sortie de XéMéLios 5 Beta</span> 01/01/2011
+            <p>Sortie de la beta test de XéMéLios 5</p>
+        </li>
+    </ul>
+</data>

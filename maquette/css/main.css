@@ -106,6 +106,12 @@ h2 {
 }
 h2.first { margin-top: 0 }
 
+h3 {
+	margin: 30px 0 15px;
+	padding: 0;
+	color: #2a475d;
+}
+
 a:hover {cursor: pointer;}
 
 /* actualite */

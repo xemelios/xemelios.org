@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<p>L'outil X&#233;m&#233;lios est utilis&#233; dans la d&#233;mat&#233;rialisation pour exploiter des fichiers au format XML, qui se basent sur le respect de sch&#233;mas XML d&#233;finis nationalement.
+<br/> 
+Vous trouverez ici le programme d'installation de cet outil et la documentation associ&#233;e.</p>
+
+<h2>Installation</h2>
+<p>La version 5.0.0 de XéMélios étant une mise à jour majeure, il est impératif de passer par le <a href="http://xemelios.org/v5/setup-xemelios-V5.exe">programme d'installation</a> pour installer ou mettre à une ancienne version de XéMélios.
+    <br/>La documentation d'installation complète est disponible <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">en ligne</a>.
+</p>
+
+<h2>Documentation d'installation</h2>
+<p>La documentation d'installation de Xemelios V5 est disponible sous deux formats :</p>
+<ul>
+    <li>en ligne au format <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">HTML</a></li>
+    <li>en téléchargement au format <a href="#">PDF</a></li>
+</ul>
+
+<h3>Notes de version</h3>
+    <p>Les notes de version sont disoinibles <a href="http://xemelios.org/updatesV5/release-notes-RECETTE.html" target="_blank">ici</a>.</p>
+
+<h3>Licence</h3>
+    <p>XéMèlios est un logiciel sous licence de logiciel libre (LGPL) : <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" target="_blank">Licence LGPL</a></p>
+</data>

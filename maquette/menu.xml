@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="xsl/menu.xsl"?>
 <menu>
-    <sub-menu title="Accueil">
-        <menu-entry href="javascript:displayContentByXsl('data/presentation.xml','xsl/displayPresentation.xsl');">Présentation</menu-entry>
-        <menu-entry href="#">Toto Actus</menu-entry>
-        <menu-entry href="#">Blablabla</menu-entry>
+    <sub-menu title="Accueil" onClick="javascript:displayContentByXsl('data/accueil.xml','xsl/displayAccueil.xsl');">
+        <menu-entry onClick="javascript:displayContentByXsl('data/presentation.xml','xsl/displayPresentation.xsl');" href="#">Pr&#233;sentation</menu-entry>
+        <menu-entry onClick="javascript:displayContentByXsl('data/accueil.xml','xsl/displayAccueil.xsl');" href="#">Actualit&#233;s</menu-entry>
     </sub-menu>
-    <menu-entry href="#">XeMeLios</menu-entry>
-    <sub-menu title="Schémas">
+    <menu-entry onClick="javascript:displayContentByXsl('data/xemelios.xml','xsl/displayXemelios.xsl');">L'outil X&#233;M&#232;Lios</menu-entry>
+    <sub-menu title="Sch&#233;mas">
         <menu-entry href="#">Paye</menu-entry>
-        <menu-entry href="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')">Etats de frais</menu-entry>        
+        <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')" href="#">Etats de frais</menu-entry>        
         <menu-entry href="#">Pes Aller</menu-entry>
-        <menu-entry href="javascript:Xajax('http://xemelios.org/schemas/AideSociale/aide-sociale.html')">Aide Sociale</menu-entry>
     </sub-menu>
     <menu-entry href="#">Utilitaires</menu-entry>
     <menu-entry href="#"><abbr title="Foire aux questions">FAQ</abbr></menu-entry>
