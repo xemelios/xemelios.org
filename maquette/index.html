@@ -5,111 +5,8 @@
 	<meta charset="utf-8"/>
 	<title>XeMeLios</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
-	<script type="text/javascript">
-		function loadXMLDoc(dname) {
-			var cacheDisable = Math.random(1000);
-			 
-			var xhttp=null;
-			if (window.XMLHttpRequest) {
-				xhttp=new XMLHttpRequest();
-			} else {
-				xhttp=new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			xhttp.open("GET",dname+"?nocache="+Math.random(),false);
-			xhttp.send(null);
-			return xhttp.responseXML;
-		}
-
-		function Xajax(url) {
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange =  function() {
-				if(this.readyState == 4) {
-					var element  = document.getElementById("main-content");
-					element.innerHTML="";
-					element.innerHTML = xhr.responseText;
-				}
-			};
-						
-			//xhr.open('GET', url, true);
- 			xhr.open("GET", url+"?nocache="+Math.random(), true); 
-			//xhr.setHeader("Cache-Control", "no-cache");
-			//xhr.setRequestHeader('Content-type', 'application/xml');			
-			xhr.send(null);
-		}
-
-		function transform(srcXml, srcXsl) {
-			var xml=loadXMLDoc(srcXml);
-			var xsl=loadXMLDoc(srcXsl);
-			// code for IE
-			if (window.ActiveXObject) {
-				var ex=xml.transformNode(xsl);
-				return ex;
-			} else if (document.implementation && document.implementation.createDocument) { // code for Mozilla, Firefox, Opera, etc.
-				var xsltProcessor = new XSLTProcessor();
-				xsltProcessor.importStylesheet(xsl);
-				return xsltProcessor.transformToFragment(xml,document);
-			}
-		}
-
-		function loadData() {
-			// menu
-			var menu = transform("menu.xml", "xsl/menu.xsl");
-			if(window.ActiveXObject) {
-				document.getElementById("menu").innerHTML = menu;
-			} else {
-				document.getElementById("menu").appendChild(menu);
-			}
-		} 
-
-		function displayContent(url) {
-			var xml = loadXMLDoc(url);			
-			if(window.ActiveXObject) {
-				document.getElementById("main-content").innerHTML = xml;
-			} else {
-				var xsltProcessor=new XSLTProcessor();
-				xsltProcessor.importStylesheet(null);
-				var resultDocument = xsltProcessor.transformToFragment(xml,document);
-				var element  = document.getElementById("main-content");
-				while(element.childCount>0) {
-					element.removeChild(0);
-				}
-				element.appendChild(resultDocument);
-			}
-		}
-
-		function displayContentByXsl(srcXml,srcXsl) {
-			var page = transform(srcXml,srcXsl);
-			if(window.ActiveXObject) {
-				document.getElementById("main-content").innerHTML = page;
-			} else {
-				var element  = document.getElementById("main-content");
-				element.innerHTML="";
-				element.appendChild(page);
-			}
-		}
-
-		function hideShowMenu(menuId) {
-			var element = document.getElementById(menuId);
-			if(element.style.display=='block') {
-				element.style.display='none';
-				element.parentNode.style.paddingBottom='12px';
-			} else {
-				element.style.display='block';
-				element.parentNode.style.paddingBottom='0';
-			}
-		}
-
-		function hideShowActu(actuId) {
-			var element = document.getElementById(actuId);
-			if(element.style.display=='block') {
-				element.style.display='none';
-			} else {
-				element.style.display='block';
-			}
-		}
-	</script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
-
 <body onLoad="javascript:loadData();javascript:displayContentByXsl('data/accueil.xml','xsl/displayAccueil.xsl');">
 	<div id="wrapper">
 		<h1><a href="#"><img src="img/xemelios.png" width="487" height="77" alt="XeMeLios" /></a></h1>
@@ -118,34 +15,13 @@
 			<div id="menu">&nbsp;</div>
 		</div>
 		<div id="content">
-			<div id="main-content">
-				<!--h2 class="first">Actualités</h2>
-				<ul id="actualite">
-					<li class="first open">
-						<span>Sortie de XéMéLios 5.0.0</span> 01/08/2011
-						<p>XéMéLios 5.0.0 apporte de nouvelles fonctionnalités telles que les abonements qui permettent de s'abonner à des types des données (ex: SPL, PES ...), les profils.
-							<br/>Les mises à jour ont été révues, améliorées et sont "transparentes" et mieux orientées utilisateur.
-							<br/>XéMéLios stocke ses données dans une base de données plus performante.</p>
-					</li>
-					<li><span>Sortie de XéMéLios 5.0.0</span> 01/08/2011</li>
-				</ul>
-
-				<h2>Installation</h2>
-				<p>La version 5.0.0 de XéMélios étant une mise à jour majeure, il est impératif de passer par le <a href="http://xemelios.org/v5/setup-xemelios-V5-2011-06-28.exe">programme d'installation</a> pour installer ou mettre à une ancienne version de XéMélios.
-				<br/>La documentation d'installation complète est disponible <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">en ligne</a>.</p>
-
-				<h2>Documentation d'installation</h2>
-				<p>La documentation d'installation de Xemelios V5 est disponible sous deux formats :</p>
-				<ul>
-					<li>en ligne au format <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">HTML</a></li>
-					<li>en téléchargement au format <a href="#">PDF</a></li>
-				</ul-->
-			</div>
-		</div><!-- #content-->
-		<div id="footer">
-			<span>Site sous la responsabilité de la <a href="https://portail.dgfip.finances.gouv.fr/" target="_blank"><abbr title="Direction Générale des Finances Publiques">DGFiP</abbr></a></span>
-			Powered by <a href="http://www.axyus.com" target="_blank">axYus</a>
-		</div>
-	</div><!-- #wrapper-->
+			<div id="main-content">&#160;</div>
+		</div><!-- #content-->	
+	</div>	
+	<div id="footer">
+		<span>Site sous la responsabilité de la <a href="https://portail.dgfip.finances.gouv.fr/" target="_blank"><abbr title="Direction Générale des Finances Publiques">DGFiP</abbr></a></span>
+		<span>Powered by <a href="http://www.axyus.com" target="_blank">axYus</a></span>
+	</div>
+	<!-- #wrapper-->
 </body>
 </html>

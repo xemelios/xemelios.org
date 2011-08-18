@@ -6,11 +6,27 @@
         <menu-entry onClick="javascript:displayContentByXsl('data/accueil.xml','xsl/displayAccueil.xsl');" href="#">Actualit&#233;s</menu-entry>
     </sub-menu>
     <menu-entry onClick="javascript:displayContentByXsl('data/xemelios.xml','xsl/displayXemelios.xsl');">L'outil X&#233;M&#232;Lios</menu-entry>
-    <sub-menu title="Sch&#233;mas">
-        <menu-entry href="#">Paye</menu-entry>
-        <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')" href="#">Etats de frais</menu-entry>        
-        <menu-entry href="#">Pes Aller</menu-entry>
+    <sub-menu title="Sch&#233;mas" onClick="javascript:displayContentByXsl('data/schemas.xml','xsl/displaySchemas.xsl');">
+        <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.1/index.html')" href="#">PES (Protocole d’Echange Standard)</menu-entry>
+        <sub-menu title="Pièces justificatives">
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/cfg-paye/index.html')" href="#">Paye</menu-entry>                
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/AideSociale/index.html')" href="#">Versement / Aide sociale</menu-entry>            
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')" href="#">Frais de déplacement</menu-entry>
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/pes-facture/index.html')" href="#">Facture PES</menu-entry>
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/bourses/index.html')" href="#">Bourses</menu-entry>
+        </sub-menu>
     </sub-menu>
-    <menu-entry href="#">Utilitaires</menu-entry>
-    <menu-entry href="#"><abbr title="Foire aux questions">FAQ</abbr></menu-entry>
+    <sub-menu href="#" title="Utilitaires" onClick="javascript:displayContentByXsl('data/utilitaires.xml','xsl/displayUtilitaires.xsl');">
+        <menu-entry href="#">Convertisseur carte achat</menu-entry> 
+        <menu-entry href="#">Utilitaire de changement de mot de passe</menu-entry>
+        <menu-entry href="#">Ccleaner</menu-entry>
+        <menu-entry href="#">Xemelios reader</menu-entry>
+        <menu-entry href="#">Utilitaire PDF</menu-entry>
+        <menu-entry href="#">Outils compagnons</menu-entry>
+    </sub-menu>
+    <sub-menu href="#" title="Foire aux questions (FAQ)">
+        <menu-entry href="#">FAQ Générales</menu-entry>
+        <menu-entry href="#">FAQ Techniques</menu-entry>
+        <menu-entry href="#">FAG Editeurs</menu-entry>
+    </sub-menu>
 </menu>
