@@ -13,7 +13,9 @@
     
     <xsl:template match="sub-menu">
         <xsl:variable name="idMenu" select="generate-id()"/>
-        <li class="sub-menu" style="padding-bottom: 0; padding-bottom: 12px;">
+        <xsl:variable name="el" select="."/>
+        <li id="li-{$idMenu}" style="padding-bottom: 0; padding-bottom: 12px;">
+            <xsl:attribute name="class">sub-menu level-menu-<xsl:value-of select="count($el/ancestor::node()[name()='sub-menu']) + 1"/></xsl:attribute>
             <xsl:element name="a">
                 <xsl:attribute name="href">javascript:hideShowMenu('<xsl:value-of select="$idMenu"/>');</xsl:attribute>
                 <xsl:if test="@onClick"><xsl:attribute name="onClick"><xsl:value-of select="@onClick"/></xsl:attribute></xsl:if>

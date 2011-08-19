@@ -108,6 +108,31 @@ function displayContentByXsl(srcXml, srcXsl)
 
 function hideShowMenu(menuId){
     var element = document.getElementById(menuId);
+    
+    var isSousSousMenu=(element.parentNode.getAttribute("class")!=null?element.parentNode.getAttribute("class").search('level-menu-2')>-1:false);
+    var menuIdToKeepBlock = null;
+    if(isSousSousMenu){
+        menuIdToKeepBlock=element.parentNode.parentNode.parentNode.getAttribute("id");
+    }
+
+    var lis = document.getElementById('menu').getElementsByTagName("li");
+    for(var i=0;i<lis.length;i++){
+        var li=lis[i];
+        if(li.getAttribute("class")!=null && li.getAttribute("class").search('level-menu-1') > 0 && menuIdToKeepBlock==null){
+              /*var sousmenu = li.getElementsByTagName("ul")[0];
+              sousmenu.style.display = 'none';
+              sousmenu.parentNode.style.paddingBottom = '12px';*/
+            var uls = li.getElementsByTagName("ul");
+            for(var j=0;j<lis.length;j++){
+                var ul=uls[j];
+                if(ul!=null){
+                    ul.style.display = 'none';
+                    ul.parentNode.style.paddingBottom = '12px';
+                }
+            }
+        }
+    }
+    /* SHOW MENU */
     if (element.style.display == 'block'){
         element.style.display = 'none';
         element.parentNode.style.paddingBottom = '12px';
