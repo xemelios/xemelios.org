@@ -10,10 +10,12 @@
         <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.1/index.html')" href="#">PES (Protocole d’Echange Standard)</menu-entry>
         <sub-menu title="Pièces justificatives">
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/cfg-paye/index.html')" href="#">Paye</menu-entry>                
-            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/AideSociale/index.html')" href="#">Versement / Aide sociale</menu-entry>            
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/AideSociale/index.html')" href="#">Versement / Aide sociale</menu-entry>   
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/etat-frais/index.html')" href="#">Frais de déplacement</menu-entry>
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/pes-facture/index.html')" href="#">Facture PES</menu-entry>
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/bourses/index.html')" href="#">Bourses</menu-entry>
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/carte-achat/index.html')" href="#">Carte Achat</menu-entry>
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/pes-facture/index.html')" href="#">Quittancement</menu-entry>
         </sub-menu>
     </sub-menu>
     <sub-menu href="#" title="Utilitaires" onClick="javascript:displayContentByXsl('data/utilitaires.xml','xsl/displayUtilitaires.xsl');">
