@@ -29,6 +29,6 @@
     <sub-menu href="#" title="Foire aux questions (FAQ)">
         <menu-entry href="#">FAQ Générales</menu-entry>
         <menu-entry href="#">FAQ Techniques</menu-entry>
-        <menu-entry href="#">FAG Editeurs</menu-entry>
+        <menu-entry href="#">FAQ Editeurs</menu-entry>
     </sub-menu>
 </menu>
