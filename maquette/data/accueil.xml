@@ -3,14 +3,14 @@
     <h2>Actualités</h2>
     <ul>
         <li>
-            <span>Sortie de XéMéLios 5.0.0</span> 01/07/2011
-            <p>XéMéLios 5.0.0 apporte de nouvelles fonctionnalités telles que les abonements qui permettent de s'abonner à des types des données (ex: SPL, PES ...), les profils.
-                <br/>Les mises à jour ont été révues, améliorées et sont "transparentes" et mieux orientées utilisateur.
-                <br/>XéMéLios stocke ses données dans une base de données plus performante.</p>
+            <span>Disponibilité de la version 5.0.0 de XéMéLios</span> Septembre 2011
+            <p>Xémélios V5  apporte plusieurs nouveautés en terme d'ergonomie (nouvelle charte graphique, d'utilisation (exports simplifiés, recherche par train de paye, etc...), de paramétrages (choix du mode de mise à jour, d'authentification,…) et de performance (base de données plus performante).</p>
+            <p>L'évolution principale réside dans la personnalisation de l'outil à l'utilisation réelle qui en est faite par l'utilisateur.</p>
+            <p>Cette personnalisation prend la forme de profils, à définir lors de la première utilisation (exemple : profil SPL pour les utilisateurs du secteur public local (comptable, ordonnateur, juridictions), permettant de disposer uniquement des fonctionnalités et mises à jour nécessaires).</p>
         </li>
         <li>
-            <span>Sortie de XéMéLios 5 Beta</span> 01/01/2011
-            <p>Sortie de la beta test de XéMéLios 5</p>
+            <span>Disponibilité de la version 5 Beta de XéMéLios</span> 01/01/2011
+            <p>Sortie de la beta test de XéMéLios v5</p>
         </li>
     </ul>
 </data>
