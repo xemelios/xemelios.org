@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
     <h2 class="first">Schémas</h2>
-    <p>La dématérialisation est réalisée grâce au respect de schémas définis nationalement, sur la base du language XML, concernant la dématérialisation des titres, mandats, bordereaux (<a onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.1/index.html')" target="#">PES – Protocole d’Echange Standard</a>) ou des <a onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.1/index.html')" target="#">pièces justificatives</a>.</p>
+    <p>La dématérialisation est réalisée grâce au respect de schémas définis nationalement, sur la base du language XML, concernant la dématérialisation des titres, mandats, bordereaux (<a onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.0/index.html')" target="#">PES – Protocole d’Echange Standard</a>) ou des <a onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.0/index.html')" target="#">pièces justificatives</a>.</p>
     <p>Les schémas présentés ci-après peuvent être accompagnés de fichiers exemples illustratifs.</p>
 </data>

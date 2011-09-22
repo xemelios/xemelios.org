@@ -1,3 +1,6 @@
+var MENU_DATA_URL = "site/menu.xml";
+var MENU_DISPLAY_URL = "site/xsl/menu.xsl";
+
 function loadXMLDoc(dname)
 {
     var cacheDisable = Math.random(1000);
@@ -23,23 +26,16 @@ function Xajax(url)
         if (this.readyState == 4)
         {
             var element = document.getElementById("main-content");
-            if (this.status != 404 && this.status != 403)
-            {
+            if (this.status != 404 && this.status != 403){
                 element.innerHTML = "";
-                //element.innerHTML = xhr.responseText;
                 element.innerHTML = '<iframe src="' + url + '" frameborder="0" scrolling="auto"/>';
-            } else
-            {
+            } else {
                 element.innerHTML = "";
                 element.innerHTML = "<center><i>Non disponible</i></center>";
             }
         }
     };
-    
-    //xhr.open('GET', url, true);
     xhr.open("GET", url + "?nocache=" + Math.random(), true);
-    //xhr.setHeader("Cache-Control", "no-cache");
-    //xhr.setRequestHeader('Content-type', 'application/xml');
     xhr.send(null);
 }
 
@@ -48,12 +44,10 @@ function transform(srcXml, srcXsl)
     var xml = loadXMLDoc(srcXml);
     var xsl = loadXMLDoc(srcXsl);
     // code for IE
-    if (window.ActiveXObject)
-    {
+    if (window.ActiveXObject){
         var ex = xml.transformNode(xsl);
         return ex;
-    } else if (document.implementation && document.implementation.createDocument)
-    {
+    } else if (document.implementation && document.implementation.createDocument){
         // code for Mozilla, Firefox, Opera, etc.
         var xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(xsl);
@@ -61,21 +55,17 @@ function transform(srcXml, srcXsl)
     }
 }
 
-function loadData()
-{
+function loadData(){
     // menu
-    var menu = transform("menu.xml", "xsl/menu.xsl");
-    if (window.ActiveXObject)
-    {
+    var menu = transform(MENU_DATA_URL, MENU_DISPLAY_URL);
+    if (window.ActiveXObject){
         document.getElementById("menu").innerHTML = menu;
-    } else
-    {
+    } else {
         document.getElementById("menu").appendChild(menu);
     }
 }
 
-function displayContent(url)
-{
+function displayContent(url){
     var xml = loadXMLDoc(url);
     if (window.ActiveXObject)
     {
@@ -119,9 +109,6 @@ function hideShowMenu(menuId){
     for(var i=0;i<lis.length;i++){
         var li=lis[i];
         if(li.getAttribute("class")!=null && li.getAttribute("class").search('level-menu-1') > 0 && menuIdToKeepBlock==null){
-              /*var sousmenu = li.getElementsByTagName("ul")[0];
-              sousmenu.style.display = 'none';
-              sousmenu.parentNode.style.paddingBottom = '12px';*/
             var uls = li.getElementsByTagName("ul");
             for(var j=0;j<lis.length;j++){
                 var ul=uls[j];
