@@ -2,14 +2,14 @@
 <?xml-stylesheet type="text/xsl" href="site/xsl/menu.xsl"?>
 <menu>
     <sub-menu title="Accueil" onClick="javascript:displayContentByXsl('site/data/accueil.xml','site/xsl/displayAccueil.xsl');">
-        <menu-entry onClick="javascript:displayContentByXsl('site/data/accueil.xml','site/xsl/displayAccueil.xsl');" href="#">Actualit&#233;s</menu-entry>
         <menu-entry onClick="javascript:displayContentByXsl('site/data/presentation.xml','site/xsl/displayPresentation.xsl');" href="#">Pr&#233;sentation</menu-entry>
+        <menu-entry onClick="javascript:displayContentByXsl('site/data/accueil.xml','site/xsl/displayAccueil.xsl');" href="#">Actualit&#233;s</menu-entry>
     </sub-menu>
-    <menu-entry onClick="javascript:displayContentByXsl('site/data/xemelios.xml','site/xsl/displayXemelios.xsl');">L'outil X&#233;M&#232;Lios</menu-entry>
+    <menu-entry onClick="javascript:displayContentByXsl('site/data/xemelios.xml','site/xsl/displayXemelios.xsl');">L'outil XeMeLios</menu-entry>
     <sub-menu title="Sch&#233;mas" onClick="javascript:displayContentByXsl('site/data/schemas.xml','site/xsl/displaySchemas.xsl');">
         <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/pes-v2.0/index.html')" href="#">PES (Protocole d’Echange Standard)</menu-entry>
         <sub-menu title="Pièces justificatives">
-            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/asp/index.html')" href="#">ASP</menu-entry>
+            <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/asp/index.html')" href="#">ASAP</menu-entry>
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/bourses/index.html')" href="#">Bourses de l'Etat</menu-entry>
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/carte-achat/index.html')" href="#">Carte Achat</menu-entry>
             <menu-entry onClick="javascript:Xajax('http://xemelios.org/schemas/cfg-paye/index.html')" href="#">Etat de Paye</menu-entry>

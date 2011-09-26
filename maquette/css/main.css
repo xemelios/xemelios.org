@@ -120,6 +120,13 @@ a img { border: 0 }
     border: #2a475d solid 1px; 
 }
 
+/* Realeases */
+#releases ul { list-style: inside }
+#releases li { margin-left: 15px }
+
+#releases a { color: #ac5303; font-size: 14px }
+#releases a:hover {cursor: pointer;}
+
 /* Titres */
 h1 {
 	margin: 40px 0 50px;
