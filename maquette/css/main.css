@@ -180,7 +180,9 @@ td {
     border: #2a475d solid 1px; 
 }
 
-tt { background-color: #ffffff; color: green;}
+
+tt.faq { background-color: #ffffff; color: green; white-space:normal; font-weight: normal;}
+tt { color: green; font-family: courier, fixed, monospace; font-weight: bold; white-space:nowrap; }    /* background-color: #ffffff; */
 
 /* Actualite */
 #actualite li {

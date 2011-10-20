@@ -10,9 +10,9 @@
             <br/><br/>Si sur votre poste, ce port est utilis&#233; par une autre application, XeMeLios refusera de d&#233;marrer.
             <br/><br/>Il suffira donc d'indiquer &#224; XeMeLios quel port disponible doit &#234;tre utilisé.
         </p>
-        <p>Modifions ensemble le fichier <tt>xemelios.properties</tt> et g&#233;n&#233;ralement pr&#233;sent dans le r&#233;pertoire <tt>C:\Program&#160;Files\DGCP\XeMeLios\XeMeLios\root</tt>.
+        <p>Modifions ensemble le fichier <tt class="faq">xemelios.properties</tt> et g&#233;n&#233;ralement pr&#233;sent dans le r&#233;pertoire <tt class="faq">C:\Program&#160;Files\DGCP\XeMeLios\XeMeLios\root</tt>.
             <br/><br/>Ce fichier peut s'ouvrir avec le bloc-notes Windows ou tout autre &#233;diteur de texte.
-            <br/><br/>Ajoutons la ligne suivante au fichier : <tt>xemelios.isolation.port=<span style="color: red; font-weight: bold;">8384</span></tt> o&#250; <span style="color: red;">8384</span> est le port que vous aurez choisit.
+            <br/><br/>Ajoutons la ligne suivante au fichier : <tt class="faq">xemelios.isolation.port=<span style="color: red; font-weight: bold;">8384</span></tt> o&#250; <span style="color: red;">8384</span> est le port que vous aurez choisit.
         </p>
         <p>En g&#233;n&#233;ral, tout port au-dessus de 8100 convient.</p>
     </p>
@@ -26,14 +26,14 @@
             <li class="p3">La modification du param&#233;trage de Windows n'est pas un sujet traitable ici. Rapprochez-vous de vos SAU (Service d'Assistance Utilisateur), administrateur R&#233;seau,  etc... pour r&#233;aliser cette op&#233;ration.</li>
             <li class="p3">La modification du script de lancement de XeMeLios est ais&#233;e :
                 <ol>
-                    <li>Tout d'abord il faut savoir o&#250; Java 6 est install&#233;. G&#233;n&#233;ralement, il faut chercher dans le r&#233;pertoire <tt>C:\Program&#160;Files\Java\jre6</tt></li>
+                    <li>Tout d'abord il faut savoir o&#250; Java 6 est install&#233;. G&#233;n&#233;ralement, il faut chercher dans le r&#233;pertoire <tt class="faq">C:\Program&#160;Files\Java\jre6</tt></li>
                     
-                    <li>Ensuite, modifiez le fichier <tt>C:\Program Files\DGCP\Xemelios\Xemelios\root\xemelios.bat</tt></li>
-                    <li>Apr&#233;s, remplacez la derni&#233;re ligne <tt>START javaw.exe&#160;-xms64m&#160;-xmx384m&#160;-jar&#160;xemelios.jar&#160;%1%</tt> par <tt>"<i>C:\Program&#160;Files\Java\jre6</i>\bin\javaw.exe"&#160;-xms64m&#160;-xmx384m&#160;-jar&#160;xemelios.jar&#160;%1%</tt> en mettant le chemin not&#233; au point 1.</li>
+                    <li>Ensuite, modifiez le fichier <tt class="faq">C:\Program Files\DGCP\Xemelios\Xemelios\root\xemelios.bat</tt></li>
+                    <li>Apr&#233;s, remplacez la derni&#233;re ligne <tt class="faq">START javaw.exe&#160;-xms64m&#160;-xmx384m&#160;-jar&#160;xemelios.jar&#160;%1%</tt> par <tt class="faq">"<i>C:\Program&#160;Files\Java\jre6</i>\bin\javaw.exe"&#160;-xms64m&#160;-xmx384m&#160;-jar&#160;xemelios.jar&#160;%1%</tt> en mettant le chemin not&#233; au point 1.</li>
                     
-                    <li>Modifiez le fichier <tt>C:\Program Files\DGCP\Xemelios\Xemelios\root\viewdoc.cmd</tt></li>
-                    <li>Remplacez l'avant-derni&#233;re ligne <tt>start&#160;javaw&#160;-cp&#160;%CP%&#160;-Dxemelios.documents.def.dir="%HERE%\documents-def"&#160;
-fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument&#160;"%1"&#160;"%2"</tt> par <tt><i>C:\Program&#160;Files\Java\jre6</i>\bin\javaw -cp %CP% -Dxemelios.documents.def.dir="%HERE%\documents-def" fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument "%1" "%2"</tt> en mettant le chemin not&#233; au point 1.</li>
+                    <li>Modifiez le fichier <tt class="faq">C:\Program Files\DGCP\Xemelios\Xemelios\root\viewdoc.cmd</tt></li>
+                    <li>Remplacez l'avant-derni&#233;re ligne <tt class="faq">start&#160;javaw&#160;-cp&#160;%CP%&#160;-Dxemelios.documents.def.dir="%HERE%\documents-def"&#160;
+fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument&#160;"%1"&#160;"%2"</tt> par <tt class="faq"><i>C:\Program&#160;Files\Java\jre6</i>\bin\javaw -cp %CP% -Dxemelios.documents.def.dir="%HERE%\documents-def" fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument "%1" "%2"</tt> en mettant le chemin not&#233; au point 1.</li>
                     
                 </ol>
             </li>
