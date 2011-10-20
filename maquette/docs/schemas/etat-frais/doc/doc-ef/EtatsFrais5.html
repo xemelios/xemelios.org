@@ -1,0 +1,1460 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for </title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id0', 
+				'properties_id12', 
+				'properties_id14', 
+				'properties_id881', 
+				'properties_id882');
+
+        
+        var usedByBoxes= new Array('usedBy_id13', 
+				'usedBy_id881', 
+				'usedBy_id882');
+
+        var sourceBoxes= new Array('source_id12', 
+				'source_id14', 
+				'source_id13', 
+				'source_id881', 
+				'source_id882');
+
+        var instanceBoxes= new Array('instance_id12', 
+				'instance_id14');
+
+        var diagramBoxes= new Array('diagram_id12', 
+				'diagram_id14', 
+				'diagram_id13');
+
+        var annotationBoxes= new Array('annotations_id12', 
+				'annotations_id881', 
+				'annotations_id882');
+
+        var attributesBoxes= new Array('attributes_id12', 
+				'attributes_id13');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, annotationBoxes);"
+                                     class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, instanceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id0"></a><div class="componentTitle">Main schema <span class="qname">EtatsFrais.xsd</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>urn:DGFIP:EtatsFrais</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id0" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('properties_id0');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id0" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">attribute form default:
+                                       
+                                    </td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">element form default:
+                                       
+                                    </td>
+                                    <td><b>qualified</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id12"></a><div class="componentTitle">Element <span class="qname">EtatsFrais</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>urn:DGFIP:EtatsFrais</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id12" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id12');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id12" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Ensemble des états de frais</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id12" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id12');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id12" style="display:block"><img alt="Diagram" border="0" src="images/EtatsFrais.html362.jpeg"
+                                   usemap="#EtatsFrais_46_html362" /><map name="EtatsFrais_46_html362" id="EtatsFrais_46_html362">
+                                 <area alt="EtatsFrais5.tmp#id881" href="EtatsFrais5.html#id881"
+                                       coords="193,79,294,104" />
+                                 <area alt="EtatsFrais5.tmp#id882" href="EtatsFrais5.html#id882"
+                                       coords="193,145,291,170" />
+                                 <area alt="EtatsFrais5.tmp#id14" href="EtatsFrais5.html#id14"
+                                       coords="270,218,422,262" />
+                                 <area alt="EtatsFrais5.tmp#id13" href="EtatsFrais5.html#id13" coords="168,3,273,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="EtatsFrais5.html#id13" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                 onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">TEtatsFrais</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id12" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id12');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id12" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="EtatsFrais5.html#id14" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                 onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">Invoice+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="EtatsFrais5.html#id14" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                 onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">Invoice</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id12" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id12');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id12" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;EtatsFrais</span><span class="tokenText"> </span><span class="tokenAttrName">CODE_APPLI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">VersionCSS=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Invoice</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/Invoice&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/EtatsFrais&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id12" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id12');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id12" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EtatsFrais5.html#id881" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">CODE_APPLI</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Code Application et instance de l'application</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EtatsFrais5.html#id882" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">VersionCSS</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Version de la feuille de style de visualisation</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id12" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id12');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id12" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"EtatsFrais"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TEtatsFrais"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Ensemble des états de frais</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id14"></a><div class="componentTitle">Element <span class="qname"><b><a href="EtatsFrais5.html#id13" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                  onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">TEtatsFrais</a></b> / Invoice</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>urn:DGFIP:EtatsFrais</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id14" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id14');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id14" style="display:block"><img alt="Diagram" border="0" src="images/EtatsFrais.html680.jpeg"
+                                   usemap="#EtatsFrais_46_html680" /><map name="EtatsFrais_46_html680" id="EtatsFrais_46_html680">
+                                 <area alt="EtatsFrais4.tmp#id16" href="EtatsFrais4.html#id16" coords="285,40,407,65" />
+                                 <area alt="EtatsFrais0.tmp#id62" href="EtatsFrais0.html#id62"
+                                       coords="285,106,404,131" />
+                                 <area alt="EtatsFrais0.tmp#id64" href="EtatsFrais0.html#id64"
+                                       coords="285,200,413,225" />
+                                 <area alt="EtatsFrais0.tmp#id66" href="EtatsFrais0.html#id66"
+                                       coords="285,294,376,319" />
+                                 <area alt="EtatsFrais0.tmp#id20" href="EtatsFrais0.html#id20"
+                                       coords="285,402,346,427" />
+                                 <area alt="EtatsFrais0.tmp#id68" href="EtatsFrais0.html#id68"
+                                       coords="285,524,403,549" />
+                                 <area alt="EtatsFrais0.tmp#id71" href="EtatsFrais0.html#id71"
+                                       coords="285,618,360,643" />
+                                 <area alt="EtatsFrais0.tmp#id73" href="EtatsFrais0.html#id73"
+                                       coords="285,740,385,765" />
+                                 <area alt="EtatsFrais0.tmp#id76" href="EtatsFrais0.html#id76"
+                                       coords="285,848,385,873" />
+                                 <area alt="EtatsFrais0.tmp#id79" href="EtatsFrais0.html#id79"
+                                       coords="285,956,420,981" />
+                                 <area alt="EtatsFrais0.tmp#id81" href="EtatsFrais0.html#id81"
+                                       coords="285,1050,359,1075" />
+                                 <area alt="EtatsFrais0.tmp#id83" href="EtatsFrais0.html#id83"
+                                       coords="285,1172,400,1197" />
+                                 <area alt="EtatsFrais0.tmp#id85" href="EtatsFrais0.html#id85"
+                                       coords="285,1280,455,1305" />
+                                 <area alt="EtatsFrais0.tmp#id97" href="EtatsFrais0.html#id97"
+                                       coords="285,1374,425,1399" />
+                                 <area alt="EtatsFrais0.tmp#id99" href="EtatsFrais0.html#id99"
+                                       coords="285,1468,439,1493" />
+                                 <area alt="EtatsFrais0.tmp#id101" href="EtatsFrais0.html#id101"
+                                       coords="285,1562,448,1587" />
+                                 <area alt="EtatsFrais0.tmp#id103" href="EtatsFrais0.html#id103"
+                                       coords="285,1656,500,1681" />
+                                 <area alt="EtatsFrais0.tmp#id105" href="EtatsFrais0.html#id105"
+                                       coords="285,1750,439,1775" />
+                                 <area alt="EtatsFrais0.tmp#id107" href="EtatsFrais0.html#id107"
+                                       coords="285,1844,414,1869" />
+                                 <area alt="EtatsFrais0.tmp#id109" href="EtatsFrais0.html#id109"
+                                       coords="285,1938,424,1963" />
+                                 <area alt="EtatsFrais1.tmp#id112" href="EtatsFrais1.html#id112"
+                                       coords="285,2032,401,2057" />
+                                 <area alt="EtatsFrais1.tmp#id131" href="EtatsFrais1.html#id131"
+                                       coords="285,2140,416,2165" />
+                                 <area alt="EtatsFrais1.tmp#id167" href="EtatsFrais1.html#id167"
+                                       coords="285,2234,415,2259" />
+                                 <area alt="EtatsFrais1.tmp#id422" href="EtatsFrais1.html#id422"
+                                       coords="285,2328,482,2353" />
+                                 <area alt="EtatsFrais1.tmp#id423" href="EtatsFrais1.html#id423"
+                                       coords="285,2422,472,2447" />
+                                 <area alt="EtatsFrais1.tmp#id424" href="EtatsFrais1.html#id424"
+                                       coords="285,2516,483,2541" />
+                                 <area alt="EtatsFrais1.tmp#id425" href="EtatsFrais1.html#id425"
+                                       coords="285,2610,477,2635" />
+                                 <area alt="EtatsFrais1.tmp#id175" href="EtatsFrais1.html#id175"
+                                       coords="285,2704,483,2729" />
+                                 <area alt="EtatsFrais1.tmp#id426" href="EtatsFrais1.html#id426"
+                                       coords="285,2798,383,2823" />
+                                 <area alt="EtatsFrais1.tmp#id528" href="EtatsFrais1.html#id528"
+                                       coords="285,2906,456,2931" />
+                                 <area alt="EtatsFrais1.tmp#id540" href="EtatsFrais1.html#id540"
+                                       coords="285,3000,463,3025" />
+                                 <area alt="EtatsFrais1.tmp#id546" href="EtatsFrais1.html#id546"
+                                       coords="285,3094,392,3119" />
+                                 <area alt="EtatsFrais1.tmp#id547" href="EtatsFrais1.html#id547"
+                                       coords="285,3202,437,3227" />
+                                 <area alt="EtatsFrais1.tmp#id548" href="EtatsFrais1.html#id548"
+                                       coords="285,3296,428,3321" />
+                                 <area alt="EtatsFrais1.tmp#id549" href="EtatsFrais1.html#id549"
+                                       coords="285,3390,453,3415" />
+                                 <area alt="EtatsFrais1.tmp#id550" href="EtatsFrais1.html#id550"
+                                       coords="285,3484,376,3509" />
+                                 <area alt="EtatsFrais1.tmp#id592" href="EtatsFrais1.html#id592"
+                                       coords="285,3592,406,3617" />
+                                 <area alt="EtatsFrais1.tmp#id350" href="EtatsFrais1.html#id350"
+                                       coords="285,3700,410,3725" />
+                                 <area alt="EtatsFrais1.tmp#id600" href="EtatsFrais1.html#id600"
+                                       coords="285,3794,408,3819" />
+                                 <area alt="EtatsFrais1.tmp#id614" href="EtatsFrais1.html#id614"
+                                       coords="285,3902,414,3927" />
+                                 <area alt="EtatsFrais1.tmp#id183" href="EtatsFrais1.html#id183"
+                                       coords="285,3996,424,4021" />
+                                 <area alt="EtatsFrais1.tmp#id624" href="EtatsFrais1.html#id624"
+                                       coords="285,4090,425,4115" />
+                                 <area alt="EtatsFrais1.tmp#id659" href="EtatsFrais1.html#id659"
+                                       coords="285,4184,439,4209" />
+                                 <area alt="EtatsFrais1.tmp#id660" href="EtatsFrais1.html#id660"
+                                       coords="285,4278,448,4303" />
+                                 <area alt="EtatsFrais1.tmp#id661" href="EtatsFrais1.html#id661"
+                                       coords="285,4372,500,4397" />
+                                 <area alt="EtatsFrais1.tmp#id334" href="EtatsFrais1.html#id334"
+                                       coords="285,4466,378,4491" />
+                                 <area alt="EtatsFrais1.tmp#id662" href="EtatsFrais1.html#id662"
+                                       coords="285,4574,431,4599" />
+                                 <area alt="EtatsFrais1.tmp#id680" href="EtatsFrais1.html#id680"
+                                       coords="285,4668,391,4693" />
+                                 <area alt="EtatsFrais6.tmp#id15" href="EtatsFrais6.html#id15" coords="183,3,323,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="EtatsFrais6.html#id15" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-Invoice-2.0.xsd')">InvoiceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id14" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id14');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id14" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">maxOccurs:
+                                       
+                                    </td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="EtatsFrais4.html#id16" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonExtensionComponents-2.0.xsd')">UBLExtensions{0,1}</a></b> , <b><a href="EtatsFrais0.html#id62" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">UBLVersionID{0,1}</a></b> , <b><a href="EtatsFrais0.html#id64" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">CustomizationID{0,1}</a></b> , <b><a href="EtatsFrais0.html#id66" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">ProfileID{0,1}</a></b> , <b><a href="EtatsFrais0.html#id20" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">ID</a></b> , <b><a href="EtatsFrais0.html#id68" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">CopyIndicator{0,1}</a></b> , <b><a href="EtatsFrais0.html#id71" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">UUID{0,1}</a></b> , <b><a href="EtatsFrais0.html#id73" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">IssueDate</a></b> , <b><a href="EtatsFrais0.html#id76" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">IssueTime{0,1}</a></b> , <b><a href="EtatsFrais0.html#id79" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">InvoiceTypeCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id81" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">Note*</a></b> , <b><a href="EtatsFrais0.html#id83" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">TaxPointDate{0,1}</a></b> , <b><a href="EtatsFrais0.html#id85" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">DocumentCurrencyCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id97" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">TaxCurrencyCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id99" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">PricingCurrencyCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id101" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">PaymentCurrencyCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id103" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">PaymentAlternativeCurrencyCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id105" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">AccountingCostCode{0,1}</a></b> , <b><a href="EtatsFrais0.html#id107" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">AccountingCost{0,1}</a></b> , <b><a href="EtatsFrais0.html#id109" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">LineCountNumeric{0,1}</a></b> , <b><a href="EtatsFrais1.html#id112" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">InvoicePeriod*</a></b> , <b><a href="EtatsFrais1.html#id131" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">OrderReference{0,1}</a></b> , <b><a href="EtatsFrais1.html#id167" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">BillingReference*</a></b> , <b><a href="EtatsFrais1.html#id422" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">DespatchDocumentReference*</a></b> , <b><a href="EtatsFrais1.html#id423" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">ReceiptDocumentReference*</a></b> , <b><a href="EtatsFrais1.html#id424" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">OriginatorDocumentReference*</a></b> , <b><a href="EtatsFrais1.html#id425" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">ContractDocumentReference*</a></b> , <b><a href="EtatsFrais1.html#id175" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AdditionalDocumentReference*</a></b> , <b><a href="EtatsFrais1.html#id426" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">Signature*</a></b> , <b><a href="EtatsFrais1.html#id528" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AccountingSupplierParty</a></b> , <b><a href="EtatsFrais1.html#id540" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AccountingCustomerParty</a></b> , <b><a href="EtatsFrais1.html#id546" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PayeeParty{0,1}</a></b> , <b><a href="EtatsFrais1.html#id547" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">BuyerCustomerParty{0,1}</a></b> , <b><a href="EtatsFrais1.html#id548" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">SellerSupplierParty{0,1}</a></b> , <b><a href="EtatsFrais1.html#id549" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">TaxRepresentativeParty{0,1}</a></b> , <b><a href="EtatsFrais1.html#id550" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">Delivery*</a></b> , <b><a href="EtatsFrais1.html#id592" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">DeliveryTerms{0,1}</a></b> , <b><a href="EtatsFrais1.html#id350" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentMeans*</a></b> , <b><a href="EtatsFrais1.html#id600" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentTerms*</a></b> , <b><a href="EtatsFrais1.html#id614" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PrepaidPayment*</a></b> , <b><a href="EtatsFrais1.html#id183" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AllowanceCharge*</a></b> , <b><a href="EtatsFrais1.html#id624" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">TaxExchangeRate{0,1}</a></b> , <b><a href="EtatsFrais1.html#id659" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PricingExchangeRate{0,1}</a></b> , <b><a href="EtatsFrais1.html#id660" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentExchangeRate{0,1}</a></b> , <b><a href="EtatsFrais1.html#id661" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentAlternativeExchangeRate{0,1}</a></b> , <b><a href="EtatsFrais1.html#id334" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">TaxTotal*</a></b> , <b><a href="EtatsFrais1.html#id662" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">LegalMonetaryTotal</a></b> , <b><a href="EtatsFrais1.html#id680" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">InvoiceLine+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="EtatsFrais0.html#id107" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">AccountingCost</a></b>, <b><a href="EtatsFrais0.html#id105" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">AccountingCostCode</a></b>, <b><a href="EtatsFrais1.html#id540" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AccountingCustomerParty</a></b>, <b><a href="EtatsFrais1.html#id528" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AccountingSupplierParty</a></b>, <b><a href="EtatsFrais1.html#id175" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AdditionalDocumentReference</a></b>, <b><a href="EtatsFrais1.html#id183" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">AllowanceCharge</a></b>, <b><a href="EtatsFrais1.html#id167" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">BillingReference</a></b>, <b><a href="EtatsFrais1.html#id547" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">BuyerCustomerParty</a></b>, <b><a href="EtatsFrais1.html#id425" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">ContractDocumentReference</a></b>, <b><a href="EtatsFrais0.html#id68" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">CopyIndicator</a></b>, <b><a href="EtatsFrais0.html#id64" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">CustomizationID</a></b>, <b><a href="EtatsFrais1.html#id550" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">Delivery</a></b>, <b><a href="EtatsFrais1.html#id592" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">DeliveryTerms</a></b>, <b><a href="EtatsFrais1.html#id422" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">DespatchDocumentReference</a></b>, <b><a href="EtatsFrais0.html#id85" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">DocumentCurrencyCode</a></b>, <b><a href="EtatsFrais0.html#id20" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">ID</a></b>, <b><a href="EtatsFrais1.html#id680" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">InvoiceLine</a></b>, <b><a href="EtatsFrais1.html#id112" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">InvoicePeriod</a></b>, <b><a href="EtatsFrais0.html#id79" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">InvoiceTypeCode</a></b>, <b><a href="EtatsFrais0.html#id73" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">IssueDate</a></b>, <b><a href="EtatsFrais0.html#id76" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">IssueTime</a></b>, <b><a href="EtatsFrais1.html#id662" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">LegalMonetaryTotal</a></b>, <b><a href="EtatsFrais0.html#id109" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">LineCountNumeric</a></b>, <b><a href="EtatsFrais0.html#id81" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">Note</a></b>, <b><a href="EtatsFrais1.html#id131" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">OrderReference</a></b>, <b><a href="EtatsFrais1.html#id424" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">OriginatorDocumentReference</a></b>, <b><a href="EtatsFrais1.html#id546" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PayeeParty</a></b>, <b><a href="EtatsFrais0.html#id103" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">PaymentAlternativeCurrencyCode</a></b>, <b><a href="EtatsFrais1.html#id661" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentAlternativeExchangeRate</a></b>, <b><a href="EtatsFrais0.html#id101" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">PaymentCurrencyCode</a></b>, <b><a href="EtatsFrais1.html#id660" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentExchangeRate</a></b>, <b><a href="EtatsFrais1.html#id350" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentMeans</a></b>, <b><a href="EtatsFrais1.html#id600" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PaymentTerms</a></b>, <b><a href="EtatsFrais1.html#id614" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PrepaidPayment</a></b>, <b><a href="EtatsFrais0.html#id99" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">PricingCurrencyCode</a></b>, <b><a href="EtatsFrais1.html#id659" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">PricingExchangeRate</a></b>, <b><a href="EtatsFrais0.html#id66" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">ProfileID</a></b>, <b><a href="EtatsFrais1.html#id423" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">ReceiptDocumentReference</a></b>, <b><a href="EtatsFrais1.html#id548" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">SellerSupplierParty</a></b>, <b><a href="EtatsFrais1.html#id426" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">Signature</a></b>, <b><a href="EtatsFrais0.html#id97" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">TaxCurrencyCode</a></b>, <b><a href="EtatsFrais1.html#id624" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">TaxExchangeRate</a></b>, <b><a href="EtatsFrais0.html#id83" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">TaxPointDate</a></b>, <b><a href="EtatsFrais1.html#id549" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">TaxRepresentativeParty</a></b>, <b><a href="EtatsFrais1.html#id334" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonAggregateComponents-2.0.xsd')">TaxTotal</a></b>, <b><a href="EtatsFrais4.html#id16" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonExtensionComponents-2.0.xsd')">UBLExtensions</a></b>, <b><a href="EtatsFrais0.html#id62" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">UBLVersionID</a></b>, <b><a href="EtatsFrais0.html#id71" target="mainFrame"
+                                 title="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                                 onclick="updatePageTitle('Schema documentation for UBL-CommonBasicComponents-2.0.xsd')">UUID</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id14" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id14');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id14" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;Invoice</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;UBLExtensions</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/UBLExtensions&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;UBLVersionID</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeDataURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/UBLVersionID&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;CustomizationID</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeDataURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/CustomizationID&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;ProfileID</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeDataURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/ProfileID&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;ID</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeDataURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/ID&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;CopyIndicator</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/CopyIndicator&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;UUID</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeDataURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">schemeVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/UUID&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;IssueDate</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/IssueDate&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;IssueTime</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/IssueTime&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;InvoiceTypeCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/InvoiceTypeCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Note</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/Note&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TaxPointDate</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/TaxPointDate&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;DocumentCurrencyCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">"en"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">"6"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">"United Nations Economic Commission for Europe"</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">"ISO 4217 Alpha"</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">"Currency"</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">"urn:un:unece:uncefact:codelist:specification:54217:2001"</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">"http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/cefact/CurrencyCode-2.0.gc"</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">"2001"</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/DocumentCurrencyCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TaxCurrencyCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">"en"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">"6"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">"United Nations Economic Commission for Europe"</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">"ISO 4217 Alpha"</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">"Currency"</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">"urn:un:unece:uncefact:codelist:specification:54217:2001"</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">"http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/cefact/CurrencyCode-2.0.gc"</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">"2001"</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/TaxCurrencyCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PricingCurrencyCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">"en"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">"6"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">"United Nations Economic Commission for Europe"</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">"ISO 4217 Alpha"</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">"Currency"</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">"urn:un:unece:uncefact:codelist:specification:54217:2001"</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">"http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/cefact/CurrencyCode-2.0.gc"</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">"2001"</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PricingCurrencyCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PaymentCurrencyCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">"en"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">"6"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">"United Nations Economic Commission for Europe"</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">"ISO 4217 Alpha"</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">"Currency"</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">"urn:un:unece:uncefact:codelist:specification:54217:2001"</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">"http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/cefact/CurrencyCode-2.0.gc"</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">"2001"</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PaymentCurrencyCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PaymentAlternativeCurrencyCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">"en"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">"6"</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">"United Nations Economic Commission for Europe"</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">"ISO 4217 Alpha"</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">"Currency"</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">"urn:un:unece:uncefact:codelist:specification:54217:2001"</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">"http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/cefact/CurrencyCode-2.0.gc"</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">"2001"</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PaymentAlternativeCurrencyCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;AccountingCostCode</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listAgencyName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listName=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listSchemeURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listURI=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">listVersionID=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/AccountingCostCode&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;AccountingCost</span><span class="tokenText"> </span><span class="tokenAttrName">languageID=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/AccountingCost&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;LineCountNumeric</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/LineCountNumeric&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;InvoicePeriod</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/InvoicePeriod&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;OrderReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/OrderReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;BillingReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/BillingReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;DespatchDocumentReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/DespatchDocumentReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;ReceiptDocumentReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/ReceiptDocumentReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;OriginatorDocumentReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/OriginatorDocumentReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;ContractDocumentReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/ContractDocumentReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;AdditionalDocumentReference</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/AdditionalDocumentReference&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Signature</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/Signature&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;AccountingSupplierParty</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/AccountingSupplierParty&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;AccountingCustomerParty</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/AccountingCustomerParty&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PayeeParty</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PayeeParty&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;BuyerCustomerParty</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/BuyerCustomerParty&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;SellerSupplierParty</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/SellerSupplierParty&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TaxRepresentativeParty</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/TaxRepresentativeParty&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Delivery</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/Delivery&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;DeliveryTerms</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/DeliveryTerms&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PaymentMeans</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/PaymentMeans&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PaymentTerms</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/PaymentTerms&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PrepaidPayment</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/PrepaidPayment&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;AllowanceCharge</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/AllowanceCharge&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TaxExchangeRate</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/TaxExchangeRate&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PricingExchangeRate</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PricingExchangeRate&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PaymentExchangeRate</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PaymentExchangeRate&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;PaymentAlternativeExchangeRate</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/PaymentAlternativeExchangeRate&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TaxTotal</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/TaxTotal&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;LegalMonetaryTotal</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/LegalMonetaryTotal&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;InvoiceLine</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/InvoiceLine&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/Invoice&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id14" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id14');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id14" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Invoice"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"ublinv:InvoiceType"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id13"></a><div class="componentTitle">Complex Type <span class="qname">TEtatsFrais</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>urn:DGFIP:EtatsFrais</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id13" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id13');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id13" style="display:block"><img alt="Diagram" border="0" src="images/EtatsFrais.html1035.jpeg"
+                                   usemap="#EtatsFrais_46_html1035" /><map name="EtatsFrais_46_html1035" id="EtatsFrais_46_html1035">
+                                 <area alt="EtatsFrais5.tmp#id881" href="EtatsFrais5.html#id881"
+                                       coords="151,39,252,64" />
+                                 <area alt="EtatsFrais5.tmp#id882" href="EtatsFrais5.html#id882"
+                                       coords="151,105,249,130" />
+                                 <area alt="EtatsFrais5.tmp#id14" href="EtatsFrais5.html#id14"
+                                       coords="228,178,380,222" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id13" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id13');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id13" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="EtatsFrais5.html#id12" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">EtatsFrais</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="EtatsFrais5.html#id14" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                 onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">Invoice+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="EtatsFrais5.html#id14" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                 onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">Invoice</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id13" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id13');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id13" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EtatsFrais5.html#id881" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">CODE_APPLI</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Code Application et instance de l'application</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EtatsFrais5.html#id882" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">VersionCSS</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Version de la feuille de style de visualisation</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id13" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id13');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id13" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TEtatsFrais"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Invoice"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"ublinv:InvoiceType"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CODE_APPLI"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Code Application et instance de l'application</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:attribute&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"VersionCSS"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Version de la feuille de style de visualisation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:attribute&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id881"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="EtatsFrais5.html#id13" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                  onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">TEtatsFrais</a></b> / @CODE_APPLI</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id881" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id881');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id881" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Code Application et instance de l'application</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id881" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id881');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id881" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">use:
+                                       
+                                    </td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id881" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id881');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id881" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="EtatsFrais5.html#id13" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">TEtatsFrais</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id881" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id881');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id881" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CODE_APPLI"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Code Application et instance de l'application</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id882"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="EtatsFrais5.html#id13" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                  onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">TEtatsFrais</a></b> / @VersionCSS</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id882" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id882');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id882" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Version de la feuille de style de visualisation</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id882" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id882');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id882" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">use:
+                                       
+                                    </td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id882" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id882');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id882" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="EtatsFrais5.html#id13" target="mainFrame" title="urn:DGFIP:EtatsFrais"
+                                             onclick="updatePageTitle('Schema documentation for EtatsFrais.xsd')">TEtatsFrais</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id882" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id882');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id882" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"VersionCSS"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Version de la feuille de style de visualisation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                        	var selectToc = getElementObject('selectTOC');
+                        	if(selectToc != null){
+                        	    // It can be null when having chunking, the combo of the TOC is in another frame.
+                            	    selectToc.selectedIndex = 1;
+                                    }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

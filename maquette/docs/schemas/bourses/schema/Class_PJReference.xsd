@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	This file is part of "bourses".
+	
+	XEMELIOS_NB is free software; you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	"bourses" is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with "bourses" ; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:complexType name="TPJReference">
+		<xs:sequence>
+			<xs:element name="Support"  form="unqualified">
+				<xs:annotation>
+					<xs:documentation>Support de la PJ</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="V" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="00"><xs:annotation><xs:documentation>Support électronique (en ligne)</xs:documentation></xs:annotation></xs:enumeration>
+								<xs:enumeration value="01"><xs:annotation><xs:documentation>Support électronique (accès local)</xs:documentation></xs:annotation></xs:enumeration>
+								<xs:enumeration value="02"><xs:annotation><xs:documentation>Support papier</xs:documentation></xs:annotation></xs:enumeration>
+								<xs:enumeration value="03"><xs:annotation><xs:documentation>Support CD-ROM / DVD-ROM</xs:documentation></xs:annotation></xs:enumeration>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IdUnique" type="Base_Texte50"  form="unqualified">
+				<xs:annotation>
+					<xs:documentation>Identifiant unique (si Support=01 et NomPJ absent, utilisé comme nom de fichier)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NomPJ" type="Base_Texte100" minOccurs="0"  form="unqualified">
+				<xs:annotation>
+					<xs:documentation>Nom du fichier PJ (utilisé pour acccéder au fichier  si Support=10)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

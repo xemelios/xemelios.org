@@ -1,0 +1,1764 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for namespace </title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: 
+                  <select id="selectTOC"
+                          onchange="selectTOCGroupBy(this.options[this.selectedIndex].value);">
+                     <option value="toc_group_by_namespace" selected="selected">Namespace</option>
+                     <option value="toc_group_by_location">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_namespace" style="display:block">
+            <div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace1" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('boxIdNamespace1');"
+                            class="control" /><span class="indexGroupTitle">http://xemelios.org/schemas/bourses</span></p>
+                  <div id="boxIdNamespace1" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Elements
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace1Element" style="display:block">
+                                    <div><b><a href="EtatBourses1.html#id10" target="mainFrame"
+                                             title="http://xemelios.org/schemas/bourses"
+                                             onclick="updatePageTitle('Schema documentation for namespace http://xemelios.org/schemas/bourses')">Bourses</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace2" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('boxIdNamespace2');"
+                            class="control" /><span class="indexGroupTitle">No namespace</span></p>
+                  <div id="boxIdNamespace2" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace2Complex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id174" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id186" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id216" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id112" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id189" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id192" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id195" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id198" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id201" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id177" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id204" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id207" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id219" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id180" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id210" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id108" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id116" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id100" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id183" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id213" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum80</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id17" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Annee</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id297" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Booleen</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id21" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Date</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id13" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Dec2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id309" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Dec3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id152" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Montant</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id303" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Montant3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id222" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id243" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id246" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id249" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num13</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id252" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id31" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id255" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id258" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id125" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id261" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id264" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id50" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id225" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id228" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id231" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id234" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num7</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id237" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num8</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id240" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num9</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id300" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Taux</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id306" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Taux3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id27" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id121" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id276" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id279" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id282" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id285" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id288" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte160</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id267" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id291" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte200</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id69" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte24</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id57" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id157" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id78" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id135" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte32</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id130" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte34</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id39" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte38</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id45" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id65" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id294" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte500</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id270" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id273" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte7</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id35" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TAdresse</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id106" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TBancaire</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id74" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TBeneficiaire</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id11" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TBourses</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id87" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TCatTiers</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id146" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TDecision</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id140" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TDestinataire</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id76" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TInfoTiers</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id167" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TLigneNomenclature</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id82" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNatIdTiers</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id90" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNatJur</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id164" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNomenclature</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id162" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNomenclatureAideSociale</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id25" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TOrganisme</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id171" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TSequence</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id62" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TVersement</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Simple Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace2Simple_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id176" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id188" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id218" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id114" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id191" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id194" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id197" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id200" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id203" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id179" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id206" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id209" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id221" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id182" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id212" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id110" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id185" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id215" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum80</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id19" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Annee</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id299" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Booleen</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id23" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Date</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id15" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Dec2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id311" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Dec3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id154" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Montant</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id305" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Montant3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id224" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id245" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id248" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id251" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num13</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id254" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id33" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id257" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id260" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id127" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id263" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id266" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id52" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id227" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id230" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id233" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id236" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num7</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id239" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num8</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id242" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num9</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id302" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Taux</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id308" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Taux3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id95" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id29" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id123" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id278" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id281" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id284" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id287" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id290" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte160</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id269" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id293" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte200</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id71" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte24</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id59" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id159" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id80" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id137" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte32</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id132" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte34</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id41" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte38</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id47" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id67" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id296" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte500</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id272" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id275" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte7</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_component_type" style="display:none">
+            <div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <div class="componentGroupTitle">Elements
+                              
+                           </div>
+                           <div id="Element" style="display:block">
+                              <div><b><a href="EtatBourses1.html#id10" target="mainFrame"
+                                       title="http://xemelios.org/schemas/bourses"
+                                       onclick="updatePageTitle('Schema documentation for namespace http://xemelios.org/schemas/bourses')">Bourses</a></b></div>
+                           </div>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <div class="componentGroupTitle">Complex Types
+                              
+                           </div>
+                           <div id="Complex_Type" style="display:block">
+                              <div><b><a href="EtatBourses0.html#id174" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum1</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id186" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum10</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id216" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum100</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id112" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum11</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id189" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum12</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id192" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum14</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id195" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum15</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id198" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum16</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id201" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum17</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id177" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id204" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum20</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id207" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum25</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id219" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum250</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id180" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id210" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum30</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id108" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum4</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id116" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum5</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id100" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum50</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id183" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum6</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id213" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum80</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id17" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Annee</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id297" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Booleen</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id21" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Date</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id13" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Dec2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id309" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Dec3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id152" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Montant</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id303" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Montant3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id222" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num1</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id243" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num10</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id246" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num12</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id249" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num13</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id252" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num14</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id31" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num15</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id255" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num16</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id258" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num17</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id125" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id261" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num20</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id264" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num25</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id50" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id225" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num4</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id228" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num5</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id231" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num6</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id234" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num7</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id237" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num8</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id240" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num9</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id300" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Taux</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id306" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Taux3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id93" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte10</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id27" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte100</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id121" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte11</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id276" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte12</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id279" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte14</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id282" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte15</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id285" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte16</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id288" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte160</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id267" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id291" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte200</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id69" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte24</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id57" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte25</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id157" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte250</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id78" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte30</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id135" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte32</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id130" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte34</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id39" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte38</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id45" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte5</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id65" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte50</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id294" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte500</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id270" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte6</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id273" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte7</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id35" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TAdresse</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id106" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TBancaire</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id74" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TBeneficiaire</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id11" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TBourses</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id87" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TCatTiers</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id146" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TDecision</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id140" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TDestinataire</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id76" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TInfoTiers</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id167" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TLigneNomenclature</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id82" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TNatIdTiers</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id90" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TNatJur</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id164" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TNomenclature</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id162" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TNomenclatureAideSociale</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id25" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TOrganisme</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id171" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TSequence</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id62" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">TVersement</a></b></div>
+                           </div>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <div class="componentGroupTitle">Simple Types
+                              
+                           </div>
+                           <div id="Simple_Type" style="display:block">
+                              <div><b><a href="EtatBourses0.html#id176" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum1</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id188" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum10</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id218" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum100</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id114" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum11</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id191" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum12</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id194" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum14</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id197" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum15</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id200" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum16</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id203" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum17</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id179" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id206" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum20</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id209" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum25</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id221" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum250</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id182" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id212" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum30</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id110" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum4</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id118" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum5</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id102" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum50</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id185" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum6</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id215" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum80</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id19" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Annee</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id299" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Booleen</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id23" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Date</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id15" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Dec2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id311" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Dec3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id154" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Montant</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id305" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Montant3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id224" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num1</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id245" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num10</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id248" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num12</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id251" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num13</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id254" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num14</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id33" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num15</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id257" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num16</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id260" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num17</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id127" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id263" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num20</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id266" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num25</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id52" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id227" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num4</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id230" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num5</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id233" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num6</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id236" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num7</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id239" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num8</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id242" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Num9</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id302" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Taux</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id308" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Taux3</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id95" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte10</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id29" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte100</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id123" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte11</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id278" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte12</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id281" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte14</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id284" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte15</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id287" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte16</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id290" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte160</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id269" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte2</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id293" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte200</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id71" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte24</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id59" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte25</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id159" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte250</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id80" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte30</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id137" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte32</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id132" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte34</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id41" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte38</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id47" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte5</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id67" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte50</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id296" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte500</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id272" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte6</a></b></div>
+                              <div><b><a href="EtatBourses0.html#id275" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte7</a></b></div>
+                           </div>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div style="clear:left"></div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_location" style="display:none">
+            <div>
+               <div class="level2">
+                  <p><input id="button_EtatBourses.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('EtatBourses.xsd');"
+                            class="control" /><span class="indexGroupTitle">EtatBourses.xsd</span></p>
+                  <div id="EtatBourses.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Elements
+                                    
+                                 </div>
+                                 <div id="EtatBourses.xsdElement" style="display:block">
+                                    <div><b><a href="EtatBourses1.html#id10" target="mainFrame"
+                                             title="http://xemelios.org/schemas/bourses"
+                                             onclick="updatePageTitle('Schema documentation for namespace http://xemelios.org/schemas/bourses')">Bourses</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Bourses.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Bourses.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Bourses.xsd</span></p>
+                  <div id="Class_Bourses.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Bourses.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id11" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TBourses</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id162" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNomenclatureAideSociale</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id25" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TOrganisme</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Simple_Type.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Simple_Type.xsd');"
+                            class="control" /><span class="indexGroupTitle">Simple_Type.xsd</span></p>
+                  <div id="Simple_Type.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Simple_Type.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id174" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id186" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id216" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id112" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id189" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id192" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id195" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id198" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id201" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id177" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id204" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id207" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id219" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id180" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id210" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id108" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id116" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id100" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id183" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id213" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Alphanum80</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id17" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Annee</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id297" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Booleen</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id21" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Date</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id13" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Dec2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id309" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Dec3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id152" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Montant</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id303" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Montant3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id222" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id243" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id246" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id249" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num13</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id252" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id31" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id255" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id258" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id125" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id261" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id264" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id50" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id225" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id228" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id231" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id234" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num7</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id237" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num8</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id240" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Num9</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id300" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Taux</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id306" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Taux3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id27" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id121" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id276" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id279" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id282" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id285" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id288" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte160</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id267" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id291" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte200</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id69" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte24</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id57" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id157" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id78" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id135" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte32</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id130" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte34</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id39" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte38</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id45" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id65" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id294" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte500</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id270" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id273" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">Base_Texte7</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Simple Types
+                                    
+                                 </div>
+                                 <div id="Simple_Type.xsdSimple_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id176" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id188" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id218" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id114" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id191" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id194" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id197" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id200" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id203" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id179" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id206" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id209" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id221" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id182" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id212" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id110" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id185" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id215" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Alphanum80</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id19" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Annee</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id299" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Booleen</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id23" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Date</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id15" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Dec2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id311" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Dec3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id154" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Montant</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id305" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Montant3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id224" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num1</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id245" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id248" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id251" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num13</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id254" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id33" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id257" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id260" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num17</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id127" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id263" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num20</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id266" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id52" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id227" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num4</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id230" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id233" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id236" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num7</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id239" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num8</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id242" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Num9</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id302" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Taux</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id308" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Taux3</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id95" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte10</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id29" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte100</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id123" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte11</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id278" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte12</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id281" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte14</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id284" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte15</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id287" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte16</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id290" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte160</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id269" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte2</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id293" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte200</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id71" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte24</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id59" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte25</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id159" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte250</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id80" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte30</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id137" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte32</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id132" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte34</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id41" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte38</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id47" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte5</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id67" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte50</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id296" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte500</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id272" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte6</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id275" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">V_Texte7</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Adresse.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Adresse.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Adresse.xsd</span></p>
+                  <div id="Class_Adresse.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Adresse.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id35" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TAdresse</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Versement.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Versement.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Versement.xsd</span></p>
+                  <div id="Class_Versement.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Versement.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id146" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TDecision</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id171" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TSequence</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id62" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TVersement</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Tiers.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Tiers.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Tiers.xsd</span></p>
+                  <div id="Class_Tiers.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Tiers.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id74" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TBeneficiaire</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id140" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TDestinataire</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_InfoTiers.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_InfoTiers.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_InfoTiers.xsd</span></p>
+                  <div id="Class_InfoTiers.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_InfoTiers.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id76" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TInfoTiers</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Codifications.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Codifications.xsd');"
+                            class="control" /><span class="indexGroupTitle">Codifications.xsd</span></p>
+                  <div id="Codifications.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Codifications.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id87" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TCatTiers</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id82" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNatIdTiers</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id90" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNatJur</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Bancaire.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Bancaire.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Bancaire.xsd</span></p>
+                  <div id="Class_Bancaire.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Bancaire.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id106" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TBancaire</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Nomenclature.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Nomenclature.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Nomenclature.xsd</span></p>
+                  <div id="Class_Nomenclature.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Nomenclature.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="EtatBourses0.html#id167" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TLigneNomenclature</a></b></div>
+                                    <div><b><a href="EtatBourses0.html#id164" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for namespace ')">TNomenclature</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-    <h1>L'outil XeMeLios</h1>
-<p>L'outil XeMeLios est utilis&#233; dans la d&#233;mat&#233;rialisation pour exploiter des fichiers au format XML, qui se basent sur le respect de sch&#233;mas XML d&#233;finis nationalement.
-<br/> 
-Vous trouverez ici le programme d'installation de cet outil et la documentation associ&#233;e.</p>
-
-<h2>Installation</h2>
-<p>La version 5.0.0 de XeMeLios étant une mise à jour majeure, il est impératif de passer par le <a href="http://xemelios.org/v5/setup-xemelios-V5.exe">programme d'installation</a> pour installer ou mettre à une ancienne version de XeMeLios.
-    <br/>La documentation d'installation complète est disponible <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">en ligne</a>.
-</p>
-
-<h2>Documentation d'installation</h2>
-    <p>La documentation d'installation de XeMeLios V5 est disponible sous deux formats :</p>
-<ul>
-    <li>en ligne au format <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">HTML</a></li>
-    <li>en téléchargement au format <a href="http://xemelios.org/v5/doc_install/install_xemelios.pdf" target="_blank">PDF</a></li>
-</ul>
-
-<h3>Notes de version</h3>
+    <h1>L'outil X&#233;M&#233;Lios</h1>
+    <p>L'outil X&#233;M&#233;Lios permet l'exploitation des fichiers au format XML respectant les sch&#233;mas d&#233;finis nationalement.
+        <br/> 
+        Vous trouverez ici le programme d'installation de cet outil et la documentation associ&#233;e.
+    </p>
+    
+    <h2>Installation</h2>
+    <p>La version 5.0.0 de X&#233;M&#233;Lios &#233;tant une mise à jour majeure, il est imp&#233;ratif de passer par le <a href="http://xemelios.org/v5/setup-xemelios-V5.exe">programme d'installation</a> pour installer ou mettre à une ancienne version de X&#233;M&#233;Lios.
+        <br/>La documentation d'installation complète est disponible <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">en ligne</a>.
+    </p>
+    
+    <h2>Documentation d'installation</h2>
+    <p>La documentation d'installation de X&#233;M&#233;Lios V5 est disponible sous deux formats :</p>
+    <ul>
+        <li>en ligne au format <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">HTML</a></li>
+        <li>en t&#233;l&#233;chargement au format <a href="http://xemelios.org/v5/doc_install/install_xemelios.pdf" target="_blank">PDF</a></li>
+    </ul>
+    
+    <h3>Notes de version</h3>
     <p>Les notes de version sont disoinibles <a href="http://xemelios.org/updatesV5/release-notes-PRODUCTION.html" target="_blank">ici</a>.</p>
-
-<h3>Licence</h3>
-    <p>XeMelios est un logiciel sous licence de logiciel libre (LGPL) : <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" target="_blank">Licence LGPL</a></p>
+    
+    <h3>Licence</h3>
+    <p>X&#233;M&#233;Lios est un logiciel sous licence de logiciel libre (LGPL) : <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" target="_blank">Licence LGPL</a></p>
 </data>

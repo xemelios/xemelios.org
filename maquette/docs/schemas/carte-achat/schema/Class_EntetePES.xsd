@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v5 rel. 2 U (http://www.xmlspy.com) by SERGE MURET (SEMA GROUP SA) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:include schemaLocation="CommunPES.xsd"/>
+	<xs:complexType name="TEnTetePES">
+		<xs:sequence>
+			<xs:element name="DteStr" type="Base_Date"/>
+			<xs:element name="IdPost" type="Base_Texte7"/>
+			<xs:element name="LibellePoste" type="Base_Texte38" minOccurs="0"/>
+			<xs:element name="IdColl" type="Base_Num14" minOccurs="0"/>
+			<xs:element name="FinJur" type="Base_Num20" minOccurs="0"/>
+			<xs:element name="CodCol" type="Base_Alphanum3"/>
+			<xs:element name="CodBud" type="Base_Alphanum2"/>
+			<xs:element name="LibelleColBud" type="Base_Texte38" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

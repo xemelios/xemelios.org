@@ -27,6 +27,13 @@
         </xsl:copy>
     </xsl:template>
     
+    <xsl:template match="div">
+        <xsl:copy>
+            <xsl:for-each select="@*"><xsl:copy-of select="."/></xsl:for-each>
+            <xsl:for-each select="child::node()"><xsl:copy-of select="."/></xsl:for-each>
+        </xsl:copy>
+    </xsl:template>    
+
     <xsl:template match="p">
         <xsl:copy>
             <xsl:for-each select="@*"><xsl:copy-of select="."/></xsl:for-each>

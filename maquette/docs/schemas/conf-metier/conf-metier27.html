@@ -1,0 +1,1481 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component TListeResultat</title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id122', 
+				'properties_id129', 
+				'properties_id144', 
+				'properties_id148', 
+				'properties_id149');
+
+        
+        var usedByBoxes= new Array('usedBy_id121', 
+				'usedBy_id148', 
+				'usedBy_id149');
+
+        var sourceBoxes= new Array('source_id122', 
+				'source_id129', 
+				'source_id144', 
+				'source_id121', 
+				'source_id148', 
+				'source_id149');
+
+        var instanceBoxes= new Array('instance_id122', 
+				'instance_id129', 
+				'instance_id144');
+
+        var diagramBoxes= new Array('diagram_id122', 
+				'diagram_id129', 
+				'diagram_id144', 
+				'diagram_id121');
+
+        var annotationBoxes= new Array('annotations_id148', 
+				'annotations_id149');
+
+        var attributesBoxes= new Array('attributes_id122', 
+				'attributes_id129', 
+				'attributes_id144', 
+				'attributes_id121');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, annotationBoxes);"
+                                     class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, instanceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id122"></a><div class="componentTitle">Element <span class="qname"><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b> / widget</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id122" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id122');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id122" style="display:block"><img alt="Diagram" border="0" src="images/conf-metier.html104.png"
+                                   usemap="#conf-metier_46_html104" /><map name="conf-metier_46_html104" id="conf-metier_46_html104">
+                                 <area alt="conf-metier38.tmp#id126" href="conf-metier38.html#id126"
+                                       coords="122,78,194,102" />
+                                 <area alt="conf-metier38.tmp#id127" href="conf-metier38.html#id127"
+                                       coords="122,112,197,136" />
+                                 <area alt="conf-metier38.tmp#id128" href="conf-metier38.html#id128"
+                                       coords="122,176,201,200" />
+                                 <area alt="conf-metier38.tmp#id124" href="conf-metier38.html#id124"
+                                       coords="200,247,255,271" />
+                                 <area alt="conf-metier38.tmp#id125" href="conf-metier38.html#id125"
+                                       coords="200,311,286,335" />
+                                 <area alt="conf-metier38.tmp#id123" href="conf-metier38.html#id123"
+                                       coords="97,3,191,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="conf-metier38.html#id123" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TWidget')">TWidget</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id122" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id122');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id122" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">maxOccurs:
+                                       
+                                    </td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="conf-metier38.html#id124" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component help{0,1}')">help{0,1}</a></b> , <b><a href="conf-metier38.html#id125" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component parameter*')">parameter*</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="conf-metier38.html#id124" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component help')">help</a></b>, <b><a href="conf-metier38.html#id125" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component parameter')">parameter</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id122" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id122');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id122" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;widget</span><span class="tokenText"> </span><span class="tokenAttrName">class=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">id=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">libelle=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;help</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/help&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;parameter</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">value=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/parameter&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/widget&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id122" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id122');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id122" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier38.html#id127" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component class')">class</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">La classe java à utiliser pour ce widget</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier38.html#id126" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component id')">id</a></b></td>
+                                    <td><b>xs:ID</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier38.html#id128" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component libelle')">libelle</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Le libellé à présenter à l'utilisateur</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id122" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id122');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id122" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"widget"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TWidget"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id129"></a><div class="componentTitle">Element <span class="qname"><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b> / champ</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id129" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id129');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id129" style="display:block"><img alt="Diagram" border="0" src="images/conf-metier.html80.png"
+                                   usemap="#conf-metier_46_html80" /><map name="conf-metier_46_html80" id="conf-metier_46_html80">
+                                 <area alt="conf-metier35.tmp#id133" href="conf-metier35.html#id133"
+                                       coords="123,78,217,102" />
+                                 <area alt="conf-metier35.tmp#id135" href="conf-metier35.html#id135"
+                                       coords="123,112,195,136" />
+                                 <area alt="conf-metier35.tmp#id136" href="conf-metier35.html#id136"
+                                       coords="123,189,191,213" />
+                                 <area alt="conf-metier35.tmp#id137" href="conf-metier35.html#id137"
+                                       coords="123,223,215,247" />
+                                 <area alt="conf-metier35.tmp#id138" href="conf-metier35.html#id138"
+                                       coords="123,257,252,281" />
+                                 <area alt="conf-metier35.tmp#id139" href="conf-metier35.html#id139"
+                                       coords="123,291,225,315" />
+                                 <area alt="conf-metier35.tmp#id140" href="conf-metier35.html#id140"
+                                       coords="123,381,223,405" />
+                                 <area alt="conf-metier35.tmp#id141" href="conf-metier35.html#id141"
+                                       coords="123,445,229,469" />
+                                 <area alt="conf-metier35.tmp#id142" href="conf-metier35.html#id142"
+                                       coords="123,509,225,533" />
+                                 <area alt="conf-metier35.tmp#id143" href="conf-metier35.html#id143"
+                                       coords="123,599,236,623" />
+                                 <area alt="conf-metier35.tmp#id131" href="conf-metier35.html#id131"
+                                       coords="180,683,235,707" />
+                                 <area alt="conf-metier35.tmp#id132" href="conf-metier35.html#id132"
+                                       coords="180,747,244,771" />
+                                 <area alt="conf-metier35.tmp#id130" href="conf-metier35.html#id130"
+                                       coords="98,3,194,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="conf-metier35.html#id130" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TChamp')">TChamp</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id129" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id129');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id129" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">maxOccurs:
+                                       
+                                    </td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="conf-metier35.html#id131" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component help{0,1}')">help{0,1}</a></b> , <b><a href="conf-metier35.html#id132" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component valeur')">valeur</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="conf-metier35.html#id131" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component help')">help</a></b>, <b><a href="conf-metier35.html#id132" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component valeur')">valeur</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id129" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id129');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id129" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;champ</span><span class="tokenText"> </span><span class="tokenAttrName">affichable=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">aggregate=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">checked=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">datatype=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">date-format=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">default-display=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">exportable=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">id=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">identifiant=</span><span class="tokenAttrValue">""</span><span class="tokenText"> </span><span class="tokenAttrName">libelle=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;help</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/help&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;valeur</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/valeur&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/champ&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id129" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id129');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id129" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id140" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component affichable')">affichable</a></b></td>
+                                    <td><b>xs:boolean</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Indique si le champs peut ï¿½tre affichï¿½ ou non.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id139" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component aggregate')">aggregate</a></b></td>
+                                    <td><b>xs:boolean</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Permet d'indiquer si on peut faire des opÃ©ration d'aggrÃ©gation (somme, moyenne, etc...) sur ce champ. Par dÃ©faut, vaut false</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id137" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component checked')">checked</a></b></td>
+                                    <td><b>xs:boolean</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id133" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component datatype')">datatype</a></b></td>
+                                    <td><b><a href="conf-metier69.html#id134" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TDatatype')">TDatatype</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id143" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component date-format')">date-format</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Dans le cas où le datatype est date, permet de spécifier le format à utiliser en affichage dans le résultat de recherche. La spécification du format doit respecter la convention donnée pour java.text.SimpleDateFormat</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id138" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component default-display')">default-display</a></b></td>
+                                    <td><b>xs:boolean</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id141" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component exportable')">exportable</a></b></td>
+                                    <td><b>xs:boolean</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Indique si le champs peut ï¿½tre exportï¿½ ou non.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id135" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component id')">id</a></b></td>
+                                    <td><b>xs:ID</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Identifiant unique du champ pour l'element. Cet identifiant est utilise pour le tri par defaut</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id142" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component identifiant')">identifiant</a></b></td>
+                                    <td><b>xs:boolean</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Indique si le champs est considï¿½rï¿½ comme faisant parti de la clef primaire de l'ï¿½lï¿½ment auquel il appartient.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier35.html#id136" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component libelle')">libelle</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id129" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id129');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id129" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"champ"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TChamp"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id144"></a><div class="componentTitle">Element <span class="qname"><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b> / hidden</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id144" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id144');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id144" style="display:block"><img alt="Diagram" border="0" src="images/conf-metier.html29.png"
+                                   usemap="#conf-metier_46_html29" /><map name="conf-metier_46_html29" id="conf-metier_46_html29">
+                                 <area alt="conf-metier20.tmp#id147" href="conf-metier20.html#id147"
+                                       coords="124,78,201,102" />
+                                 <area alt="conf-metier20.tmp#id146" href="conf-metier20.html#id146"
+                                       coords="181,179,245,203" />
+                                 <area alt="conf-metier20.tmp#id145" href="conf-metier20.html#id145"
+                                       coords="99,3,195,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="conf-metier20.html#id145" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component THidden')">THidden</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id144" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id144');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id144" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">maxOccurs:
+                                       
+                                    </td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="conf-metier20.html#id146" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component valeur')">valeur</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="conf-metier20.html#id146" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component valeur')">valeur</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id144" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id144');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id144" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;hidden</span><span class="tokenText"> </span><span class="tokenAttrName">name=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;valeur</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/valeur&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/hidden&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id144" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id144');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id144" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier20.html#id147" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component name')">name</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">Nom du controle. Si le nom respecte le pattern xsl-param:([xs:NCName]), alors la parametre \1 est passe a la xsl lors de la visualisation de l'element</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id144" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id144');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id144" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"hidden"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"THidden"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id121"></a><div class="componentTitle">Complex Type <span class="qname">TListeResultat</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id121" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id121" style="display:block"><img alt="Diagram" border="0" src="images/conf-metier.html46.png"
+                                   usemap="#conf-metier_46_html46" /><map name="conf-metier_46_html46" id="conf-metier_46_html46">
+                                 <area alt="conf-metier27.tmp#id148" href="conf-metier27.html#id148"
+                                       coords="172,38,250,62" />
+                                 <area alt="conf-metier27.tmp#id149" href="conf-metier27.html#id149"
+                                       coords="172,128,272,152" />
+                                 <area alt="conf-metier27.tmp#id122" href="conf-metier27.html#id122"
+                                       coords="342,225,408,249" />
+                                 <area alt="conf-metier27.tmp#id129" href="conf-metier27.html#id129"
+                                       coords="342,259,409,283" />
+                                 <area alt="conf-metier27.tmp#id144" href="conf-metier27.html#id144"
+                                       coords="342,293,410,317" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id121" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id121" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="conf-metier31.html#id120" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TElement/liste-resultat')">TElement/liste-resultat</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td>(<b><a href="conf-metier27.html#id122" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component widget+')">widget+</a></b> | <b><a href="conf-metier27.html#id129" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component champ+')">champ+</a></b> | <b><a href="conf-metier27.html#id144" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component hidden+')">hidden+</a></b>)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="conf-metier27.html#id129" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component champ')">champ</a></b>, <b><a href="conf-metier27.html#id144" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component hidden')">hidden</a></b>, <b><a href="conf-metier27.html#id122" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component widget')">widget</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id121" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id121" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier27.html#id148" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component ordre')">ordre</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">contient la liste des sens dans lequel on doit trier, separes par des virgules.</span><span class="tokenIndent">
+</span><span class="tokenText">exemple : ASC,DESC,DESC,ASC</span><span class="tokenIndent">
+</span><span class="tokenText">Si une valeur est manquante, c'est ASC par defaut.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="conf-metier27.html#id149" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component tri-defaut')">tri-defaut</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                                 class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tokenText">contient la liste des id des champs de la liste des resultats sur lesquels on trie, separes par des virgule.</span><span class="tokenIndent">
+</span><span class="tokenText">exemple: lr3,lr4,lr15</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id121" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id121" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TListeResultat"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:choice</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"widget"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TWidget"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"champ"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TChamp"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"hidden"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"THidden"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:choice&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"ordre"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"xs:string"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">contient la liste des sens dans lequel on doit trier, separes par des virgules. exemple : ASC,DESC,DESC,ASC Si une valeur est manquante, c'est ASC par defaut.</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:attribute&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"tri-defaut"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"xs:string"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">contient la liste des id des champs de la liste des resultats sur lesquels on trie, separes par des virgule. exemple: lr3,lr4,lr15</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:attribute&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id148"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b> / @ordre</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id148" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id148');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id148" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">contient la liste des sens dans lequel on doit trier, separes par des virgules.</span><span class="tokenIndent">
+</span><span class="tokenText">exemple : ASC,DESC,DESC,ASC</span><span class="tokenIndent">
+</span><span class="tokenText">Si une valeur est manquante, c'est ASC par defaut.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id148" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id148');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id148" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">use:
+                                       
+                                    </td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id148" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id148');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id148" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id148" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id148');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id148" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"ordre"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"xs:string"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">contient la liste des sens dans lequel on doit trier, separes par des virgules. exemple : ASC,DESC,DESC,ASC Si une valeur est manquante, c'est ASC par defaut.</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id149"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b> / @tri-defaut</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id149" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id149');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id149" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">contient la liste des id des champs de la liste des resultats sur lesquels on trie, separes par des virgule.</span><span class="tokenIndent">
+</span><span class="tokenText">exemple: lr3,lr4,lr15</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id149" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id149');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id149" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">use:
+                                       
+                                    </td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id149" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id149');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id149" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="conf-metier27.html#id121" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TListeResultat')">TListeResultat</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id149" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id149');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id149" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"tri-defaut"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"required"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"xs:string"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">contient la liste des id des champs de la liste des resultats sur lesquels on trie, separes par des virgule. exemple: lr3,lr4,lr15</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

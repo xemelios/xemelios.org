@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:cm="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:import namespace="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun" schemaLocation="Class_SchemasCommuns.xsd"/>
+	<xs:complexType name="TInfoTiersFact">
+		<xs:complexContent>
+			<xs:extension base="cm:TInfoTiers"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TTiers">
+		<xs:sequence>
+			<xs:element name="TypeTiersFacture" type="TTypeTiersFacture" minOccurs="0" maxOccurs="1">
+				<xs:annotation><xs:documentation>
+					Cette information n'est pas requise dans la facture pour l'emetteur et le debiteur.
+					C'est le seul cas où elle n'est pas requise.
+					Les valeur possibles sont :
+					10 - CLIENT
+					11 - ACHETEUR
+					12 - DESTINATAIRE
+					13 - FACTURE
+					14 - GESTIONNAIRE TVA
+					15 - COMPTABLE (Client)
+					20 - EMETTEUR
+					21 - VENDEUR
+					22 - EXPEDITEUR
+					23 - FABRICANT
+					24 - FOURNISSEUR
+					25 - DESTINATAIRE PAIEMENT
+					26 - COMPTABLE (Emetteur)
+				</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="InfoTiers" type="TInfoTiersFact"/>
+			<xs:element name="Adresse" type="cm:TAdresse" minOccurs="0"/>
+			<xs:element name="CpteBancaire" type="cm:TBancaire" minOccurs="0"/>
+			<xs:element name="NumTVA" type="cm:Base_Texte24" minOccurs="0"/>
+			<xs:element name="Service" type="cm:Base_Texte24" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TTypeTiersFacture">
+		<xs:attribute name="V" type="VTypeTiersFacture"></xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="VTypeTiersFacture">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="10"><xs:annotation><xs:documentation>CLIENT</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="11"><xs:annotation><xs:documentation>ACHETEUR</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="12"><xs:annotation><xs:documentation>DESTINATAIRE</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="13"><xs:annotation><xs:documentation>FACTURE</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="14"><xs:annotation><xs:documentation>GESTIONNAIRE TVA</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="15"><xs:annotation><xs:documentation>COMPTABLE (Client)</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="20"><xs:annotation><xs:documentation>EMETTEUR</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="21"><xs:annotation><xs:documentation>VENDEUR</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="22"><xs:annotation><xs:documentation>EXPEDITEUR</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="23"><xs:annotation><xs:documentation>FABRICANT</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="24"><xs:annotation><xs:documentation>FOURNISSEUR</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="25"><xs:annotation><xs:documentation>DESTINATAIRE PAIEMENT</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="26"><xs:annotation><xs:documentation>COMPTABLE (Emetteur)</xs:documentation></xs:annotation></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

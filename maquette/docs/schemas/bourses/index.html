@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <title>Schéma des Bourses de l'éducation nationale</title>
+		<link rel="stylesheet" type="text/css" href="http://xemelios.org/site/css/main.css"/>
+    </head>
+    <body>
+		<h1>Schéma des versements des bourses de l'éducation nationale</h1>
+		<p>Ce schéma définit le format dans lequel les versements de bourses de l'éducation nationale doivent être transmis au comptable. Ce schéma est originellement basé sur le schéma de versement d'aide sociale, simplifié car les informations transmises sont plus simples.</p>
+		<p>La dernière version du schéma est disponible <a href="./schema-bourses.zip">ici</a>.</p>
+		<p>La documentation de la dernière version du schéma est disponible <a href="./doc/index.html" target="_blank">ici</a>.</p>
+		<h3><a name="versions"/>Versions du schéma</h3>
+		<table id="release">
+			<thead>
+				<tr>
+					<th>Version</th>
+					<th>Description</th>
+					<th>Date publication</th>
+					<th>Modifications</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1.1</td>
+					<td>Modifications de typages</td>
+					<td>2011-09-09</td>
+					<td>
+						Le champ <tt>NumDP</tt> passe de <tt>Base_Num7</tt> &agrave; <tt>Base_Texte50</tt><br/>
+						Le champ <tt>Prestation</tt> passe &agrave; <tt>Base_Texte24</tt> pour se conformer au typage de la nomenclature<br/>
+						Le champ <tt>Decision/Nature</tt> passe &agrave; <tt>Base_Texte24</tt> pour se conformer au typage de la nomenclature
+					</td>
+				</tr>
+				<tr>
+					<td>1.0</td>
+					<td>Modifications</td>
+					<td>2011-06-10</td>
+					<td>Element TitCpte de la classe bancaire rendu optionel</td>
+				</tr>
+				<tr>
+					<td>0.2</td>
+					<td>Modifications / ajouts</td>
+					<td>2011-05-26</td>
+					<td>NumMandat devient NumDP, refonte de la classe bancaire pour accepter du BIC/IBAN, cardinalité 1:1 pour le Beneficiaire, suppression des séquences</td>
+				</tr>
+				<tr>
+					<td>0.1</td>
+					<td>Nettoyage général</td>
+					<td>2011-05-20</td>
+					<td>Nettoyage des choses inutiles, documentation des codifications, types simples plus contraignants</td>
+				</tr>
+				<tr>
+					<td>0.0</td>
+					<td>Publication initiale</td>
+					<td>2011-05-19</td>
+					<td><i>pas de modifications</i></td>
+				</tr>
+			</tbody>
+		</table>
+    </body>
+</html>

@@ -1,0 +1,975 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component CompleteRevocationRefsType</title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id829', 
+				'properties_id840', 
+				'properties_id850', 
+				'properties_id853');
+
+        
+        var usedByBoxes= new Array('usedBy_id828', 
+				'usedBy_id853');
+
+        var sourceBoxes= new Array('source_id829', 
+				'source_id840', 
+				'source_id850', 
+				'source_id828', 
+				'source_id853');
+
+        var instanceBoxes= new Array('instance_id829', 
+				'instance_id840', 
+				'instance_id850');
+
+        var diagramBoxes= new Array('diagram_id829', 
+				'diagram_id840', 
+				'diagram_id850', 
+				'diagram_id828');
+
+        
+        var attributesBoxes= new Array('attributes_id828');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, instanceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id829"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller119.html#id828" target="mainFrame"
+                  title="http://uri.etsi.org/01903/v1.1.1#"
+                  onclick="updatePageTitle('Schema documentation for component CompleteRevocationRefsType')">CompleteRevocationRefsType</a></b> / CRLRefs</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://uri.etsi.org/01903/v1.1.1#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id829" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id829');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id829" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html106.png"
+                                   usemap="#PES_Aller_46_html106" /><map name="PES_Aller_46_html106" id="PES_Aller_46_html106">
+                                 <area alt="PES_Aller96.tmp#id831" href="PES_Aller96.html#id831"
+                                       coords="209,44,278,68" />
+                                 <area alt="PES_Aller96.tmp#id830" href="PES_Aller96.html#id830" coords="106,3,227,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller96.html#id830" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component CRLRefsType')">CRLRefsType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id829" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id829');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id829" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller96.html#id831" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component CRLRef+')">CRLRef+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller96.html#id831" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component CRLRef')">CRLRef</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id829" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id829');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id829" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;CRLRefs</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;CRLRef</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/CRLRef&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/CRLRefs&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id829" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id829');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id829" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CRLRefs"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"CRLRefsType"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id840"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller119.html#id828" target="mainFrame"
+                  title="http://uri.etsi.org/01903/v1.1.1#"
+                  onclick="updatePageTitle('Schema documentation for component CompleteRevocationRefsType')">CompleteRevocationRefsType</a></b> / OCSPRefs</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://uri.etsi.org/01903/v1.1.1#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id840" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id840');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id840" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html254.png"
+                                   usemap="#PES_Aller_46_html254" /><map name="PES_Aller_46_html254" id="PES_Aller_46_html254">
+                                 <area alt="PES_Aller170.tmp#id842" href="PES_Aller170.html#id842"
+                                       coords="217,44,294,68" />
+                                 <area alt="PES_Aller170.tmp#id841" href="PES_Aller170.html#id841"
+                                       coords="114,3,243,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller170.html#id841" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OCSPRefsType')">OCSPRefsType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id840" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id840');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id840" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller170.html#id842" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OCSPRef+')">OCSPRef+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller170.html#id842" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OCSPRef')">OCSPRef</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id840" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id840');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id840" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;OCSPRefs</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;OCSPRef</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/OCSPRef&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/OCSPRefs&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id840" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id840');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id840" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"OCSPRefs"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"OCSPRefsType"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id850"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller119.html#id828" target="mainFrame"
+                  title="http://uri.etsi.org/01903/v1.1.1#"
+                  onclick="updatePageTitle('Schema documentation for component CompleteRevocationRefsType')">CompleteRevocationRefsType</a></b> / OtherRefs</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://uri.etsi.org/01903/v1.1.1#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id850" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id850');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id850" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html410.png"
+                                   usemap="#PES_Aller_46_html410" /><map name="PES_Aller_46_html410" id="PES_Aller_46_html410">
+                                 <area alt="PES_Aller212.tmp#id852" href="PES_Aller212.html#id852"
+                                       coords="219,44,298,68" />
+                                 <area alt="PES_Aller212.tmp#id851" href="PES_Aller212.html#id851"
+                                       coords="116,3,303,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller212.html#id851" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OtherCertStatusRefsType')">OtherCertStatusRefsType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id850" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id850');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id850" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller212.html#id852" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OtherRef+')">OtherRef+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller212.html#id852" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OtherRef')">OtherRef</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id850" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id850');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id850" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;OtherRefs</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;OtherRef</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/OtherRef&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/OtherRefs&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id850" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id850');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id850" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"OtherRefs"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"OtherCertStatusRefsType"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id828"></a><div class="componentTitle">Complex Type <span class="qname">CompleteRevocationRefsType</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://uri.etsi.org/01903/v1.1.1#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id828" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id828');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id828" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html549.png"
+                                   usemap="#PES_Aller_46_html549" /><map name="PES_Aller_46_html549" id="PES_Aller_46_html549">
+                                 <area alt="PES_Aller119.tmp#id853" href="PES_Aller119.html#id853"
+                                       coords="256,38,328,62" />
+                                 <area alt="PES_Aller119.tmp#id829" href="PES_Aller119.html#id829"
+                                       coords="313,79,388,103" />
+                                 <area alt="PES_Aller119.tmp#id840" href="PES_Aller119.html#id840"
+                                       coords="313,113,396,137" />
+                                 <area alt="PES_Aller119.tmp#id850" href="PES_Aller119.html#id850"
+                                       coords="313,147,398,171" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id828" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id828');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id828" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Elements </td>
+                                    <td><b><a href="PES_Aller393.html#id912" target="mainFrame"
+                                             title="http://uri.etsi.org/01903/v1.1.1#"
+                                             onclick="updatePageTitle('Schema documentation for component CompleteRevocationRefs')">CompleteRevocationRefs</a></b>, <b><a href="PES_Aller262.html#id827" target="mainFrame"
+                                             title="http://uri.etsi.org/01903/v1.1.1#"
+                                             onclick="updatePageTitle('Schema documentation for component UnsignedSignaturePropertiesType/CompleteRevocationRefs')">UnsignedSignaturePropertiesType/CompleteRevocationRefs</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller119.html#id829" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component CRLRefs{0,1}')">CRLRefs{0,1}</a></b> , <b><a href="PES_Aller119.html#id840" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OCSPRefs{0,1}')">OCSPRefs{0,1}</a></b> , <b><a href="PES_Aller119.html#id850" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OtherRefs{0,1}')">OtherRefs{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller119.html#id829" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component CRLRefs')">CRLRefs</a></b>, <b><a href="PES_Aller119.html#id840" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OCSPRefs')">OCSPRefs</a></b>, <b><a href="PES_Aller119.html#id850" target="mainFrame"
+                                 title="http://uri.etsi.org/01903/v1.1.1#"
+                                 onclick="updatePageTitle('Schema documentation for component OtherRefs')">OtherRefs</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id828" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id828');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id828" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller119.html#id853" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Id')">Id</a></b></td>
+                                    <td><b>xs:ID</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id828" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id828');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id828" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CompleteRevocationRefsType"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CRLRefs"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"CRLRefsType"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"OCSPRefs"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"OCSPRefsType"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"OtherRefs"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"OtherCertStatusRefsType"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Id"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"xs:ID"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"optional"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id853"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="PES_Aller119.html#id828" target="mainFrame"
+                  title="http://uri.etsi.org/01903/v1.1.1#"
+                  onclick="updatePageTitle('Schema documentation for component CompleteRevocationRefsType')">CompleteRevocationRefsType</a></b> / @Id</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:ID</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id853" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id853');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id853" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">use:
+                                       
+                                    </td>
+                                    <td><b>optional</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id853" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id853');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id853" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="PES_Aller119.html#id828" target="mainFrame"
+                                             title="http://uri.etsi.org/01903/v1.1.1#"
+                                             onclick="updatePageTitle('Schema documentation for component CompleteRevocationRefsType')">CompleteRevocationRefsType</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id853" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id853');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id853" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:attribute</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Id"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"xs:ID"</span><span class="tokenAttrName"> use=</span><span class="tokenAttrValue">"optional"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

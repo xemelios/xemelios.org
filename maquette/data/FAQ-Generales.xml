@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <h1>Foire aux Questions - G&#233;n&#233;rales</h1>
+    <p><b><a onClick="display('faq1')">"Un autre XeMeLios est déjà en cours d'execution" apparait. Comment dois-je proc&#233;der ?</a></b></p>
+    <p id="faq1" class="faq" style="display: none;">
+        <br/>
+        <p>XeMeLios interdit d&#233;sormais que deux instances de XeMeLios s'executent en m&#234;me temps sur le m&#234;me poste.
+            <br/><br/>Pour contr&#244;ler cela, il utilise un port TCP/IP en &#233;coute.
+            <br/><br/>Par d&#233;faut, le port sur lequel &#233;coute XeMeLios est le 8973.
+            <br/><br/>Si sur votre poste, ce port est utilis&#233; par une autre application, XeMeLios refusera de d&#233;marrer.
+            <br/><br/>Il suffira donc d'indiquer &#224; XeMeLios quel port disponible doit &#234;tre utilisé.
+        </p>
+        <p>Modifions ensemble le fichier <tt>xemelios.properties</tt> et g&#233;n&#233;ralement pr&#233;sent dans le r&#233;pertoire <tt>C:\Program&#160;Files\DGCP\XeMeLios\XeMeLios\root</tt>.
+            <br/><br/>Ce fichier peut s'ouvrir avec le bloc-notes Windows ou tout autre &#233;diteur de texte.
+            <br/><br/>Ajoutons la ligne suivante au fichier : <tt>xemelios.isolation.port=<span style="color: red; font-weight: bold;">8384</span></tt> o&#250; <span style="color: red;">8384</span> est le port que vous aurez choisit.
+        </p>
+        <p>En g&#233;n&#233;ral, tout port au-dessus de 8100 convient.</p>
+    </p>
+    <p><b><a onClick="display('faq2')">"Could not find the main class. Program will exit." apparait. Comment dois-je proc&#233;der ?</a></b></p>    
+    <p id="faq2" class="faq" style="display: none;">    
+        <p class="p2">Dans la plupart des cas, cela arrive quand <b>Java 6</b> <a class="surligne">est install&#233;</a>, mais que ce n'est pas la <a class="surligne">version utilis&#233;e par d&#233;faut</a>.
+            <br/><br/>Il faut <a class="surligne">soit modifier le param&#233;trage de Windows</a> pour que <b>Java 6</b> devienne la version lanc&#233;e par d&#233;faut, <a class="surligne">soit modifier le script de lancement</a> de XeMeLios.
+        </p>
+        
+        <ul>
+            <li class="p3">La modification du param&#233;trage de Windows n'est pas un sujet traitable ici. Rapprochez-vous de vos SAU (Service d'Assistance Utilisateur), administrateur R&#233;seau,  etc... pour r&#233;aliser cette op&#233;ration.</li>
+            <li class="p3">La modification du script de lancement de XeMeLios est ais&#233;e :
+                <ol>
+                    <li>Tout d'abord il faut savoir o&#250; Java 6 est install&#233;. G&#233;n&#233;ralement, il faut chercher dans le r&#233;pertoire <tt>C:\Program&#160;Files\Java\jre6</tt></li>
+                    
+                    <li>Ensuite, modifiez le fichier <tt>C:\Program Files\DGCP\Xemelios\Xemelios\root\xemelios.bat</tt></li>
+                    <li>Apr&#233;s, remplacez la derni&#233;re ligne <tt>START javaw.exe&#160;-xms64m&#160;-xmx384m&#160;-jar&#160;xemelios.jar&#160;%1%</tt> par <tt>"<i>C:\Program&#160;Files\Java\jre6</i>\bin\javaw.exe"&#160;-xms64m&#160;-xmx384m&#160;-jar&#160;xemelios.jar&#160;%1%</tt> en mettant le chemin not&#233; au point 1.</li>
+                    
+                    <li>Modifiez le fichier <tt>C:\Program Files\DGCP\Xemelios\Xemelios\root\viewdoc.cmd</tt></li>
+                    <li>Remplacez l'avant-derni&#233;re ligne <tt>start&#160;javaw&#160;-cp&#160;%CP%&#160;-Dxemelios.documents.def.dir="%HERE%\documents-def"&#160;
+fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument&#160;"%1"&#160;"%2"</tt> par <tt><i>C:\Program&#160;Files\Java\jre6</i>\bin\javaw -cp %CP% -Dxemelios.documents.def.dir="%HERE%\documents-def" fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument "%1" "%2"</tt> en mettant le chemin not&#233; au point 1.</li>
+                    
+                </ol>
+            </li>
+        </ul>
+    </p>
+</data>

@@ -1,0 +1,1905 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component </title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: 
+                  <select id="selectTOC"
+                          onchange="selectTOCGroupBy(this.options[this.selectedIndex].value);">
+                     <option value="toc_group_by_namespace" selected="selected">Namespace</option>
+                     <option value="toc_group_by_location">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_namespace" style="display:none">
+            <div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace1" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('boxIdNamespace1');"
+                            class="control" /><span class="indexGroupTitle">http://xemelios.org/schemas/asp</span></p>
+                  <div id="boxIdNamespace1" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Elements
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace1Element" style="display:block">
+                                    <div><b><a href="doc-schema-asp105.html#id11" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:AvisSommesAPayer')">asp:AvisSommesAPayer</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace1Complex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp72.html#id12" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TAvisSommesAPayer')">asp:TAvisSommesAPayer</a></b></div>
+                                    <div><b><a href="doc-schema-asp0.html#id237" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TLigneRepartition')">asp:TLigneRepartition</a></b></div>
+                                    <div><b><a href="doc-schema-asp67.html#id243" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TNomenclatureFacture')">asp:TNomenclatureFacture</a></b></div>
+                                    <div><b><a href="doc-schema-asp62.html#id235" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TRepartitionParNature')">asp:TRepartitionParNature</a></b></div>
+                                    <div><b><a href="doc-schema-asp22.html#id140" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TSignataire')">asp:TSignataire</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace2" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('boxIdNamespace2');"
+                            class="control" /><span class="indexGroupTitle">No namespace</span></p>
+                  <div id="boxIdNamespace2" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace2Complex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp56.html#id247" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum1')">Base_Alphanum1</a></b></div>
+                                    <div><b><a href="doc-schema-asp17.html#id259" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum10')">Base_Alphanum10</a></b></div>
+                                    <div><b><a href="doc-schema-asp76.html#id292" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum100')">Base_Alphanum100</a></b></div>
+                                    <div><b><a href="doc-schema-asp7.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum11')">Base_Alphanum11</a></b></div>
+                                    <div><b><a href="doc-schema-asp48.html#id262" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum12')">Base_Alphanum12</a></b></div>
+                                    <div><b><a href="doc-schema-asp34.html#id218" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum133')">Base_Alphanum133</a></b></div>
+                                    <div><b><a href="doc-schema-asp47.html#id265" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum14')">Base_Alphanum14</a></b></div>
+                                    <div><b><a href="doc-schema-asp55.html#id268" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum15')">Base_Alphanum15</a></b></div>
+                                    <div><b><a href="doc-schema-asp61.html#id271" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum16')">Base_Alphanum16</a></b></div>
+                                    <div><b><a href="doc-schema-asp36.html#id274" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum17')">Base_Alphanum17</a></b></div>
+                                    <div><b><a href="doc-schema-asp49.html#id250" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum2')">Base_Alphanum2</a></b></div>
+                                    <div><b><a href="doc-schema-asp65.html#id277" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum20')">Base_Alphanum20</a></b></div>
+                                    <div><b><a href="doc-schema-asp50.html#id280" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum25')">Base_Alphanum25</a></b></div>
+                                    <div><b><a href="doc-schema-asp45.html#id295" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum250')">Base_Alphanum250</a></b></div>
+                                    <div><b><a href="doc-schema-asp86.html#id253" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum3')">Base_Alphanum3</a></b></div>
+                                    <div><b><a href="doc-schema-asp84.html#id283" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum30')">Base_Alphanum30</a></b></div>
+                                    <div><b><a href="doc-schema-asp90.html#id89" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum4')">Base_Alphanum4</a></b></div>
+                                    <div><b><a href="doc-schema-asp14.html#id97" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum5')">Base_Alphanum5</a></b></div>
+                                    <div><b><a href="doc-schema-asp92.html#id286" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum50')">Base_Alphanum50</a></b></div>
+                                    <div><b><a href="doc-schema-asp78.html#id256" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum6')">Base_Alphanum6</a></b></div>
+                                    <div><b><a href="doc-schema-asp87.html#id289" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum80')">Base_Alphanum80</a></b></div>
+                                    <div><b><a href="doc-schema-asp51.html#id18" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Annee')">Base_Annee</a></b></div>
+                                    <div><b><a href="doc-schema-asp60.html#id78" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Booleen')">Base_Booleen</a></b></div>
+                                    <div><b><a href="doc-schema-asp12.html#id26" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></div>
+                                    <div><b><a href="doc-schema-asp41.html#id14" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Dec2')">Base_Dec2</a></b></div>
+                                    <div><b><a href="doc-schema-asp38.html#id364" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Dec3')">Base_Dec3</a></b></div>
+                                    <div><b><a href="doc-schema-asp15.html#id168" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></div>
+                                    <div><b><a href="doc-schema-asp3.html#id361" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Montant3')">Base_Montant3</a></b></div>
+                                    <div><b><a href="doc-schema-asp69.html#id298" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num1')">Base_Num1</a></b></div>
+                                    <div><b><a href="doc-schema-asp31.html#id310" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num10')">Base_Num10</a></b></div>
+                                    <div><b><a href="doc-schema-asp64.html#id313" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num12')">Base_Num12</a></b></div>
+                                    <div><b><a href="doc-schema-asp73.html#id205" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num13')">Base_Num13</a></b></div>
+                                    <div><b><a href="doc-schema-asp44.html#id316" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num14')">Base_Num14</a></b></div>
+                                    <div><b><a href="doc-schema-asp2.html#id319" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num15')">Base_Num15</a></b></div>
+                                    <div><b><a href="doc-schema-asp81.html#id322" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num16')">Base_Num16</a></b></div>
+                                    <div><b><a href="doc-schema-asp80.html#id325" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num17')">Base_Num17</a></b></div>
+                                    <div><b><a href="doc-schema-asp24.html#id106" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num2')">Base_Num2</a></b></div>
+                                    <div><b><a href="doc-schema-asp83.html#id328" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num20')">Base_Num20</a></b></div>
+                                    <div><b><a href="doc-schema-asp37.html#id331" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num25')">Base_Num25</a></b></div>
+                                    <div><b><a href="doc-schema-asp18.html#id82" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num3')">Base_Num3</a></b></div>
+                                    <div><b><a href="doc-schema-asp88.html#id22" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num4')">Base_Num4</a></b></div>
+                                    <div><b><a href="doc-schema-asp40.html#id301" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num5')">Base_Num5</a></b></div>
+                                    <div><b><a href="doc-schema-asp30.html#id136" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num6')">Base_Num6</a></b></div>
+                                    <div><b><a href="doc-schema-asp8.html#id201" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num7')">Base_Num7</a></b></div>
+                                    <div><b><a href="doc-schema-asp85.html#id304" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num8')">Base_Num8</a></b></div>
+                                    <div><b><a href="doc-schema-asp46.html#id307" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num9')">Base_Num9</a></b></div>
+                                    <div><b><a href="doc-schema-asp35.html#id173" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Taux')">Base_Taux</a></b></div>
+                                    <div><b><a href="doc-schema-asp6.html#id177" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Taux3')">Base_Taux3</a></b></div>
+                                    <div><b><a href="doc-schema-asp19.html#id56" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte10')">Base_Texte10</a></b></div>
+                                    <div><b><a href="doc-schema-asp26.html#id132" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte100')">Base_Texte100</a></b></div>
+                                    <div><b><a href="doc-schema-asp32.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte11')">Base_Texte11</a></b></div>
+                                    <div><b><a href="doc-schema-asp93.html#id343" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte12')">Base_Texte12</a></b></div>
+                                    <div><b><a href="doc-schema-asp89.html#id346" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte14')">Base_Texte14</a></b></div>
+                                    <div><b><a href="doc-schema-asp23.html#id34" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte15')">Base_Texte15</a></b></div>
+                                    <div><b><a href="doc-schema-asp74.html#id349" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte16')">Base_Texte16</a></b></div>
+                                    <div><b><a href="doc-schema-asp58.html#id155" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte160')">Base_Texte160</a></b></div>
+                                    <div><b><a href="doc-schema-asp77.html#id334" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte2')">Base_Texte2</a></b></div>
+                                    <div><b><a href="doc-schema-asp54.html#id128" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte20')">Base_Texte20</a></b></div>
+                                    <div><b><a href="doc-schema-asp53.html#id355" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte200')">Base_Texte200</a></b></div>
+                                    <div><b><a href="doc-schema-asp13.html#id115" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte24')">Base_Texte24</a></b></div>
+                                    <div><b><a href="doc-schema-asp10.html#id352" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte25')">Base_Texte25</a></b></div>
+                                    <div><b><a href="doc-schema-asp79.html#id210" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte250')">Base_Texte250</a></b></div>
+                                    <div><b><a href="doc-schema-asp70.html#id46" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte30')">Base_Texte30</a></b></div>
+                                    <div><b><a href="doc-schema-asp4.html#id119" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte32')">Base_Texte32</a></b></div>
+                                    <div><b><a href="doc-schema-asp66.html#id111" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte34')">Base_Texte34</a></b></div>
+                                    <div><b><a href="doc-schema-asp25.html#id60" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte38')">Base_Texte38</a></b></div>
+                                    <div><b><a href="doc-schema-asp71.html#id73" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte5')">Base_Texte5</a></b></div>
+                                    <div><b><a href="doc-schema-asp33.html#id143" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte50')">Base_Texte50</a></b></div>
+                                    <div><b><a href="doc-schema-asp63.html#id358" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte500')">Base_Texte500</a></b></div>
+                                    <div><b><a href="doc-schema-asp52.html#id337" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte6')">Base_Texte6</a></b></div>
+                                    <div><b><a href="doc-schema-asp29.html#id340" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte7')">Base_Texte7</a></b></div>
+                                    <div><b><a href="doc-schema-asp5.html#id66" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TAdresse')">TAdresse</a></b></div>
+                                    <div><b><a href="doc-schema-asp43.html#id87" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TBancaire')">TBancaire</a></b></div>
+                                    <div><b><a href="doc-schema-asp11.html#id50" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TCatTiers')">TCatTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp91.html#id189" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TDetailTVA')">TDetailTVA</a></b></div>
+                                    <div><b><a href="doc-schema-asp57.html#id149" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TFacturePESIndiv')">TFacturePESIndiv</a></b></div>
+                                    <div><b><a href="doc-schema-asp21.html#id32" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TInfoTiers')">TInfoTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp137.html#id367" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TInfoTiersFact')">TInfoTiersFact</a></b></div>
+                                    <div><b><a href="doc-schema-asp68.html#id159" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TLigneFacture')">TLigneFacture</a></b></div>
+                                    <div><b><a href="doc-schema-asp1.html#id231" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TLigneNomenclature')">TLigneNomenclature</a></b></div>
+                                    <div><b><a href="doc-schema-asp28.html#id42" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TNatIdTiers')">TNatIdTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp82.html#id53" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TNatJur')">TNatJur</a></b></div>
+                                    <div><b><a href="doc-schema-asp27.html#id228" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TNomenclature')">TNomenclature</a></b></div>
+                                    <div><b><a href="doc-schema-asp9.html#id199" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TRefCompta')">TRefCompta</a></b></div>
+                                    <div><b><a href="doc-schema-asp16.html#id223" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TRepartitionBudget')">TRepartitionBudget</a></b></div>
+                                    <div><b><a href="doc-schema-asp39.html#id30" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTiers')">TTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp75.html#id126" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTiersInfosGenerales')">TTiersInfosGenerales</a></b></div>
+                                    <div><b><a href="doc-schema-asp20.html#id216" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTip')">TTip</a></b></div>
+                                    <div><b><a href="doc-schema-asp59.html#id194" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTotalAPayer')">TTotalAPayer</a></b></div>
+                                    <div><b><a href="doc-schema-asp42.html#id39" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTypTiers')">TTypTiers</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Simple Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace2Simple_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp138.html#id249" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum1')">V_Alphanum1</a></b></div>
+                                    <div><b><a href="doc-schema-asp142.html#id261" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum10')">V_Alphanum10</a></b></div>
+                                    <div><b><a href="doc-schema-asp153.html#id294" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum100')">V_Alphanum100</a></b></div>
+                                    <div><b><a href="doc-schema-asp118.html#id95" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum11')">V_Alphanum11</a></b></div>
+                                    <div><b><a href="doc-schema-asp143.html#id264" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum12')">V_Alphanum12</a></b></div>
+                                    <div><b><a href="doc-schema-asp136.html#id220" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum133')">V_Alphanum133</a></b></div>
+                                    <div><b><a href="doc-schema-asp144.html#id267" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum14')">V_Alphanum14</a></b></div>
+                                    <div><b><a href="doc-schema-asp145.html#id270" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum15')">V_Alphanum15</a></b></div>
+                                    <div><b><a href="doc-schema-asp146.html#id273" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum16')">V_Alphanum16</a></b></div>
+                                    <div><b><a href="doc-schema-asp147.html#id276" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum17')">V_Alphanum17</a></b></div>
+                                    <div><b><a href="doc-schema-asp139.html#id252" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum2')">V_Alphanum2</a></b></div>
+                                    <div><b><a href="doc-schema-asp148.html#id279" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum20')">V_Alphanum20</a></b></div>
+                                    <div><b><a href="doc-schema-asp149.html#id282" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum25')">V_Alphanum25</a></b></div>
+                                    <div><b><a href="doc-schema-asp154.html#id297" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum250')">V_Alphanum250</a></b></div>
+                                    <div><b><a href="doc-schema-asp140.html#id255" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum3')">V_Alphanum3</a></b></div>
+                                    <div><b><a href="doc-schema-asp150.html#id285" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum30')">V_Alphanum30</a></b></div>
+                                    <div><b><a href="doc-schema-asp117.html#id91" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum4')">V_Alphanum4</a></b></div>
+                                    <div><b><a href="doc-schema-asp119.html#id99" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum5')">V_Alphanum5</a></b></div>
+                                    <div><b><a href="doc-schema-asp151.html#id288" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum50')">V_Alphanum50</a></b></div>
+                                    <div><b><a href="doc-schema-asp141.html#id258" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum6')">V_Alphanum6</a></b></div>
+                                    <div><b><a href="doc-schema-asp152.html#id291" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum80')">V_Alphanum80</a></b></div>
+                                    <div><b><a href="doc-schema-asp107.html#id20" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Annee')">V_Annee</a></b></div>
+                                    <div><b><a href="doc-schema-asp115.html#id80" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Booleen')">V_Booleen</a></b></div>
+                                    <div><b><a href="doc-schema-asp109.html#id28" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></div>
+                                    <div><b><a href="doc-schema-asp106.html#id16" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Dec2')">V_Dec2</a></b></div>
+                                    <div><b><a href="doc-schema-asp177.html#id366" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Dec3')">V_Dec3</a></b></div>
+                                    <div><b><a href="doc-schema-asp130.html#id170" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></div>
+                                    <div><b><a href="doc-schema-asp176.html#id363" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant3')">V_Montant3</a></b></div>
+                                    <div><b><a href="doc-schema-asp155.html#id300" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num1')">V_Num1</a></b></div>
+                                    <div><b><a href="doc-schema-asp159.html#id312" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num10')">V_Num10</a></b></div>
+                                    <div><b><a href="doc-schema-asp160.html#id315" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num12')">V_Num12</a></b></div>
+                                    <div><b><a href="doc-schema-asp134.html#id207" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num13')">V_Num13</a></b></div>
+                                    <div><b><a href="doc-schema-asp161.html#id318" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num14')">V_Num14</a></b></div>
+                                    <div><b><a href="doc-schema-asp162.html#id321" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num15')">V_Num15</a></b></div>
+                                    <div><b><a href="doc-schema-asp163.html#id324" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num16')">V_Num16</a></b></div>
+                                    <div><b><a href="doc-schema-asp164.html#id327" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num17')">V_Num17</a></b></div>
+                                    <div><b><a href="doc-schema-asp121.html#id108" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num2')">V_Num2</a></b></div>
+                                    <div><b><a href="doc-schema-asp165.html#id330" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num20')">V_Num20</a></b></div>
+                                    <div><b><a href="doc-schema-asp166.html#id333" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num25')">V_Num25</a></b></div>
+                                    <div><b><a href="doc-schema-asp116.html#id84" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num3')">V_Num3</a></b></div>
+                                    <div><b><a href="doc-schema-asp108.html#id24" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num4')">V_Num4</a></b></div>
+                                    <div><b><a href="doc-schema-asp156.html#id303" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num5')">V_Num5</a></b></div>
+                                    <div><b><a href="doc-schema-asp127.html#id138" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num6')">V_Num6</a></b></div>
+                                    <div><b><a href="doc-schema-asp133.html#id203" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num7')">V_Num7</a></b></div>
+                                    <div><b><a href="doc-schema-asp157.html#id306" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num8')">V_Num8</a></b></div>
+                                    <div><b><a href="doc-schema-asp158.html#id309" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num9')">V_Num9</a></b></div>
+                                    <div><b><a href="doc-schema-asp131.html#id175" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Taux')">V_Taux</a></b></div>
+                                    <div><b><a href="doc-schema-asp132.html#id179" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Taux3')">V_Taux3</a></b></div>
+                                    <div><b><a href="doc-schema-asp112.html#id58" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte10')">V_Texte10</a></b></div>
+                                    <div><b><a href="doc-schema-asp126.html#id134" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte100')">V_Texte100</a></b></div>
+                                    <div><b><a href="doc-schema-asp120.html#id104" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte11')">V_Texte11</a></b></div>
+                                    <div><b><a href="doc-schema-asp170.html#id345" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte12')">V_Texte12</a></b></div>
+                                    <div><b><a href="doc-schema-asp171.html#id348" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte14')">V_Texte14</a></b></div>
+                                    <div><b><a href="doc-schema-asp110.html#id36" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte15')">V_Texte15</a></b></div>
+                                    <div><b><a href="doc-schema-asp172.html#id351" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte16')">V_Texte16</a></b></div>
+                                    <div><b><a href="doc-schema-asp129.html#id157" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte160')">V_Texte160</a></b></div>
+                                    <div><b><a href="doc-schema-asp167.html#id336" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte2')">V_Texte2</a></b></div>
+                                    <div><b><a href="doc-schema-asp125.html#id130" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte20')">V_Texte20</a></b></div>
+                                    <div><b><a href="doc-schema-asp174.html#id357" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte200')">V_Texte200</a></b></div>
+                                    <div><b><a href="doc-schema-asp123.html#id117" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte24')">V_Texte24</a></b></div>
+                                    <div><b><a href="doc-schema-asp173.html#id354" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte25')">V_Texte25</a></b></div>
+                                    <div><b><a href="doc-schema-asp135.html#id212" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte250')">V_Texte250</a></b></div>
+                                    <div><b><a href="doc-schema-asp111.html#id48" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte30')">V_Texte30</a></b></div>
+                                    <div><b><a href="doc-schema-asp124.html#id121" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte32')">V_Texte32</a></b></div>
+                                    <div><b><a href="doc-schema-asp122.html#id113" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte34')">V_Texte34</a></b></div>
+                                    <div><b><a href="doc-schema-asp113.html#id62" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte38')">V_Texte38</a></b></div>
+                                    <div><b><a href="doc-schema-asp114.html#id75" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte5')">V_Texte5</a></b></div>
+                                    <div><b><a href="doc-schema-asp128.html#id145" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte50')">V_Texte50</a></b></div>
+                                    <div><b><a href="doc-schema-asp175.html#id360" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte500')">V_Texte500</a></b></div>
+                                    <div><b><a href="doc-schema-asp168.html#id339" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte6')">V_Texte6</a></b></div>
+                                    <div><b><a href="doc-schema-asp169.html#id342" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte7')">V_Texte7</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_component_type" style="display:block">
+            <div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <div class="componentGroupTitle">Elements
+                              
+                           </div>
+                           <div id="Element" style="display:block">
+                              <div><b><a href="doc-schema-asp105.html#id11" target="mainFrame"
+                                       title="http://xemelios.org/schemas/asp"
+                                       onclick="updatePageTitle('Schema documentation for component asp:AvisSommesAPayer')">asp:AvisSommesAPayer</a></b></div>
+                           </div>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <div class="componentGroupTitle">Complex Types
+                              
+                           </div>
+                           <div id="Complex_Type" style="display:block">
+                              <div><b><a href="doc-schema-asp56.html#id247" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum1')">Base_Alphanum1</a></b></div>
+                              <div><b><a href="doc-schema-asp17.html#id259" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum10')">Base_Alphanum10</a></b></div>
+                              <div><b><a href="doc-schema-asp76.html#id292" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum100')">Base_Alphanum100</a></b></div>
+                              <div><b><a href="doc-schema-asp7.html#id93" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum11')">Base_Alphanum11</a></b></div>
+                              <div><b><a href="doc-schema-asp48.html#id262" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum12')">Base_Alphanum12</a></b></div>
+                              <div><b><a href="doc-schema-asp34.html#id218" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum133')">Base_Alphanum133</a></b></div>
+                              <div><b><a href="doc-schema-asp47.html#id265" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum14')">Base_Alphanum14</a></b></div>
+                              <div><b><a href="doc-schema-asp55.html#id268" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum15')">Base_Alphanum15</a></b></div>
+                              <div><b><a href="doc-schema-asp61.html#id271" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum16')">Base_Alphanum16</a></b></div>
+                              <div><b><a href="doc-schema-asp36.html#id274" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum17')">Base_Alphanum17</a></b></div>
+                              <div><b><a href="doc-schema-asp49.html#id250" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum2')">Base_Alphanum2</a></b></div>
+                              <div><b><a href="doc-schema-asp65.html#id277" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum20')">Base_Alphanum20</a></b></div>
+                              <div><b><a href="doc-schema-asp50.html#id280" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum25')">Base_Alphanum25</a></b></div>
+                              <div><b><a href="doc-schema-asp45.html#id295" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum250')">Base_Alphanum250</a></b></div>
+                              <div><b><a href="doc-schema-asp86.html#id253" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum3')">Base_Alphanum3</a></b></div>
+                              <div><b><a href="doc-schema-asp84.html#id283" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum30')">Base_Alphanum30</a></b></div>
+                              <div><b><a href="doc-schema-asp90.html#id89" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum4')">Base_Alphanum4</a></b></div>
+                              <div><b><a href="doc-schema-asp14.html#id97" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum5')">Base_Alphanum5</a></b></div>
+                              <div><b><a href="doc-schema-asp92.html#id286" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum50')">Base_Alphanum50</a></b></div>
+                              <div><b><a href="doc-schema-asp78.html#id256" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum6')">Base_Alphanum6</a></b></div>
+                              <div><b><a href="doc-schema-asp87.html#id289" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Alphanum80')">Base_Alphanum80</a></b></div>
+                              <div><b><a href="doc-schema-asp51.html#id18" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Annee')">Base_Annee</a></b></div>
+                              <div><b><a href="doc-schema-asp60.html#id78" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Booleen')">Base_Booleen</a></b></div>
+                              <div><b><a href="doc-schema-asp12.html#id26" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></div>
+                              <div><b><a href="doc-schema-asp41.html#id14" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Dec2')">Base_Dec2</a></b></div>
+                              <div><b><a href="doc-schema-asp38.html#id364" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Dec3')">Base_Dec3</a></b></div>
+                              <div><b><a href="doc-schema-asp15.html#id168" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></div>
+                              <div><b><a href="doc-schema-asp3.html#id361" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Montant3')">Base_Montant3</a></b></div>
+                              <div><b><a href="doc-schema-asp69.html#id298" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num1')">Base_Num1</a></b></div>
+                              <div><b><a href="doc-schema-asp31.html#id310" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num10')">Base_Num10</a></b></div>
+                              <div><b><a href="doc-schema-asp64.html#id313" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num12')">Base_Num12</a></b></div>
+                              <div><b><a href="doc-schema-asp73.html#id205" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num13')">Base_Num13</a></b></div>
+                              <div><b><a href="doc-schema-asp44.html#id316" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num14')">Base_Num14</a></b></div>
+                              <div><b><a href="doc-schema-asp2.html#id319" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num15')">Base_Num15</a></b></div>
+                              <div><b><a href="doc-schema-asp81.html#id322" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num16')">Base_Num16</a></b></div>
+                              <div><b><a href="doc-schema-asp80.html#id325" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num17')">Base_Num17</a></b></div>
+                              <div><b><a href="doc-schema-asp24.html#id106" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num2')">Base_Num2</a></b></div>
+                              <div><b><a href="doc-schema-asp83.html#id328" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num20')">Base_Num20</a></b></div>
+                              <div><b><a href="doc-schema-asp37.html#id331" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num25')">Base_Num25</a></b></div>
+                              <div><b><a href="doc-schema-asp18.html#id82" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num3')">Base_Num3</a></b></div>
+                              <div><b><a href="doc-schema-asp88.html#id22" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num4')">Base_Num4</a></b></div>
+                              <div><b><a href="doc-schema-asp40.html#id301" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num5')">Base_Num5</a></b></div>
+                              <div><b><a href="doc-schema-asp30.html#id136" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num6')">Base_Num6</a></b></div>
+                              <div><b><a href="doc-schema-asp8.html#id201" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num7')">Base_Num7</a></b></div>
+                              <div><b><a href="doc-schema-asp85.html#id304" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num8')">Base_Num8</a></b></div>
+                              <div><b><a href="doc-schema-asp46.html#id307" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Num9')">Base_Num9</a></b></div>
+                              <div><b><a href="doc-schema-asp35.html#id173" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Taux')">Base_Taux</a></b></div>
+                              <div><b><a href="doc-schema-asp6.html#id177" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Taux3')">Base_Taux3</a></b></div>
+                              <div><b><a href="doc-schema-asp19.html#id56" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte10')">Base_Texte10</a></b></div>
+                              <div><b><a href="doc-schema-asp26.html#id132" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte100')">Base_Texte100</a></b></div>
+                              <div><b><a href="doc-schema-asp32.html#id102" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte11')">Base_Texte11</a></b></div>
+                              <div><b><a href="doc-schema-asp93.html#id343" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte12')">Base_Texte12</a></b></div>
+                              <div><b><a href="doc-schema-asp89.html#id346" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte14')">Base_Texte14</a></b></div>
+                              <div><b><a href="doc-schema-asp23.html#id34" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte15')">Base_Texte15</a></b></div>
+                              <div><b><a href="doc-schema-asp74.html#id349" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte16')">Base_Texte16</a></b></div>
+                              <div><b><a href="doc-schema-asp58.html#id155" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte160')">Base_Texte160</a></b></div>
+                              <div><b><a href="doc-schema-asp77.html#id334" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte2')">Base_Texte2</a></b></div>
+                              <div><b><a href="doc-schema-asp54.html#id128" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte20')">Base_Texte20</a></b></div>
+                              <div><b><a href="doc-schema-asp53.html#id355" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte200')">Base_Texte200</a></b></div>
+                              <div><b><a href="doc-schema-asp13.html#id115" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte24')">Base_Texte24</a></b></div>
+                              <div><b><a href="doc-schema-asp10.html#id352" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte25')">Base_Texte25</a></b></div>
+                              <div><b><a href="doc-schema-asp79.html#id210" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte250')">Base_Texte250</a></b></div>
+                              <div><b><a href="doc-schema-asp70.html#id46" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte30')">Base_Texte30</a></b></div>
+                              <div><b><a href="doc-schema-asp4.html#id119" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte32')">Base_Texte32</a></b></div>
+                              <div><b><a href="doc-schema-asp66.html#id111" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte34')">Base_Texte34</a></b></div>
+                              <div><b><a href="doc-schema-asp25.html#id60" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte38')">Base_Texte38</a></b></div>
+                              <div><b><a href="doc-schema-asp71.html#id73" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte5')">Base_Texte5</a></b></div>
+                              <div><b><a href="doc-schema-asp33.html#id143" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte50')">Base_Texte50</a></b></div>
+                              <div><b><a href="doc-schema-asp63.html#id358" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte500')">Base_Texte500</a></b></div>
+                              <div><b><a href="doc-schema-asp52.html#id337" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte6')">Base_Texte6</a></b></div>
+                              <div><b><a href="doc-schema-asp29.html#id340" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component Base_Texte7')">Base_Texte7</a></b></div>
+                              <div><b><a href="doc-schema-asp5.html#id66" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TAdresse')">TAdresse</a></b></div>
+                              <div><b><a href="doc-schema-asp43.html#id87" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TBancaire')">TBancaire</a></b></div>
+                              <div><b><a href="doc-schema-asp11.html#id50" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TCatTiers')">TCatTiers</a></b></div>
+                              <div><b><a href="doc-schema-asp91.html#id189" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TDetailTVA')">TDetailTVA</a></b></div>
+                              <div><b><a href="doc-schema-asp57.html#id149" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TFacturePESIndiv')">TFacturePESIndiv</a></b></div>
+                              <div><b><a href="doc-schema-asp21.html#id32" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TInfoTiers')">TInfoTiers</a></b></div>
+                              <div><b><a href="doc-schema-asp137.html#id367" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TInfoTiersFact')">TInfoTiersFact</a></b></div>
+                              <div><b><a href="doc-schema-asp68.html#id159" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TLigneFacture')">TLigneFacture</a></b></div>
+                              <div><b><a href="doc-schema-asp1.html#id231" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TLigneNomenclature')">TLigneNomenclature</a></b></div>
+                              <div><b><a href="doc-schema-asp28.html#id42" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TNatIdTiers')">TNatIdTiers</a></b></div>
+                              <div><b><a href="doc-schema-asp82.html#id53" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TNatJur')">TNatJur</a></b></div>
+                              <div><b><a href="doc-schema-asp27.html#id228" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TNomenclature')">TNomenclature</a></b></div>
+                              <div><b><a href="doc-schema-asp9.html#id199" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TRefCompta')">TRefCompta</a></b></div>
+                              <div><b><a href="doc-schema-asp16.html#id223" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TRepartitionBudget')">TRepartitionBudget</a></b></div>
+                              <div><b><a href="doc-schema-asp39.html#id30" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TTiers')">TTiers</a></b></div>
+                              <div><b><a href="doc-schema-asp75.html#id126" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TTiersInfosGenerales')">TTiersInfosGenerales</a></b></div>
+                              <div><b><a href="doc-schema-asp20.html#id216" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TTip')">TTip</a></b></div>
+                              <div><b><a href="doc-schema-asp59.html#id194" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TTotalAPayer')">TTotalAPayer</a></b></div>
+                              <div><b><a href="doc-schema-asp42.html#id39" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component TTypTiers')">TTypTiers</a></b></div>
+                              <div><b><a href="doc-schema-asp72.html#id12" target="mainFrame"
+                                       title="http://xemelios.org/schemas/asp"
+                                       onclick="updatePageTitle('Schema documentation for component asp:TAvisSommesAPayer')">asp:TAvisSommesAPayer</a></b></div>
+                              <div><b><a href="doc-schema-asp0.html#id237" target="mainFrame"
+                                       title="http://xemelios.org/schemas/asp"
+                                       onclick="updatePageTitle('Schema documentation for component asp:TLigneRepartition')">asp:TLigneRepartition</a></b></div>
+                              <div><b><a href="doc-schema-asp67.html#id243" target="mainFrame"
+                                       title="http://xemelios.org/schemas/asp"
+                                       onclick="updatePageTitle('Schema documentation for component asp:TNomenclatureFacture')">asp:TNomenclatureFacture</a></b></div>
+                              <div><b><a href="doc-schema-asp62.html#id235" target="mainFrame"
+                                       title="http://xemelios.org/schemas/asp"
+                                       onclick="updatePageTitle('Schema documentation for component asp:TRepartitionParNature')">asp:TRepartitionParNature</a></b></div>
+                              <div><b><a href="doc-schema-asp22.html#id140" target="mainFrame"
+                                       title="http://xemelios.org/schemas/asp"
+                                       onclick="updatePageTitle('Schema documentation for component asp:TSignataire')">asp:TSignataire</a></b></div>
+                           </div>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <div class="componentGroupTitle">Simple Types
+                              
+                           </div>
+                           <div id="Simple_Type" style="display:block">
+                              <div><b><a href="doc-schema-asp138.html#id249" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum1')">V_Alphanum1</a></b></div>
+                              <div><b><a href="doc-schema-asp142.html#id261" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum10')">V_Alphanum10</a></b></div>
+                              <div><b><a href="doc-schema-asp153.html#id294" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum100')">V_Alphanum100</a></b></div>
+                              <div><b><a href="doc-schema-asp118.html#id95" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum11')">V_Alphanum11</a></b></div>
+                              <div><b><a href="doc-schema-asp143.html#id264" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum12')">V_Alphanum12</a></b></div>
+                              <div><b><a href="doc-schema-asp136.html#id220" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum133')">V_Alphanum133</a></b></div>
+                              <div><b><a href="doc-schema-asp144.html#id267" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum14')">V_Alphanum14</a></b></div>
+                              <div><b><a href="doc-schema-asp145.html#id270" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum15')">V_Alphanum15</a></b></div>
+                              <div><b><a href="doc-schema-asp146.html#id273" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum16')">V_Alphanum16</a></b></div>
+                              <div><b><a href="doc-schema-asp147.html#id276" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum17')">V_Alphanum17</a></b></div>
+                              <div><b><a href="doc-schema-asp139.html#id252" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum2')">V_Alphanum2</a></b></div>
+                              <div><b><a href="doc-schema-asp148.html#id279" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum20')">V_Alphanum20</a></b></div>
+                              <div><b><a href="doc-schema-asp149.html#id282" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum25')">V_Alphanum25</a></b></div>
+                              <div><b><a href="doc-schema-asp154.html#id297" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum250')">V_Alphanum250</a></b></div>
+                              <div><b><a href="doc-schema-asp140.html#id255" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum3')">V_Alphanum3</a></b></div>
+                              <div><b><a href="doc-schema-asp150.html#id285" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum30')">V_Alphanum30</a></b></div>
+                              <div><b><a href="doc-schema-asp117.html#id91" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum4')">V_Alphanum4</a></b></div>
+                              <div><b><a href="doc-schema-asp119.html#id99" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum5')">V_Alphanum5</a></b></div>
+                              <div><b><a href="doc-schema-asp151.html#id288" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum50')">V_Alphanum50</a></b></div>
+                              <div><b><a href="doc-schema-asp141.html#id258" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum6')">V_Alphanum6</a></b></div>
+                              <div><b><a href="doc-schema-asp152.html#id291" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Alphanum80')">V_Alphanum80</a></b></div>
+                              <div><b><a href="doc-schema-asp107.html#id20" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Annee')">V_Annee</a></b></div>
+                              <div><b><a href="doc-schema-asp115.html#id80" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Booleen')">V_Booleen</a></b></div>
+                              <div><b><a href="doc-schema-asp109.html#id28" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></div>
+                              <div><b><a href="doc-schema-asp106.html#id16" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Dec2')">V_Dec2</a></b></div>
+                              <div><b><a href="doc-schema-asp177.html#id366" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Dec3')">V_Dec3</a></b></div>
+                              <div><b><a href="doc-schema-asp130.html#id170" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></div>
+                              <div><b><a href="doc-schema-asp176.html#id363" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Montant3')">V_Montant3</a></b></div>
+                              <div><b><a href="doc-schema-asp155.html#id300" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num1')">V_Num1</a></b></div>
+                              <div><b><a href="doc-schema-asp159.html#id312" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num10')">V_Num10</a></b></div>
+                              <div><b><a href="doc-schema-asp160.html#id315" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num12')">V_Num12</a></b></div>
+                              <div><b><a href="doc-schema-asp134.html#id207" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num13')">V_Num13</a></b></div>
+                              <div><b><a href="doc-schema-asp161.html#id318" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num14')">V_Num14</a></b></div>
+                              <div><b><a href="doc-schema-asp162.html#id321" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num15')">V_Num15</a></b></div>
+                              <div><b><a href="doc-schema-asp163.html#id324" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num16')">V_Num16</a></b></div>
+                              <div><b><a href="doc-schema-asp164.html#id327" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num17')">V_Num17</a></b></div>
+                              <div><b><a href="doc-schema-asp121.html#id108" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num2')">V_Num2</a></b></div>
+                              <div><b><a href="doc-schema-asp165.html#id330" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num20')">V_Num20</a></b></div>
+                              <div><b><a href="doc-schema-asp166.html#id333" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num25')">V_Num25</a></b></div>
+                              <div><b><a href="doc-schema-asp116.html#id84" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num3')">V_Num3</a></b></div>
+                              <div><b><a href="doc-schema-asp108.html#id24" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num4')">V_Num4</a></b></div>
+                              <div><b><a href="doc-schema-asp156.html#id303" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num5')">V_Num5</a></b></div>
+                              <div><b><a href="doc-schema-asp127.html#id138" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num6')">V_Num6</a></b></div>
+                              <div><b><a href="doc-schema-asp133.html#id203" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num7')">V_Num7</a></b></div>
+                              <div><b><a href="doc-schema-asp157.html#id306" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num8')">V_Num8</a></b></div>
+                              <div><b><a href="doc-schema-asp158.html#id309" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Num9')">V_Num9</a></b></div>
+                              <div><b><a href="doc-schema-asp131.html#id175" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Taux')">V_Taux</a></b></div>
+                              <div><b><a href="doc-schema-asp132.html#id179" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Taux3')">V_Taux3</a></b></div>
+                              <div><b><a href="doc-schema-asp112.html#id58" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte10')">V_Texte10</a></b></div>
+                              <div><b><a href="doc-schema-asp126.html#id134" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte100')">V_Texte100</a></b></div>
+                              <div><b><a href="doc-schema-asp120.html#id104" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte11')">V_Texte11</a></b></div>
+                              <div><b><a href="doc-schema-asp170.html#id345" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte12')">V_Texte12</a></b></div>
+                              <div><b><a href="doc-schema-asp171.html#id348" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte14')">V_Texte14</a></b></div>
+                              <div><b><a href="doc-schema-asp110.html#id36" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte15')">V_Texte15</a></b></div>
+                              <div><b><a href="doc-schema-asp172.html#id351" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte16')">V_Texte16</a></b></div>
+                              <div><b><a href="doc-schema-asp129.html#id157" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte160')">V_Texte160</a></b></div>
+                              <div><b><a href="doc-schema-asp167.html#id336" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte2')">V_Texte2</a></b></div>
+                              <div><b><a href="doc-schema-asp125.html#id130" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte20')">V_Texte20</a></b></div>
+                              <div><b><a href="doc-schema-asp174.html#id357" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte200')">V_Texte200</a></b></div>
+                              <div><b><a href="doc-schema-asp123.html#id117" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte24')">V_Texte24</a></b></div>
+                              <div><b><a href="doc-schema-asp173.html#id354" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte25')">V_Texte25</a></b></div>
+                              <div><b><a href="doc-schema-asp135.html#id212" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte250')">V_Texte250</a></b></div>
+                              <div><b><a href="doc-schema-asp111.html#id48" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte30')">V_Texte30</a></b></div>
+                              <div><b><a href="doc-schema-asp124.html#id121" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte32')">V_Texte32</a></b></div>
+                              <div><b><a href="doc-schema-asp122.html#id113" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte34')">V_Texte34</a></b></div>
+                              <div><b><a href="doc-schema-asp113.html#id62" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte38')">V_Texte38</a></b></div>
+                              <div><b><a href="doc-schema-asp114.html#id75" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte5')">V_Texte5</a></b></div>
+                              <div><b><a href="doc-schema-asp128.html#id145" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte50')">V_Texte50</a></b></div>
+                              <div><b><a href="doc-schema-asp175.html#id360" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte500')">V_Texte500</a></b></div>
+                              <div><b><a href="doc-schema-asp168.html#id339" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte6')">V_Texte6</a></b></div>
+                              <div><b><a href="doc-schema-asp169.html#id342" target="mainFrame" title="No namespace"
+                                       onclick="updatePageTitle('Schema documentation for component V_Texte7')">V_Texte7</a></b></div>
+                           </div>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div style="clear:left"></div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_location" style="display:none">
+            <div>
+               <div class="level2">
+                  <p><input id="button_ASP.xsd" type="image" value="-" src="images/button_minus.gif"
+                            onclick="switchState('ASP.xsd');"
+                            class="control" /><span class="indexGroupTitle">ASP.xsd</span></p>
+                  <div id="ASP.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Elements
+                                    
+                                 </div>
+                                 <div id="ASP.xsdElement" style="display:block">
+                                    <div><b><a href="doc-schema-asp105.html#id11" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:AvisSommesAPayer')">asp:AvisSommesAPayer</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="ASP.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp72.html#id12" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TAvisSommesAPayer')">asp:TAvisSommesAPayer</a></b></div>
+                                    <div><b><a href="doc-schema-asp0.html#id237" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TLigneRepartition')">asp:TLigneRepartition</a></b></div>
+                                    <div><b><a href="doc-schema-asp67.html#id243" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TNomenclatureFacture')">asp:TNomenclatureFacture</a></b></div>
+                                    <div><b><a href="doc-schema-asp62.html#id235" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TRepartitionParNature')">asp:TRepartitionParNature</a></b></div>
+                                    <div><b><a href="doc-schema-asp22.html#id140" target="mainFrame"
+                                             title="http://xemelios.org/schemas/asp"
+                                             onclick="updatePageTitle('Schema documentation for component asp:TSignataire')">asp:TSignataire</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Simple_Type.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Simple_Type.xsd');"
+                            class="control" /><span class="indexGroupTitle">Simple_Type.xsd</span></p>
+                  <div id="Simple_Type.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Simple_Type.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp56.html#id247" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum1')">Base_Alphanum1</a></b></div>
+                                    <div><b><a href="doc-schema-asp17.html#id259" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum10')">Base_Alphanum10</a></b></div>
+                                    <div><b><a href="doc-schema-asp76.html#id292" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum100')">Base_Alphanum100</a></b></div>
+                                    <div><b><a href="doc-schema-asp7.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum11')">Base_Alphanum11</a></b></div>
+                                    <div><b><a href="doc-schema-asp48.html#id262" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum12')">Base_Alphanum12</a></b></div>
+                                    <div><b><a href="doc-schema-asp34.html#id218" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum133')">Base_Alphanum133</a></b></div>
+                                    <div><b><a href="doc-schema-asp47.html#id265" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum14')">Base_Alphanum14</a></b></div>
+                                    <div><b><a href="doc-schema-asp55.html#id268" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum15')">Base_Alphanum15</a></b></div>
+                                    <div><b><a href="doc-schema-asp61.html#id271" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum16')">Base_Alphanum16</a></b></div>
+                                    <div><b><a href="doc-schema-asp36.html#id274" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum17')">Base_Alphanum17</a></b></div>
+                                    <div><b><a href="doc-schema-asp49.html#id250" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum2')">Base_Alphanum2</a></b></div>
+                                    <div><b><a href="doc-schema-asp65.html#id277" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum20')">Base_Alphanum20</a></b></div>
+                                    <div><b><a href="doc-schema-asp50.html#id280" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum25')">Base_Alphanum25</a></b></div>
+                                    <div><b><a href="doc-schema-asp45.html#id295" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum250')">Base_Alphanum250</a></b></div>
+                                    <div><b><a href="doc-schema-asp86.html#id253" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum3')">Base_Alphanum3</a></b></div>
+                                    <div><b><a href="doc-schema-asp84.html#id283" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum30')">Base_Alphanum30</a></b></div>
+                                    <div><b><a href="doc-schema-asp90.html#id89" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum4')">Base_Alphanum4</a></b></div>
+                                    <div><b><a href="doc-schema-asp14.html#id97" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum5')">Base_Alphanum5</a></b></div>
+                                    <div><b><a href="doc-schema-asp92.html#id286" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum50')">Base_Alphanum50</a></b></div>
+                                    <div><b><a href="doc-schema-asp78.html#id256" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum6')">Base_Alphanum6</a></b></div>
+                                    <div><b><a href="doc-schema-asp87.html#id289" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Alphanum80')">Base_Alphanum80</a></b></div>
+                                    <div><b><a href="doc-schema-asp51.html#id18" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Annee')">Base_Annee</a></b></div>
+                                    <div><b><a href="doc-schema-asp60.html#id78" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Booleen')">Base_Booleen</a></b></div>
+                                    <div><b><a href="doc-schema-asp12.html#id26" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></div>
+                                    <div><b><a href="doc-schema-asp41.html#id14" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Dec2')">Base_Dec2</a></b></div>
+                                    <div><b><a href="doc-schema-asp38.html#id364" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Dec3')">Base_Dec3</a></b></div>
+                                    <div><b><a href="doc-schema-asp15.html#id168" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></div>
+                                    <div><b><a href="doc-schema-asp3.html#id361" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Montant3')">Base_Montant3</a></b></div>
+                                    <div><b><a href="doc-schema-asp69.html#id298" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num1')">Base_Num1</a></b></div>
+                                    <div><b><a href="doc-schema-asp31.html#id310" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num10')">Base_Num10</a></b></div>
+                                    <div><b><a href="doc-schema-asp64.html#id313" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num12')">Base_Num12</a></b></div>
+                                    <div><b><a href="doc-schema-asp73.html#id205" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num13')">Base_Num13</a></b></div>
+                                    <div><b><a href="doc-schema-asp44.html#id316" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num14')">Base_Num14</a></b></div>
+                                    <div><b><a href="doc-schema-asp2.html#id319" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num15')">Base_Num15</a></b></div>
+                                    <div><b><a href="doc-schema-asp81.html#id322" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num16')">Base_Num16</a></b></div>
+                                    <div><b><a href="doc-schema-asp80.html#id325" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num17')">Base_Num17</a></b></div>
+                                    <div><b><a href="doc-schema-asp24.html#id106" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num2')">Base_Num2</a></b></div>
+                                    <div><b><a href="doc-schema-asp83.html#id328" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num20')">Base_Num20</a></b></div>
+                                    <div><b><a href="doc-schema-asp37.html#id331" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num25')">Base_Num25</a></b></div>
+                                    <div><b><a href="doc-schema-asp18.html#id82" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num3')">Base_Num3</a></b></div>
+                                    <div><b><a href="doc-schema-asp88.html#id22" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num4')">Base_Num4</a></b></div>
+                                    <div><b><a href="doc-schema-asp40.html#id301" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num5')">Base_Num5</a></b></div>
+                                    <div><b><a href="doc-schema-asp30.html#id136" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num6')">Base_Num6</a></b></div>
+                                    <div><b><a href="doc-schema-asp8.html#id201" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num7')">Base_Num7</a></b></div>
+                                    <div><b><a href="doc-schema-asp85.html#id304" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num8')">Base_Num8</a></b></div>
+                                    <div><b><a href="doc-schema-asp46.html#id307" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Num9')">Base_Num9</a></b></div>
+                                    <div><b><a href="doc-schema-asp35.html#id173" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Taux')">Base_Taux</a></b></div>
+                                    <div><b><a href="doc-schema-asp6.html#id177" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Taux3')">Base_Taux3</a></b></div>
+                                    <div><b><a href="doc-schema-asp19.html#id56" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte10')">Base_Texte10</a></b></div>
+                                    <div><b><a href="doc-schema-asp26.html#id132" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte100')">Base_Texte100</a></b></div>
+                                    <div><b><a href="doc-schema-asp32.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte11')">Base_Texte11</a></b></div>
+                                    <div><b><a href="doc-schema-asp93.html#id343" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte12')">Base_Texte12</a></b></div>
+                                    <div><b><a href="doc-schema-asp89.html#id346" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte14')">Base_Texte14</a></b></div>
+                                    <div><b><a href="doc-schema-asp23.html#id34" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte15')">Base_Texte15</a></b></div>
+                                    <div><b><a href="doc-schema-asp74.html#id349" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte16')">Base_Texte16</a></b></div>
+                                    <div><b><a href="doc-schema-asp58.html#id155" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte160')">Base_Texte160</a></b></div>
+                                    <div><b><a href="doc-schema-asp77.html#id334" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte2')">Base_Texte2</a></b></div>
+                                    <div><b><a href="doc-schema-asp54.html#id128" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte20')">Base_Texte20</a></b></div>
+                                    <div><b><a href="doc-schema-asp53.html#id355" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte200')">Base_Texte200</a></b></div>
+                                    <div><b><a href="doc-schema-asp13.html#id115" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte24')">Base_Texte24</a></b></div>
+                                    <div><b><a href="doc-schema-asp10.html#id352" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte25')">Base_Texte25</a></b></div>
+                                    <div><b><a href="doc-schema-asp79.html#id210" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte250')">Base_Texte250</a></b></div>
+                                    <div><b><a href="doc-schema-asp70.html#id46" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte30')">Base_Texte30</a></b></div>
+                                    <div><b><a href="doc-schema-asp4.html#id119" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte32')">Base_Texte32</a></b></div>
+                                    <div><b><a href="doc-schema-asp66.html#id111" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte34')">Base_Texte34</a></b></div>
+                                    <div><b><a href="doc-schema-asp25.html#id60" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte38')">Base_Texte38</a></b></div>
+                                    <div><b><a href="doc-schema-asp71.html#id73" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte5')">Base_Texte5</a></b></div>
+                                    <div><b><a href="doc-schema-asp33.html#id143" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte50')">Base_Texte50</a></b></div>
+                                    <div><b><a href="doc-schema-asp63.html#id358" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte500')">Base_Texte500</a></b></div>
+                                    <div><b><a href="doc-schema-asp52.html#id337" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte6')">Base_Texte6</a></b></div>
+                                    <div><b><a href="doc-schema-asp29.html#id340" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component Base_Texte7')">Base_Texte7</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Simple Types
+                                    
+                                 </div>
+                                 <div id="Simple_Type.xsdSimple_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp138.html#id249" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum1')">V_Alphanum1</a></b></div>
+                                    <div><b><a href="doc-schema-asp142.html#id261" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum10')">V_Alphanum10</a></b></div>
+                                    <div><b><a href="doc-schema-asp153.html#id294" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum100')">V_Alphanum100</a></b></div>
+                                    <div><b><a href="doc-schema-asp118.html#id95" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum11')">V_Alphanum11</a></b></div>
+                                    <div><b><a href="doc-schema-asp143.html#id264" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum12')">V_Alphanum12</a></b></div>
+                                    <div><b><a href="doc-schema-asp136.html#id220" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum133')">V_Alphanum133</a></b></div>
+                                    <div><b><a href="doc-schema-asp144.html#id267" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum14')">V_Alphanum14</a></b></div>
+                                    <div><b><a href="doc-schema-asp145.html#id270" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum15')">V_Alphanum15</a></b></div>
+                                    <div><b><a href="doc-schema-asp146.html#id273" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum16')">V_Alphanum16</a></b></div>
+                                    <div><b><a href="doc-schema-asp147.html#id276" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum17')">V_Alphanum17</a></b></div>
+                                    <div><b><a href="doc-schema-asp139.html#id252" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum2')">V_Alphanum2</a></b></div>
+                                    <div><b><a href="doc-schema-asp148.html#id279" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum20')">V_Alphanum20</a></b></div>
+                                    <div><b><a href="doc-schema-asp149.html#id282" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum25')">V_Alphanum25</a></b></div>
+                                    <div><b><a href="doc-schema-asp154.html#id297" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum250')">V_Alphanum250</a></b></div>
+                                    <div><b><a href="doc-schema-asp140.html#id255" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum3')">V_Alphanum3</a></b></div>
+                                    <div><b><a href="doc-schema-asp150.html#id285" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum30')">V_Alphanum30</a></b></div>
+                                    <div><b><a href="doc-schema-asp117.html#id91" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum4')">V_Alphanum4</a></b></div>
+                                    <div><b><a href="doc-schema-asp119.html#id99" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum5')">V_Alphanum5</a></b></div>
+                                    <div><b><a href="doc-schema-asp151.html#id288" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum50')">V_Alphanum50</a></b></div>
+                                    <div><b><a href="doc-schema-asp141.html#id258" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum6')">V_Alphanum6</a></b></div>
+                                    <div><b><a href="doc-schema-asp152.html#id291" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum80')">V_Alphanum80</a></b></div>
+                                    <div><b><a href="doc-schema-asp107.html#id20" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Annee')">V_Annee</a></b></div>
+                                    <div><b><a href="doc-schema-asp115.html#id80" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Booleen')">V_Booleen</a></b></div>
+                                    <div><b><a href="doc-schema-asp109.html#id28" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></div>
+                                    <div><b><a href="doc-schema-asp106.html#id16" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Dec2')">V_Dec2</a></b></div>
+                                    <div><b><a href="doc-schema-asp177.html#id366" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Dec3')">V_Dec3</a></b></div>
+                                    <div><b><a href="doc-schema-asp130.html#id170" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></div>
+                                    <div><b><a href="doc-schema-asp176.html#id363" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant3')">V_Montant3</a></b></div>
+                                    <div><b><a href="doc-schema-asp155.html#id300" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num1')">V_Num1</a></b></div>
+                                    <div><b><a href="doc-schema-asp159.html#id312" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num10')">V_Num10</a></b></div>
+                                    <div><b><a href="doc-schema-asp160.html#id315" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num12')">V_Num12</a></b></div>
+                                    <div><b><a href="doc-schema-asp134.html#id207" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num13')">V_Num13</a></b></div>
+                                    <div><b><a href="doc-schema-asp161.html#id318" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num14')">V_Num14</a></b></div>
+                                    <div><b><a href="doc-schema-asp162.html#id321" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num15')">V_Num15</a></b></div>
+                                    <div><b><a href="doc-schema-asp163.html#id324" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num16')">V_Num16</a></b></div>
+                                    <div><b><a href="doc-schema-asp164.html#id327" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num17')">V_Num17</a></b></div>
+                                    <div><b><a href="doc-schema-asp121.html#id108" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num2')">V_Num2</a></b></div>
+                                    <div><b><a href="doc-schema-asp165.html#id330" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num20')">V_Num20</a></b></div>
+                                    <div><b><a href="doc-schema-asp166.html#id333" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num25')">V_Num25</a></b></div>
+                                    <div><b><a href="doc-schema-asp116.html#id84" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num3')">V_Num3</a></b></div>
+                                    <div><b><a href="doc-schema-asp108.html#id24" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num4')">V_Num4</a></b></div>
+                                    <div><b><a href="doc-schema-asp156.html#id303" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num5')">V_Num5</a></b></div>
+                                    <div><b><a href="doc-schema-asp127.html#id138" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num6')">V_Num6</a></b></div>
+                                    <div><b><a href="doc-schema-asp133.html#id203" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num7')">V_Num7</a></b></div>
+                                    <div><b><a href="doc-schema-asp157.html#id306" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num8')">V_Num8</a></b></div>
+                                    <div><b><a href="doc-schema-asp158.html#id309" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num9')">V_Num9</a></b></div>
+                                    <div><b><a href="doc-schema-asp131.html#id175" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Taux')">V_Taux</a></b></div>
+                                    <div><b><a href="doc-schema-asp132.html#id179" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Taux3')">V_Taux3</a></b></div>
+                                    <div><b><a href="doc-schema-asp112.html#id58" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte10')">V_Texte10</a></b></div>
+                                    <div><b><a href="doc-schema-asp126.html#id134" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte100')">V_Texte100</a></b></div>
+                                    <div><b><a href="doc-schema-asp120.html#id104" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte11')">V_Texte11</a></b></div>
+                                    <div><b><a href="doc-schema-asp170.html#id345" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte12')">V_Texte12</a></b></div>
+                                    <div><b><a href="doc-schema-asp171.html#id348" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte14')">V_Texte14</a></b></div>
+                                    <div><b><a href="doc-schema-asp110.html#id36" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte15')">V_Texte15</a></b></div>
+                                    <div><b><a href="doc-schema-asp172.html#id351" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte16')">V_Texte16</a></b></div>
+                                    <div><b><a href="doc-schema-asp129.html#id157" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte160')">V_Texte160</a></b></div>
+                                    <div><b><a href="doc-schema-asp167.html#id336" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte2')">V_Texte2</a></b></div>
+                                    <div><b><a href="doc-schema-asp125.html#id130" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte20')">V_Texte20</a></b></div>
+                                    <div><b><a href="doc-schema-asp174.html#id357" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte200')">V_Texte200</a></b></div>
+                                    <div><b><a href="doc-schema-asp123.html#id117" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte24')">V_Texte24</a></b></div>
+                                    <div><b><a href="doc-schema-asp173.html#id354" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte25')">V_Texte25</a></b></div>
+                                    <div><b><a href="doc-schema-asp135.html#id212" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte250')">V_Texte250</a></b></div>
+                                    <div><b><a href="doc-schema-asp111.html#id48" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte30')">V_Texte30</a></b></div>
+                                    <div><b><a href="doc-schema-asp124.html#id121" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte32')">V_Texte32</a></b></div>
+                                    <div><b><a href="doc-schema-asp122.html#id113" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte34')">V_Texte34</a></b></div>
+                                    <div><b><a href="doc-schema-asp113.html#id62" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte38')">V_Texte38</a></b></div>
+                                    <div><b><a href="doc-schema-asp114.html#id75" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte5')">V_Texte5</a></b></div>
+                                    <div><b><a href="doc-schema-asp128.html#id145" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte50')">V_Texte50</a></b></div>
+                                    <div><b><a href="doc-schema-asp175.html#id360" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte500')">V_Texte500</a></b></div>
+                                    <div><b><a href="doc-schema-asp168.html#id339" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte6')">V_Texte6</a></b></div>
+                                    <div><b><a href="doc-schema-asp169.html#id342" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte7')">V_Texte7</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Tiers.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Tiers.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Tiers.xsd</span></p>
+                  <div id="Class_Tiers.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Tiers.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp137.html#id367" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TInfoTiersFact')">TInfoTiersFact</a></b></div>
+                                    <div><b><a href="doc-schema-asp39.html#id30" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTiers')">TTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp75.html#id126" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTiersInfosGenerales')">TTiersInfosGenerales</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_InfoTiers.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_InfoTiers.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_InfoTiers.xsd</span></p>
+                  <div id="Class_InfoTiers.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_InfoTiers.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp21.html#id32" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TInfoTiers')">TInfoTiers</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_CommunPES.xsd" type="image" value="-" src="images/button_minus.gif"
+                            onclick="switchState('CommunPES.xsd');"
+                            class="control" /><span class="indexGroupTitle">CommunPES.xsd</span></p>
+                  <div id="CommunPES.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="CommunPES.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp11.html#id50" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TCatTiers')">TCatTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp28.html#id42" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TNatIdTiers')">TNatIdTiers</a></b></div>
+                                    <div><b><a href="doc-schema-asp82.html#id53" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TNatJur')">TNatJur</a></b></div>
+                                    <div><b><a href="doc-schema-asp42.html#id39" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTypTiers')">TTypTiers</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Adresse.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Adresse.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Adresse.xsd</span></p>
+                  <div id="Class_Adresse.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Adresse.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp5.html#id66" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TAdresse')">TAdresse</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Bancaire.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Bancaire.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Bancaire.xsd</span></p>
+                  <div id="Class_Bancaire.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Bancaire.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp43.html#id87" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TBancaire')">TBancaire</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_FacturePESIndiv.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_FacturePESIndiv.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_FacturePESIndiv.xsd</span></p>
+                  <div id="Class_FacturePESIndiv.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_FacturePESIndiv.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp91.html#id189" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TDetailTVA')">TDetailTVA</a></b></div>
+                                    <div><b><a href="doc-schema-asp57.html#id149" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TFacturePESIndiv')">TFacturePESIndiv</a></b></div>
+                                    <div><b><a href="doc-schema-asp68.html#id159" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TLigneFacture')">TLigneFacture</a></b></div>
+                                    <div><b><a href="doc-schema-asp9.html#id199" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TRefCompta')">TRefCompta</a></b></div>
+                                    <div><b><a href="doc-schema-asp20.html#id216" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTip')">TTip</a></b></div>
+                                    <div><b><a href="doc-schema-asp59.html#id194" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TTotalAPayer')">TTotalAPayer</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_RepartitionBudget.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_RepartitionBudget.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_RepartitionBudget.xsd</span></p>
+                  <div id="Class_RepartitionBudget.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_RepartitionBudget.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp16.html#id223" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TRepartitionBudget')">TRepartitionBudget</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_Class_Nomenclature.xsd" type="image" value="-"
+                            src="images/button_minus.gif"
+                            onclick="switchState('Class_Nomenclature.xsd');"
+                            class="control" /><span class="indexGroupTitle">Class_Nomenclature.xsd</span></p>
+                  <div id="Class_Nomenclature.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="Class_Nomenclature.xsdComplex_Type" style="display:block">
+                                    <div><b><a href="doc-schema-asp1.html#id231" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TLigneNomenclature')">TLigneNomenclature</a></b></div>
+                                    <div><b><a href="doc-schema-asp27.html#id228" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TNomenclature')">TNomenclature</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

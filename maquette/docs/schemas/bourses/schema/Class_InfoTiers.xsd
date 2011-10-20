@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	This file is part of "bourses".
+	
+	XEMELIOS_NB is free software; you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	"bourses" is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with "bourses" ; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:include schemaLocation="Codifications.xsd"/>
+	<xs:complexType name="TInfoTiers">
+		<xs:sequence>
+			<xs:element name="IdTiers" type="Base_Texte30" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Identifiant national du tiers - pour personne moral, le  siren/siret (uniquement pour compatibilité avec le tiers au format Helios)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NatIdTiers" type="TNatIdTiers" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Nature de l'identifiant tiers</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DteIdTiers" type="Base_Date" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Date de dernière modification du tiers</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RefTiers" type="Base_Texte30" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Référence interne du tiers pour l'organisme émetteur</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CatTiers" type="TCatTiers" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Catégorie du tiers</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NatJur" type="TNatJur" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Nature juridique</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Civilite" type="Base_Texte10" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Civilité du tiers, quand applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nom" type="Base_Texte100"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Nom du tiers (personne moral ou physique)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ComplNom" type="Base_Texte50" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Complément du nom, quand applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Prenom" type="Base_Texte50" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Prénom du tiers, quand applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

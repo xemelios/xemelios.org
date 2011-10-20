@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This file is part of "bourses".
+
+XEMELIOS_NB is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+"bourses" is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with "bourses" ; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:element id="CpteBancaire" name="CpteBancaire">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ID" type="Base_Alphanum50" minOccurs="0" maxOccurs="1" form="qualified">
+					<xs:annotation>
+						<xs:documentation>L'identifiant du compte. Obligatoire pour le BIC/IBAN</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IdPayInt" type="Base_Alphanum4" minOccurs="0"  form="qualified">
+					<xs:annotation>
+						<xs:documentation>Code Pays. Pour le BBAN</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IdBancInt" type="Base_Alphanum11" minOccurs="0"  form="qualified">
+					<xs:annotation>
+						<xs:documentation>Code Banque. Pour le BBAN.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CodeEtab" type="Base_Alphanum5"  form="qualified" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Le code étblissement. Obligatoire pour le BBAN.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CodeGuic" type="Base_Alphanum5"  form="qualified" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Le code guichet. Obligatoire pour le BBAN.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IdCpte" type="Base_Texte11"  form="qualified" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Le numéro de compte. Obligatoire pour le BBAN</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CleRib" type="Base_Num2"  form="qualified" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>La clé de contrôle. Obligatoire pour le BBAN pour les comàptes français.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="LibBanc" type="Base_Texte24" minOccurs="0" form="qualified">
+					<xs:annotation>
+						<xs:documentation>Le libellé de la banque</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="TitCpte" type="Base_Texte32"  form="qualified">
+					<xs:annotation>
+						<xs:documentation>Le titulaire du compte. Obligatoire pour le BBAN</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DteBanc" type="Base_Date" minOccurs="0" form="qualified"/>
+			</xs:sequence>
+			<xs:attribute name="type" use="optional" default="BBAN">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="BBAN"><xs:annotation><xs:documentation>Un BBAN (en fançais, RIB)</xs:documentation></xs:annotation></xs:enumeration>
+						<xs:enumeration value="IBAN"><xs:annotation><xs:documentation>Un compte encodé au format BIC/IBAN</xs:documentation></xs:annotation></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by TEAM (RENEGADE) -->
+<xs:schema xmlns:cm="http://www.minefi.gouv.fr/cp/helios/pes/commun" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:import namespace="http://www.minefi.gouv.fr/cp/helios/pes/commun" schemaLocation="Class_SchemasCommuns.xsd"/>
+	<xs:complexType name="TRepartitionBudget">
+		<xs:sequence>
+			<xs:element name="CodeBudget" type="cm:Base_Texte24"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>Code du budget de comptabilisation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="Taux" type="cm:Base_Taux"  form="qualified">
+					<xs:annotation>
+						<xs:documentation>(si répartitionau prorata)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Mt" type="cm:Base_Montant"  form="qualified">
+					<xs:annotation>
+						<xs:documentation>(si répartition forfaitaire)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+		<xs:complexType name="TLigneRepartition">
+		<xs:sequence>
+			<xs:element name="Libelle" type="cm:Base_Texte100"  form="qualified"/>
+			<xs:element name="Code" type="cm:Base_Texte24"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>code Nature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CodeFonction" type="cm:Base_Texte24" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>dans le cas d'une imputation par fonction</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CodeBudget" type="cm:Base_Texte24" minOccurs="0"  form="qualified">
+				<xs:annotation>
+					<xs:documentation>dans le cas d'une imputation multi-budget</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Mt" type="cm:Base_Montant"  form="qualified"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TRepartitionParNature">
+		<xs:sequence>
+			<xs:element name="Repartition" type="TLigneRepartition" maxOccurs="unbounded"  form="qualified"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

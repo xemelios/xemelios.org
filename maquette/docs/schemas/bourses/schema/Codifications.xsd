@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	This file is part of "bourses".
+	
+	XEMELIOS_NB is free software; you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	"bourses" is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with "bourses" ; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:complexType name="TNatIdTiers">
+		<xs:attribute name="V" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="01"><xs:annotation><xs:documentation>SIRET</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="02"><xs:annotation><xs:documentation>SIREN</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="03"><xs:annotation><xs:documentation>FINESS</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="04"><xs:annotation><xs:documentation>NIR</xs:documentation></xs:annotation></xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TCatTiers">
+		<xs:attribute name="V" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="01"><xs:annotation><xs:documentation>Personnes physiques</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="20"><xs:annotation><xs:documentation>Etat et établissements publics nationaux</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="21"><xs:annotation><xs:documentation>Régions</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="22"><xs:annotation><xs:documentation>Départements</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="23"><xs:annotation><xs:documentation>Communes</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="24"><xs:annotation><xs:documentation>Groupements de collectivités</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="25"><xs:annotation><xs:documentation>Caisses des écoles</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="26"><xs:annotation><xs:documentation>CCAS</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="27"><xs:annotation><xs:documentation>Etablissements publics de santé</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="28"><xs:annotation><xs:documentation>Ecole nationale de la santé publique</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="29"><xs:annotation><xs:documentation>Autres établissements publics et organismes internationaux</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="50"><xs:annotation><xs:documentation>Personnes morales de droit privé autres qu'organismes sociaux</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="60"><xs:annotation><xs:documentation>Caisses de sécurité sociale régime général</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="61"><xs:annotation><xs:documentation>Caisses de sécurité sociale régime agricole</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="62"><xs:annotation><xs:documentation>Sécurité sociale des travailleurs non salariés et professions non agricoles</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="63"><xs:annotation><xs:documentation>Autres régimes obligatoires de sécurité sociale</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="64"><xs:annotation><xs:documentation>Mutuelles et organismes d'assurance</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="65"><xs:annotation><xs:documentation>Divers autres tiers payants</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="70"><xs:annotation><xs:documentation>CNRACL</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="71"><xs:annotation><xs:documentation>IRCANTEC</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="72"><xs:annotation><xs:documentation>ASSEDIC</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="73"><xs:annotation><xs:documentation>Caisses mutualistes de retraite complémentaires</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="74"><xs:annotation><xs:documentation>Autres organismes sociaux</xs:documentation></xs:annotation></xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TNatJur">
+		<xs:attribute name="V" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="00"><xs:annotation><xs:documentation>Inconnue</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="01"><xs:annotation><xs:documentation>Particuliers</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="02"><xs:annotation><xs:documentation>Artisan / Commerçant / Agriculteur</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="03"><xs:annotation><xs:documentation>Société</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="04"><xs:annotation><xs:documentation>CAM ou caisse appliquant les mêmes règles</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="05"><xs:annotation><xs:documentation>Caisse complémentaire</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="06"><xs:annotation><xs:documentation>Association</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="07"><xs:annotation><xs:documentation>Etat ou organisme d'Etat</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="08"><xs:annotation><xs:documentation>Etablissement public national</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="09"><xs:annotation><xs:documentation>Collectivité territoriale / EPL / EPS</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="10"><xs:annotation><xs:documentation>Etat étranger / ambassade</xs:documentation></xs:annotation></xs:enumeration>
+					<xs:enumeration value="11"><xs:annotation><xs:documentation>CAF</xs:documentation></xs:annotation></xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

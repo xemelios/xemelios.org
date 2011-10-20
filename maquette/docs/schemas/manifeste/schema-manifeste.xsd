@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    
+    <xs:attribute name="exercice" type="xs:gYear"/>
+    <xs:attribute name="cgCodic" type="xs:string"/>
+    <xs:attribute name="cgCodeCol" type="xs:string"/>
+    <xs:attribute name="buCodic" type="xs:string"/>
+    <xs:attribute name="buCodeCol" type="xs:string"/>
+    <xs:attribute name="nomOrigine" type="xs:string"/>
+    <xs:element name="manifeste" type="TManifest"/>
+    
+    <xs:complexType name="TManifest">
+        <xs:sequence>                                                                                                             
+            <xs:element name="volumes" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Permet de définir le nombre et les propriétés de tous les volumes de l'archive</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                            <xs:element name="volume" minOccurs="1" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Un fichier XML à importer</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="fichier" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Le nom du fichier</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="num" type="xs:integer" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>L'identifiant du volume.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="dateProduction" type="xs:date" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Date de création du volume</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:anyAttribute>
+                                        <xs:annotation>
+                                            <xs:documentation>Pour donner de plus amples précisions</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:anyAttribute>
+                                </xs:complexType>
+                            </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                <xs:choice>
+                    <xs:element name="documents">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="document" minOccurs="1" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:attribute name="volume" type="xs:integer" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Permet de référencer un volume définit plus haut, afin d'indiquer dans quel volume se trouve ce document.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="path" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Permet de définir le chemin dans le volume permettant d'accéder à ce document.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="type" type="TDocumentType" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Permet de définir la nature du document. Les valeurs possibles sont CGE, PES, PJ, et tous les ID des types de documents gérés par Xemelios</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="buIdCol" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Identifiant de la collectivité tel qu'il sera repris à l'import dans Xemelios</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="buLibelle" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Le libellé de la collectivité, tel qu'il sera repris à l'import par Xemelios</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="buCode" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>Le code du budget, tel qu'il sera repris à l'import par Xemelios</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="libBudg" type="xs:string" default="Budget Principal" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation>Libellé du budget, tel qu'il sera repris par Xemelios à l'import</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="skip-if-exists" type="xs:string" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation>Permet d'éviter l'import si la propriété système définie existe et qu'elle vaut 'true'</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="default-overwrite">
+                                            <xs:annotation>
+                                                <xs:documentation>Permet de définir le comportement d'écrasement à l'import</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="always">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Ecrase systématiquement les données existantes</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="never">
+                                                        <xs:annotation>
+                                                            <xs:documentation>N'écrase jamais les données existantes</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="ask">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Si des données existaient, demande à l'utilisateur quel comportement adopter</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:attribute>
+                                        <xs:anyAttribute>
+                                            <xs:annotation>
+                                                <xs:documentation>Pour préciser d'autres choses</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:anyAttribute>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="action" type="TAction" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="on-delete" type="TOnDelete" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:sequence>
+        <xs:attribute name="cgIdCol" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>L'identifiant de la collectivité - informatif</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="cgLibelle" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Le libellé de la collectivité - informatif</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="nomValideur" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Le nom de la personne qui a validé l'archive</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="dateValidation" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation>Date de validation de l'archive</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="version" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation>Numéro de version de l'archive</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+        <xs:attribute name="codeAppli">
+            <xs:annotation>
+                <xs:documentation>Code de l'application émettrice de l'archive</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CGD-SPL"><xs:annotation><xs:documentation>Brique de consolidation SPL</xs:documentation></xs:annotation></xs:enumeration>
+                    <xs:enumeration value="CGD-ETAT"><xs:annotation><xs:documentation>Brique de consolidation Etat</xs:documentation></xs:annotation></xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <xs:anyAttribute>
+            <xs:annotation>
+                <xs:documentation>Autant d'attributs que nécessaire pour préciser le contenu de cette archive. Les attributs spécifiés à ce niveau sont informatifs et non utilisés par les outils d'import de Xemelios.</xs:documentation>
+            </xs:annotation>
+        </xs:anyAttribute>
+    </xs:complexType>
+    <xs:simpleType name="TDocumentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CGE"><xs:annotation><xs:documentation>Compte de Gestion</xs:documentation></xs:annotation></xs:enumeration>
+            <xs:enumeration value="PES"><xs:annotation><xs:documentation>Flux PES_Aller</xs:documentation></xs:annotation></xs:enumeration>
+            <xs:enumeration value="PJ"><xs:annotation><xs:documentation>Piéce justificative (en général binaire)</xs:documentation></xs:annotation></xs:enumeration>
+            <xs:pattern value=".*"><xs:annotation><xs:documentation>Les id des types de documents gérés par Xemelios</xs:documentation></xs:annotation></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="TAction">
+        <xs:sequence>
+            <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="type" type="xs:string" use="required">
+                        <xs:annotation><xs:documentation>Le nom de la classe java dans lequel doit étre casté la valeur</xs:documentation></xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="value" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="class" type="xs:string" use="required">
+            <xs:annotation><xs:documentation>Le nom de la classe a exécuter</xs:documentation></xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="TOnDelete">
+        <xs:sequence>
+            <xs:element name="action"  type="TAction" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

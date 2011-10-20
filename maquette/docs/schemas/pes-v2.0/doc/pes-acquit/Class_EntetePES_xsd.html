@@ -1,0 +1,1650 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for </title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_Class_EntetePES.xsd', 
+				'properties_TEnTetePES_DteStr', 
+				'properties_TEnTetePES_IdPost', 
+				'properties_TEnTetePES_LibellePoste', 
+				'properties_TEnTetePES_IdColl', 
+				'properties_TEnTetePES_FinJur', 
+				'properties_TEnTetePES_CodCol', 
+				'properties_TEnTetePES_CodBud', 
+				'properties_TEnTetePES_LibelleColBud');
+
+        
+        var usedByBoxes= new Array('usedBy_TEnTetePES');
+
+        var sourceBoxes= new Array('source_TEnTetePES_DteStr', 
+				'source_TEnTetePES_IdPost', 
+				'source_TEnTetePES_LibellePoste', 
+				'source_TEnTetePES_IdColl', 
+				'source_TEnTetePES_FinJur', 
+				'source_TEnTetePES_CodCol', 
+				'source_TEnTetePES_CodBud', 
+				'source_TEnTetePES_LibelleColBud', 
+				'source_TEnTetePES');
+
+        
+        var diagramBoxes= new Array('diagram_TEnTetePES_DteStr', 
+				'diagram_TEnTetePES_IdPost', 
+				'diagram_TEnTetePES_LibellePoste', 
+				'diagram_TEnTetePES_IdColl', 
+				'diagram_TEnTetePES_FinJur', 
+				'diagram_TEnTetePES_CodCol', 
+				'diagram_TEnTetePES_CodBud', 
+				'diagram_TEnTetePES_LibelleColBud', 
+				'diagram_TEnTetePES');
+
+        
+        var attributesBoxes= new Array('attributes_TEnTetePES_DteStr', 
+				'attributes_TEnTetePES_IdPost', 
+				'attributes_TEnTetePES_LibellePoste', 
+				'attributes_TEnTetePES_IdColl', 
+				'attributes_TEnTetePES_FinJur', 
+				'attributes_TEnTetePES_CodCol', 
+				'attributes_TEnTetePES_CodBud', 
+				'attributes_TEnTetePES_LibelleColBud');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="Class_EntetePES.xsd"></a><div class="componentTitle">Included schema <span class="qname">Class_EntetePES.xsd</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Class_EntetePES.xsd" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_Class_EntetePES.xsd');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_Class_EntetePES.xsd" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">attribute form default:
+                                       
+                                    </td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">element form default:
+                                       
+                                    </td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_DteStr"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / DteStr</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_DteStr" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES_DteStr');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_DteStr" style="display:block"><img alt="Diagram" border="0" src="img/Class_EntetePES_xsd_Element_DteStr.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_DteStr" /><map name="Class_EntetePES_xsd_Element_DteStr"
+                                   id="Class_EntetePES_xsd_Element_DteStr">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Date_V" href="Simple_Type_xsd.html#Base_Date_V"
+                                       coords="117,79,197,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Date" href="Simple_Type_xsd.html#Base_Date"
+                                       coords="92,3,196,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Date" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_DteStr" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_DteStr');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_DteStr" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_DteStr" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_DteStr');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_DteStr" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Date_V" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Date" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_DteStr" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES_DteStr');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_DteStr" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DteStr"</span><span class="tAN"> type=</span><span class="tAV">"Base_Date"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_IdPost"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / IdPost</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_IdPost" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES_IdPost');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_IdPost" style="display:block"><img alt="Diagram" border="0" src="img/Class_EntetePES_xsd_Element_IdPost.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_IdPost" /><map name="Class_EntetePES_xsd_Element_IdPost"
+                                   id="Class_EntetePES_xsd_Element_IdPost">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Texte7_V"
+                                       href="Simple_Type_xsd.html#Base_Texte7_V"
+                                       coords="117,79,197,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Texte7" href="Simple_Type_xsd.html#Base_Texte7"
+                                       coords="92,3,207,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Texte7" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte7</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_IdPost" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_IdPost');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_IdPost" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_IdPost" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_IdPost');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_IdPost" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Texte7_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Texte7" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte7</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_IdPost" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES_IdPost');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_IdPost" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"IdPost"</span><span class="tAN"> type=</span><span class="tAV">"Base_Texte7"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_LibellePoste"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / LibellePoste</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_LibellePoste" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('diagram_TEnTetePES_LibellePoste');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_LibellePoste" style="display:block"><img alt="Diagram" border="0"
+                                   src="img/Class_EntetePES_xsd_Element_LibellePoste.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_LibellePoste" /><map name="Class_EntetePES_xsd_Element_LibellePoste"
+                                   id="Class_EntetePES_xsd_Element_LibellePoste">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Texte38_V"
+                                       href="Simple_Type_xsd.html#Base_Texte38_V"
+                                       coords="144,79,224,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Texte38" href="Simple_Type_xsd.html#Base_Texte38"
+                                       coords="119,3,240,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Texte38" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte38</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_LibellePoste" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_LibellePoste');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_LibellePoste" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_LibellePoste" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_LibellePoste');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_LibellePoste" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Texte38_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Texte38" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte38</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_LibellePoste" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('source_TEnTetePES_LibellePoste');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_LibellePoste" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"LibellePoste"</span><span class="tAN"> type=</span><span class="tAV">"Base_Texte38"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_IdColl"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / IdColl</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_IdColl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES_IdColl');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_IdColl" style="display:block"><img alt="Diagram" border="0" src="img/Class_EntetePES_xsd_Element_IdColl.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_IdColl" /><map name="Class_EntetePES_xsd_Element_IdColl"
+                                   id="Class_EntetePES_xsd_Element_IdColl">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Num14_V" href="Simple_Type_xsd.html#Base_Num14_V"
+                                       coords="117,79,197,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Num14" href="Simple_Type_xsd.html#Base_Num14"
+                                       coords="92,3,207,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Num14" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num14</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_IdColl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_IdColl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_IdColl" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_IdColl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_IdColl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_IdColl" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Num14_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Num14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num14</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_IdColl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES_IdColl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_IdColl" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"IdColl"</span><span class="tAN"> type=</span><span class="tAV">"Base_Num14"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_FinJur"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / FinJur</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_FinJur" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES_FinJur');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_FinJur" style="display:block"><img alt="Diagram" border="0" src="img/Class_EntetePES_xsd_Element_FinJur.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_FinJur" /><map name="Class_EntetePES_xsd_Element_FinJur"
+                                   id="Class_EntetePES_xsd_Element_FinJur">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Num20_V" href="Simple_Type_xsd.html#Base_Num20_V"
+                                       coords="117,79,197,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Num20" href="Simple_Type_xsd.html#Base_Num20"
+                                       coords="92,3,207,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Num20" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num20</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_FinJur" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_FinJur');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_FinJur" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_FinJur" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_FinJur');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_FinJur" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Num20_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Num20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num20</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_FinJur" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES_FinJur');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_FinJur" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"FinJur"</span><span class="tAN"> type=</span><span class="tAV">"Base_Num20"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_CodCol"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / CodCol</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_CodCol" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES_CodCol');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_CodCol" style="display:block"><img alt="Diagram" border="0" src="img/Class_EntetePES_xsd_Element_CodCol.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_CodCol" /><map name="Class_EntetePES_xsd_Element_CodCol"
+                                   id="Class_EntetePES_xsd_Element_CodCol">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Alphanum3_V"
+                                       href="Simple_Type_xsd.html#Base_Alphanum3_V"
+                                       coords="121,79,201,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Alphanum3"
+                                       href="Simple_Type_xsd.html#Base_Alphanum3"
+                                       coords="96,3,232,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Alphanum3" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum3</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_CodCol" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_CodCol');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_CodCol" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_CodCol" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_CodCol');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_CodCol" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Alphanum3_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Alphanum3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum3</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_CodCol" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES_CodCol');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_CodCol" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"CodCol"</span><span class="tAN"> type=</span><span class="tAV">"Base_Alphanum3"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_CodBud"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / CodBud</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_CodBud" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES_CodBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_CodBud" style="display:block"><img alt="Diagram" border="0" src="img/Class_EntetePES_xsd_Element_CodBud.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_CodBud" /><map name="Class_EntetePES_xsd_Element_CodBud"
+                                   id="Class_EntetePES_xsd_Element_CodBud">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Alphanum2_V"
+                                       href="Simple_Type_xsd.html#Base_Alphanum2_V"
+                                       coords="125,79,205,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Alphanum2"
+                                       href="Simple_Type_xsd.html#Base_Alphanum2"
+                                       coords="100,3,236,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Alphanum2" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum2</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_CodBud" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_CodBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_CodBud" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_CodBud" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_CodBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_CodBud" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Alphanum2_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Alphanum2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum2</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_CodBud" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES_CodBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_CodBud" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"CodBud"</span><span class="tAN"> type=</span><span class="tAV">"Base_Alphanum2"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES_LibelleColBud"></a><div class="componentTitle">Element <span class="qname"><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b> / LibelleColBud</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES_LibelleColBud" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('diagram_TEnTetePES_LibelleColBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES_LibelleColBud" style="display:block"><img alt="Diagram" border="0"
+                                   src="img/Class_EntetePES_xsd_Element_LibelleColBud.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Element_LibelleColBud" /><map name="Class_EntetePES_xsd_Element_LibelleColBud"
+                                   id="Class_EntetePES_xsd_Element_LibelleColBud">
+                                 <area alt="Simple_Type_xsd.tmp#Base_Texte38_V"
+                                       href="Simple_Type_xsd.html#Base_Texte38_V"
+                                       coords="151,79,231,104" />
+                                 <area alt="Simple_Type_xsd.tmp#Base_Texte38" href="Simple_Type_xsd.html#Base_Texte38"
+                                       coords="126,3,247,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Simple_Type_xsd.html#Base_Texte38" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte38</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_TEnTetePES_LibelleColBud" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('properties_TEnTetePES_LibelleColBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_TEnTetePES_LibelleColBud" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_TEnTetePES_LibelleColBud" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_TEnTetePES_LibelleColBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_TEnTetePES_LibelleColBud" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Simple_Type_xsd.html#Base_Texte38_V" target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V</a></b></td>
+                                    <td><b><a href="Simple_Type_xsd.html#V_Texte38" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte38</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES_LibelleColBud" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('source_TEnTetePES_LibelleColBud');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES_LibelleColBud" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"LibelleColBud"</span><span class="tAN"> type=</span><span class="tAV">"Base_Texte38"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="TEnTetePES"></a><div class="componentTitle">Complex Type <span class="qname">TEnTetePES</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.minefi.gouv.fr/cp/helios/pes_v2/commun</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_TEnTetePES" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('diagram_TEnTetePES');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_TEnTetePES" style="display:block"><img alt="Diagram" border="0"
+                                   src="img/Class_EntetePES_xsd_Complex_Type_TEnTetePES.jpeg"
+                                   usemap="#Class_EntetePES_xsd_Complex_Type_TEnTetePES" /><map name="Class_EntetePES_xsd_Complex_Type_TEnTetePES"
+                                   id="Class_EntetePES_xsd_Complex_Type_TEnTetePES">
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_DteStr"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_DteStr"
+                                       coords="212,0,273,25" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_IdPost"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_IdPost"
+                                       coords="212,35,273,60" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_LibellePoste"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_LibellePoste"
+                                       coords="212,70,300,95" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_IdColl"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_IdColl"
+                                       coords="212,105,273,130" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_FinJur"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_FinJur"
+                                       coords="212,140,273,165" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_CodCol"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_CodCol"
+                                       coords="212,175,277,200" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_CodBud"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_CodBud"
+                                       coords="212,210,281,235" />
+                                 <area alt="Class_EntetePES_xsd.tmp#TEnTetePES_LibelleColBud"
+                                       href="Class_EntetePES_xsd.html#TEnTetePES_LibelleColBud"
+                                       coords="212,245,307,270" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_TEnTetePES" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('usedBy_TEnTetePES');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_TEnTetePES" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="PES_V2_Acquit_Autonome_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_PES_ACQUIT_EnTetePES"
+                                             target="mainFrame"
+                                             title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for PES_V2_Acquit_Autonome.xsd')">PES_ACQUIT/EnTetePES</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="Class_EntetePES_xsd.html#TEnTetePES_DteStr" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">DteStr</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_IdPost" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">IdPost</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_LibellePoste" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">LibellePoste{0,1}</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_IdColl" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">IdColl{0,1}</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_FinJur" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">FinJur{0,1}</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_CodCol" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">CodCol</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_CodBud" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">CodBud{0,1}</a></b> , <b><a href="Class_EntetePES_xsd.html#TEnTetePES_LibelleColBud" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">LibelleColBud{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="Class_EntetePES_xsd.html#TEnTetePES_CodBud" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">CodBud</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_CodCol" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">CodCol</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_DteStr" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">DteStr</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_FinJur" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">FinJur</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_IdColl" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">IdColl</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_IdPost" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">IdPost</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_LibelleColBud" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">LibelleColBud</a></b>, <b><a href="Class_EntetePES_xsd.html#TEnTetePES_LibellePoste" target="mainFrame"
+                                 title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">LibellePoste</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_TEnTetePES" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('source_TEnTetePES');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_TEnTetePES" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"TEnTetePES"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:sequence</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DteStr"</span><span class="tAN"> type=</span><span class="tAV">"Base_Date"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"IdPost"</span><span class="tAN"> type=</span><span class="tAV">"Base_Texte7"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"LibellePoste"</span><span class="tAN"> type=</span><span class="tAV">"Base_Texte38"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"IdColl"</span><span class="tAN"> type=</span><span class="tAV">"Base_Num14"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"FinJur"</span><span class="tAN"> type=</span><span class="tAV">"Base_Num20"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"CodCol"</span><span class="tAN"> type=</span><span class="tAV">"Base_Alphanum3"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"CodBud"</span><span class="tAN"> type=</span><span class="tAV">"Base_Alphanum2"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"LibelleColBud"</span><span class="tAN"> type=</span><span class="tAV">"Base_Texte38"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:cm="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.minefi.gouv.fr/cp/helios/pes_v2/facture"
+	targetNamespace="http://www.minefi.gouv.fr/cp/helios/pes_v2/facture"
+	elementFormDefault="unqualified">
+	<xs:include schemaLocation="Class_PESCarteAchat.xsd"/>
+	<xs:import namespace="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+		schemaLocation="Class_SchemasCommuns.xsd"/>
+	<xs:element name="PES_ReleveCarteAchat">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PES_CarteAchat" type="TPES_CarteAchat" minOccurs="0"
+					maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

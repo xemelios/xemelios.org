@@ -1,0 +1,1779 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component TDecision</title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id188', 
+				'properties_id189', 
+				'properties_id190', 
+				'properties_id191', 
+				'properties_id194', 
+				'properties_id195', 
+				'properties_id204', 
+				'properties_id205');
+
+        
+        var usedByBoxes= new Array('usedBy_id187');
+
+        var sourceBoxes= new Array('source_id188', 
+				'source_id189', 
+				'source_id190', 
+				'source_id191', 
+				'source_id194', 
+				'source_id195', 
+				'source_id204', 
+				'source_id205', 
+				'source_id187');
+
+        var instanceBoxes= new Array('instance_id195');
+
+        var diagramBoxes= new Array('diagram_id188', 
+				'diagram_id189', 
+				'diagram_id190', 
+				'diagram_id191', 
+				'diagram_id194', 
+				'diagram_id195', 
+				'diagram_id204', 
+				'diagram_id205', 
+				'diagram_id187');
+
+        var annotationBoxes= new Array('annotations_id188', 
+				'annotations_id189', 
+				'annotations_id190', 
+				'annotations_id191', 
+				'annotations_id194', 
+				'annotations_id195', 
+				'annotations_id204', 
+				'annotations_id205');
+
+        var attributesBoxes= new Array('attributes_id188', 
+				'attributes_id189', 
+				'attributes_id190', 
+				'attributes_id191', 
+				'attributes_id194', 
+				'attributes_id204', 
+				'attributes_id205');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, annotationBoxes);"
+                                     class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, instanceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id188"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / Date</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id188" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id188');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id188" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Date de la décision</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id188" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id188');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id188" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html460.png"
+                                   usemap="#aide-sociale_46_html460" /><map name="aide-sociale_46_html460" id="aide-sociale_46_html460">
+                                 <area alt="aide-sociale4.tmp#id93" href="aide-sociale4.html#id93"
+                                       coords="131,78,203,102" />
+                                 <area alt="aide-sociale4.tmp#id92" href="aide-sociale4.html#id92"
+                                       coords="106,3,230,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale4.html#id92" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id188" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id188');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id188" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id188" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id188');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id188" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale4.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="aide-sociale117.html#id94" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id188" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id188');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id188" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Date"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date de la décision</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id189"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / DateEffet</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id189" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id189');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id189" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Date d'effet</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id189" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id189');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id189" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html381.png"
+                                   usemap="#aide-sociale_46_html381" /><map name="aide-sociale_46_html381" id="aide-sociale_46_html381">
+                                 <area alt="aide-sociale4.tmp#id93" href="aide-sociale4.html#id93"
+                                       coords="155,78,227,102" />
+                                 <area alt="aide-sociale4.tmp#id92" href="aide-sociale4.html#id92"
+                                       coords="130,3,254,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale4.html#id92" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id189" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id189');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id189" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id189" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id189');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id189" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale4.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="aide-sociale117.html#id94" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id189" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id189');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id189" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DateEffet"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date d'effet</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id190"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / DateFin</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id190" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id190');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id190" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Date de fin d'effet</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id190" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id190');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id190" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html437.png"
+                                   usemap="#aide-sociale_46_html437" /><map name="aide-sociale_46_html437" id="aide-sociale_46_html437">
+                                 <area alt="aide-sociale4.tmp#id93" href="aide-sociale4.html#id93"
+                                       coords="147,78,219,102" />
+                                 <area alt="aide-sociale4.tmp#id92" href="aide-sociale4.html#id92"
+                                       coords="122,3,246,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale4.html#id92" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id190" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id190');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id190" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id190" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id190');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id190" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale4.html#id93" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="aide-sociale117.html#id94" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id190" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id190');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id190" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DateFin"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date de fin d'effet</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id191"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / Nature</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id191" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id191');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id191" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Nature de la décision (décision/arrêté/délibération)</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id191" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id191');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id191" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html112.png"
+                                   usemap="#aide-sociale_46_html112" /><map name="aide-sociale_46_html112" id="aide-sociale_46_html112">
+                                 <area alt="aide-sociale38.tmp#id193" href="aide-sociale38.html#id193"
+                                       coords="143,78,215,102" />
+                                 <area alt="aide-sociale38.tmp#id192" href="aide-sociale38.html#id192"
+                                       coords="118,3,258,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale38.html#id192" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TNatureDecision')">TNatureDecision</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id191" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id191');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id191" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id191" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id191');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id191" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale38.html#id193" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id191" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id191');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id191" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Nature"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNatureDecision"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Nature de la décision (décision/arrêté/délibération)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id194"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / IdDecision</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id194" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id194');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id194" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Identifiant de la décision</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id194" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id194');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id194" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html132.png"
+                                   usemap="#aide-sociale_46_html132" /><map name="aide-sociale_46_html132" id="aide-sociale_46_html132">
+                                 <area alt="aide-sociale17.tmp#id97" href="aide-sociale17.html#id97"
+                                       coords="163,78,235,102" />
+                                 <area alt="aide-sociale17.tmp#id96" href="aide-sociale17.html#id96"
+                                       coords="138,3,282,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale17.html#id96" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte50')">Base_Texte50</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id194" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id194');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id194" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id194" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id194');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id194" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale17.html#id97" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="aide-sociale124.html#id98" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte50')">V_Texte50</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id194" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id194');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id194" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdDecision"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Texte50"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Identifiant de la décision</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id195"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / PJRef</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id195" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id195');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id195" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Réference au document PJ</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id195" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id195');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id195" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html79.png"
+                                   usemap="#aide-sociale_46_html79" /><map name="aide-sociale_46_html79" id="aide-sociale_46_html79">
+                                 <area alt="aide-sociale19.tmp#id197" href="aide-sociale19.html#id197"
+                                       coords="190,40,264,64" />
+                                 <area alt="aide-sociale19.tmp#id199" href="aide-sociale19.html#id199"
+                                       coords="190,130,269,154" />
+                                 <area alt="aide-sociale19.tmp#id200" href="aide-sociale19.html#id200"
+                                       coords="190,207,255,231" />
+                                 <area alt="aide-sociale19.tmp#id196" href="aide-sociale19.html#id196"
+                                       coords="108,3,247,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale19.html#id196" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component TPJReference')">TPJReference</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id195" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id195');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id195" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">maxOccurs:
+                                       
+                                    </td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="aide-sociale19.html#id197" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Support')">Support</a></b> , <b><a href="aide-sociale19.html#id199" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdUnique')">IdUnique</a></b> , <b><a href="aide-sociale19.html#id200" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomPJ{0,1}')">NomPJ{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="aide-sociale19.html#id199" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdUnique')">IdUnique</a></b>, <b><a href="aide-sociale19.html#id200" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomPJ')">NomPJ</a></b>, <b><a href="aide-sociale19.html#id197" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Support')">Support</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id195" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('instance_id195');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id195" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;PJRef</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Support</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/Support&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;IdUnique</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/IdUnique&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;NomPJ</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/NomPJ&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/PJRef&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id195" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id195');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id195" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"PJRef"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:TPJReference"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Réference au document PJ</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id204"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / Periodicite</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id204" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id204');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id204" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Peridocité de la prestation</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id204" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id204');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id204" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html92.png"
+                                   usemap="#aide-sociale_46_html92" /><map name="aide-sociale_46_html92" id="aide-sociale_46_html92">
+                                 <area alt="aide-sociale18.tmp#id202" href="aide-sociale18.html#id202"
+                                       coords="163,78,235,102" />
+                                 <area alt="aide-sociale18.tmp#id201" href="aide-sociale18.html#id201"
+                                       coords="138,3,289,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale18.html#id201" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte100')">Base_Texte100</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id204" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id204');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id204" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id204" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id204');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id204" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale18.html#id202" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="aide-sociale114.html#id203" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte100')">V_Texte100</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id204" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id204');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id204" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Periodicite"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Texte100"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Peridocité de la prestation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id205"></a><div class="componentTitle">Element <span class="qname"><b><a href="aide-sociale28.html#id187" target="mainFrame" title="No namespace"
+                  onclick="updatePageTitle('Schema documentation for component TDecision')">TDecision</a></b> / Mt</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id205" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id205');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id205" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Montant total de la décision (si montant mentionné sur la décision)</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id205" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id205');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id205" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html99.png"
+                                   usemap="#aide-sociale_46_html99" /><map name="aide-sociale_46_html99" id="aide-sociale_46_html99">
+                                 <area alt="aide-sociale14.tmp#id207" href="aide-sociale14.html#id207"
+                                       coords="131,78,203,102" />
+                                 <area alt="aide-sociale14.tmp#id206" href="aide-sociale14.html#id206"
+                                       coords="106,3,250,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="aide-sociale14.html#id206" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id205" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id205');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id205" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id205" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id205');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id205" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="aide-sociale14.html#id207" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="aide-sociale136.html#id208" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id205" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id205');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id205" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Mt"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Montant total de la décision (si montant mentionné sur la décision)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id187"></a><div class="componentTitle">Complex Type <span class="qname">TDecision</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id187" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id187');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id187" style="display:block"><img alt="Diagram" border="0" src="images/aide-sociale.html54.png"
+                                   usemap="#aide-sociale_46_html54" /><map name="aide-sociale_46_html54" id="aide-sociale_46_html54">
+                                 <area alt="aide-sociale28.tmp#id188" href="aide-sociale28.html#id188"
+                                       coords="228,0,283,24" />
+                                 <area alt="aide-sociale28.tmp#id189" href="aide-sociale28.html#id189"
+                                       coords="228,64,307,88" />
+                                 <area alt="aide-sociale28.tmp#id190" href="aide-sociale28.html#id190"
+                                       coords="228,128,299,152" />
+                                 <area alt="aide-sociale28.tmp#id191" href="aide-sociale28.html#id191"
+                                       coords="228,192,295,216" />
+                                 <area alt="aide-sociale28.tmp#id194" href="aide-sociale28.html#id194"
+                                       coords="228,269,315,293" />
+                                 <area alt="aide-sociale28.tmp#id195" href="aide-sociale28.html#id195"
+                                       coords="228,333,285,357" />
+                                 <area alt="aide-sociale28.tmp#id204" href="aide-sociale28.html#id204"
+                                       coords="228,397,315,421" />
+                                 <area alt="aide-sociale28.tmp#id205" href="aide-sociale28.html#id205"
+                                       coords="228,461,283,485" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id187" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id187');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id187" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="aide-sociale52.html#id186" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TVersement/Decision')">TVersement/Decision</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="aide-sociale28.html#id188" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Date')">Date</a></b> , <b><a href="aide-sociale28.html#id189" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateEffet')">DateEffet</a></b> , <b><a href="aide-sociale28.html#id190" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateFin{0,1}')">DateFin{0,1}</a></b> , <b><a href="aide-sociale28.html#id191" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Nature')">Nature</a></b> , <b><a href="aide-sociale28.html#id194" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdDecision')">IdDecision</a></b> , <b><a href="aide-sociale28.html#id195" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component PJRef*')">PJRef*</a></b> , <b><a href="aide-sociale28.html#id204" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Periodicite{0,1}')">Periodicite{0,1}</a></b> , <b><a href="aide-sociale28.html#id205" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Mt{0,1}')">Mt{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="aide-sociale28.html#id188" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Date')">Date</a></b>, <b><a href="aide-sociale28.html#id189" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateEffet')">DateEffet</a></b>, <b><a href="aide-sociale28.html#id190" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateFin')">DateFin</a></b>, <b><a href="aide-sociale28.html#id194" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdDecision')">IdDecision</a></b>, <b><a href="aide-sociale28.html#id205" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Mt')">Mt</a></b>, <b><a href="aide-sociale28.html#id191" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Nature')">Nature</a></b>, <b><a href="aide-sociale28.html#id195" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component PJRef')">PJRef</a></b>, <b><a href="aide-sociale28.html#id204" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Periodicite')">Periodicite</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id187" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id187');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id187" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TDecision"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Date"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date de la décision</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DateEffet"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date d'effet</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DateFin"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date de fin d'effet</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Nature"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNatureDecision"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Nature de la décision (décision/arrêté/délibération)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdDecision"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Texte50"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Identifiant de la décision</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"PJRef"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:TPJReference"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Réference au document PJ</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Periodicite"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Texte100"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Peridocité de la prestation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Mt"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Montant total de la décision (si montant mentionné sur la décision)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <title>XeMeLios - Documentation d'installation</title>
+        <meta name="xemelios.version" content="5.0.0.0"/>
+        <meta name="date.revision" content="2011-01-31"/>
+        <style type="text/css">
+            p.header {
+                text-align: center;
+                margin: 0 10 5 10;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+                 
+            }
+            p {
+                text-align: justify;
+                text-justify: auto;
+            }
+            p.p1 {
+                margin-left: 10px;
+                 
+            }
+            .p2 {
+                margin-left: 20px;
+                 
+            }
+            p.p3 {
+                margin-left: 30px;
+                 
+            }
+            p.center {
+                text-align: center;
+                 
+            }
+            h1 {
+                font-family: Helvetica;
+                font-size: 22px;
+                font-weight: bold;
+                 
+            }
+            h2 {
+                margin-left: 10px;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+                 
+            }
+            h3 {
+                margin-left: 20px;
+                font-family: Helvetica;
+                font-size: 16px;
+                font-weight: bold;
+                 
+            }
+            table {
+                background-color: black;
+                cell-spacing: 1px;
+                 
+            }
+            td {
+                background-color: white;
+                 
+            }
+            td.center {
+                text-align:center;
+                 
+            }
+            th {
+                background-color: #9F9F9F;
+                text-align: left;
+                 
+            }
+            .under {
+                text-decoration: underline;
+            }
+            .menu {
+                text-decoration: underline;
+            }
+            .code {
+                background: none repeat scroll 0 0 #F8F8F8;
+                border-color: #E7E5DC;
+                border-style: solid;
+                border-width: 1px 1px 4px 6px;
+                color: black;
+                font-family: "Consolas","Courier New",Courier,mono;
+                font-size: 12px;
+                letter-spacing: 0;
+                line-height: 120%;
+                overflow: auto;
+                padding: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <p class="header">
+            <img src="images/logo_xemelios.png" alt="Logo Xemelios"/>
+        </p>
+        <p class="header">XeMeLios 5</p>
+        <p class="header">Installation d'une base de donn&eacute;es XeMeLios</p>
+        <p class="p1">Afin de fonctionner, XeMeLios n&eacute;cessite une base de donn&eacute;e MySql 5.5 minimum. Ce document explique comment cr&eacute;er une base destin&eacute;e &agrave; XeMeLios sur un serveur MySql 5.5 d&eacute;j&agrave; install&eacute;.</p>
+        <h1><a name="requisite"/>Pr&eacute;-requis</h1>
+        <p class="p1">XeMeLios n'utilise que le moteur MyIsam. Si vous ne pr&eacute;voyez pas d'utiliser ce MySql pour autre chose que pour XeMeLios, vous pouvez d&eacute;sactiver tous les autres moteurs de persistence.</p>
+        <p class="p1">XeMeLios n&eacute;cessite de r&eacute;aliser de tr&egrave;s gros imports dans des blobs. Afin de ne pas bloquer, le param&egrave;tre <tt>max_allowed_packet</tt> doit &ecirc;tre positionn&eacute; &agrave; 64M au minimum. Si sur cette base vous faites de l'analyse de tr&egrave;s gros documents, alors il faut positionner cette valeur &agrave; 1024M.</p>
+        <div class="code">[mysqld]<br/>max_allowed_packet = 64M</div>
+        
+        <h1><a name="schema"/>Cr&eacute;ation de la base de donn&eacute;e</h1>
+        <p class="p1">Il faut cr&eacute;er une base de donn&eacute;e sp&eacute;cifique pour XeMeLios. Le setup de XeMeLios ne sait param&eacute;trer que des bases nomm&eacute;es <tt>xemelios</tt>. Il est donc fortement recommand&eacute; de nommer cette base <tt>xemelios</tt>.</p>
+        <div class="code">mysqladmin -u root -p create xemelios</div>
+
+        <h1><a name="user"/>Cr&eacute;ation de l'utilisateur</h1>
+        <p class="p1">XeMeLios n&eacute;cessite un utilisateur de base de donn&eacute;es d&eacute;di&eacute;, et disposant de <b>tous</b> les droits sur la base <tt>xemelios</tt>. Dans les exemples ci-dessous,
+        les valeurs sont les valeurs par d&eacute;faut. Vous &ecirc;tes libres de modifier le nom de l'utilisateur et son mot de passe.</p>
+        <div class="code">mysql -u root -p <br/>
+            &nbsp;&nbsp;&nbsp;&gt; create user xemelios identified by 'xem_pass';<br/>
+            &nbsp;&nbsp;&nbsp;&gt; go;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; grant all privileges on xemelios.* to 'xemelios'@'%';<br/>
+            &nbsp;&nbsp;&nbsp;&gt; go;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; flush privileges;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; exit;
+        </div>
+
+        <h1><a name="ctrl"/>Contr&ocirc;les</h1>
+        <p class="p1">Afin de contr&ocirc;ler que tout a correctement &eacute;t&eacute; cr&eacute;&eacute;, connectons-nous, cr&eacute;ons une table puis supprimons la :</p>
+        <div class="code">mysql -u xemelios -pxem_pass<br/>
+            &nbsp;&nbsp;&nbsp;&gt; use xemelios;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; create table test( col1 varchar(1)) engine myisam;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; insert into test(col1) values ('a');<br/>
+            &nbsp;&nbsp;&nbsp;&gt; select * from test;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; drop table test;<br/>
+            &nbsp;&nbsp;&nbsp;&gt; exit;
+        </div>
+        <p class="p1">A ce point, votre base de donn&eacute;e est pr&ecirc;te &agrave; &ecirc;tre utilis&eacute;e par XeMeLios. N'oubliez pas de communiquer aux utilisateurs les informations de connection :</p>
+        <ul>
+            <li>nom ou adresse IP du serveur,</li>
+        </ul>
+        <p class="p1">Eventuellement, si les valeurs ne sont pas celles par d&eacute;faut :</p>
+        <ul>
+            <li>port du serveur,</li>
+            <li>utilisateur de base de donn&eacute;</li>
+            <li>mot de passe de l'utilisateur de base de donn&eacute;</li>
+        </ul>
+        <h1><a name="maj"/>Mise &agrave; jour de la base de donn&eacute;e</h1>
+        <p class="p1">Certaines mises &agrave; jour de XeMeLios ne peuvent s'effectuer par d&eacute;faut que sur la machine qui h&eacute;berge la base de donn&eacute;e. 
+            Ceci implique qu'un client doit imp&eacute;rativement &ecirc;tre install&eacute; sur la machine qui h&eacute;berge la base de donn&eacute;e.
+        Si vous ne souhaitez pas installer de client XeMeLios sur la machine sur laquelle vous avez votre serveur MySql, il faut alors forcer l'un des postes clients &agrave; se comporter 
+        comme si il &eacute;tait le serveur. Il suffit pour cela d'ajouter un param&egrave;tre dans le fichier <tt>&lt;%XEMELIOS_DIR%&gt;\Xemelios\root\xemelios.properties</tt> du poste choisit :</p>
+        <div class="code"><b><u>&lt;%XEMELIOS_DIR%&gt;\Xemelios\root\xemelios.properties</u></b><br/><br/>&nbsp;&nbsp;&nbsp;xemelios.db.upgrade.force=true</div>
+    </body>
+</html>

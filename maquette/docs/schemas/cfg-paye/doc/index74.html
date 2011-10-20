@@ -1,0 +1,2062 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component cm:TInfoTiers</title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id504', 
+				'properties_id505', 
+				'properties_id506', 
+				'properties_id507', 
+				'properties_id508', 
+				'properties_id509', 
+				'properties_id510', 
+				'properties_id511', 
+				'properties_id512', 
+				'properties_id513', 
+				'properties_id514', 
+				'properties_id515');
+
+        
+        var usedByBoxes= new Array('usedBy_id503');
+
+        var sourceBoxes= new Array('source_id504', 
+				'source_id505', 
+				'source_id506', 
+				'source_id507', 
+				'source_id508', 
+				'source_id509', 
+				'source_id510', 
+				'source_id511', 
+				'source_id512', 
+				'source_id513', 
+				'source_id514', 
+				'source_id515', 
+				'source_id503');
+
+        
+        var diagramBoxes= new Array('diagram_id504', 
+				'diagram_id505', 
+				'diagram_id506', 
+				'diagram_id507', 
+				'diagram_id508', 
+				'diagram_id509', 
+				'diagram_id510', 
+				'diagram_id511', 
+				'diagram_id512', 
+				'diagram_id513', 
+				'diagram_id514', 
+				'diagram_id515', 
+				'diagram_id503');
+
+        
+        var attributesBoxes= new Array('attributes_id504', 
+				'attributes_id505', 
+				'attributes_id506', 
+				'attributes_id507', 
+				'attributes_id508', 
+				'attributes_id509', 
+				'attributes_id510', 
+				'attributes_id511', 
+				'attributes_id512', 
+				'attributes_id513', 
+				'attributes_id514', 
+				'attributes_id515');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id504"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / IdTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id504" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id504');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id504" style="display:block"><img alt="Diagram" border="0" src="images/index.html460.png"
+                                   usemap="#index_46_html460" /><map name="index_46_html460" id="index_46_html460">
+                                 <area alt="index96.tmp#id449" href="index96.html#id449" coords="124,78,196,102" />
+                                 <area alt="index96.tmp#id448" href="index96.html#id448" coords="99,3,224,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index96.html#id448" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte30')">Base_Texte30</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id504" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id504');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id504" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id504" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id504');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id504" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index96.html#id449" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index152.html#id450" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte30')">V_Texte30</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id504" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id504');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id504" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte30"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id505"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / DteMalade</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id505" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id505');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id505" style="display:block"><img alt="Diagram" border="0" src="images/index.html189.png"
+                                   usemap="#index_46_html189" /><map name="index_46_html189" id="index_46_html189">
+                                 <area alt="index29.tmp#id77" href="index29.html#id77" coords="142,78,214,102" />
+                                 <area alt="index29.tmp#id76" href="index29.html#id76" coords="117,3,222,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index29.html#id76" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id505" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id505');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id505" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id505" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id505');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id505" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index29.html#id77" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index132.html#id78" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id505" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id505');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id505" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteMalade"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Date"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id506"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / TypTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id506" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id506');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id506" style="display:block"><img alt="Diagram" border="0" src="images/index.html469.png"
+                                   usemap="#index_46_html469" /><map name="index_46_html469" id="index_46_html469">
+                                 <area alt="index88.tmp#id486" href="index88.html#id486" coords="134,78,206,102" />
+                                 <area alt="index88.tmp#id485" href="index88.html#id485" coords="109,3,214,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index88.html#id485" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component TTypTiers')">TTypTiers</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id506" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id506');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id506" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id506" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id506');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id506" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index88.html#id486" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id506" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id506');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id506" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTypTiers"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id507"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / NatIdTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id507" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id507');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id507" style="display:block"><img alt="Diagram" border="0" src="images/index.html122.png"
+                                   usemap="#index_46_html122" /><map name="index_46_html122" id="index_46_html122">
+                                 <area alt="index13.tmp#id484" href="index13.html#id484" coords="142,78,214,102" />
+                                 <area alt="index13.tmp#id483" href="index13.html#id483" coords="117,3,230,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index13.html#id483" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component TNatIdTiers')">TNatIdTiers</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id507" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id507');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id507" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id507" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id507');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id507" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index13.html#id484" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id507" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id507');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id507" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NatIdTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNatIdTiers"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id508"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / DteIdTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id508" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id508');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id508" style="display:block"><img alt="Diagram" border="0" src="images/index.html306.png"
+                                   usemap="#index_46_html306" /><map name="index_46_html306" id="index_46_html306">
+                                 <area alt="index29.tmp#id77" href="index29.html#id77" coords="142,78,214,102" />
+                                 <area alt="index29.tmp#id76" href="index29.html#id76" coords="117,3,222,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index29.html#id76" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id508" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id508');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id508" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id508" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id508');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id508" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index29.html#id77" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index132.html#id78" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id508" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id508');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id508" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteIdTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Date"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id509"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / RefTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id509" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id509');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id509" style="display:block"><img alt="Diagram" border="0" src="images/index.html351.png"
+                                   usemap="#index_46_html351" /><map name="index_46_html351" id="index_46_html351">
+                                 <area alt="index96.tmp#id449" href="index96.html#id449" coords="131,78,203,102" />
+                                 <area alt="index96.tmp#id448" href="index96.html#id448" coords="106,3,231,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index96.html#id448" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte30')">Base_Texte30</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id509" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id509');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id509" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id509" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id509');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id509" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index96.html#id449" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index152.html#id450" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte30')">V_Texte30</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id509" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id509');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id509" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"RefTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte30"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id510"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / CatTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id510" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id510');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id510" style="display:block"><img alt="Diagram" border="0" src="images/index.html238.png"
+                                   usemap="#index_46_html238" /><map name="index_46_html238" id="index_46_html238">
+                                 <area alt="index61.tmp#id488" href="index61.html#id488" coords="132,78,204,102" />
+                                 <area alt="index61.tmp#id487" href="index61.html#id487" coords="107,3,210,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index61.html#id487" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component TCatTiers')">TCatTiers</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id510" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id510');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id510" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id510" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id510');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id510" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index61.html#id488" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id510" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id510');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id510" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CatTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TCatTiers"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id511"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / NatJur</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id511" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id511');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id511" style="display:block"><img alt="Diagram" border="0" src="images/index.html445.png"
+                                   usemap="#index_46_html445" /><map name="index_46_html445" id="index_46_html445">
+                                 <area alt="index92.tmp#id490" href="index92.html#id490" coords="120,78,192,102" />
+                                 <area alt="index92.tmp#id489" href="index92.html#id489" coords="95,3,186,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index92.html#id489" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component TNatJur')">TNatJur</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id511" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id511');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id511" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id511" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id511');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id511" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index92.html#id490" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id511" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id511');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id511" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NatJur"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNatJur"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id512"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / Civilite</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id512" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id512');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id512" style="display:block"><img alt="Diagram" border="0" src="images/index.html11.png"
+                                   usemap="#index_46_html11" /><map name="index_46_html11" id="index_46_html11">
+                                 <area alt="index6.tmp#id431" href="index6.html#id431" coords="123,78,195,102" />
+                                 <area alt="index6.tmp#id430" href="index6.html#id430" coords="98,3,223,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index6.html#id430" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte10')">Base_Texte10</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id512" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id512');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id512" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id512" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id512');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id512" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index6.html#id431" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index134.html#id432" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte10')">V_Texte10</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id512" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id512');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id512" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Civilite"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte10"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id513"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / Nom</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id513" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id513');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id513" style="display:block"><img alt="Diagram" border="0" src="images/index.html57.png"
+                                   usemap="#index_46_html57" /><map name="index_46_html57" id="index_46_html57">
+                                 <area alt="index3.tmp#id58" href="index3.html#id58" coords="112,78,184,102" />
+                                 <area alt="index3.tmp#id57" href="index3.html#id57" coords="87,3,212,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index3.html#id57" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte38')">Base_Texte38</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id513" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id513');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id513" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id513" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id513');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id513" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index3.html#id58" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index128.html#id59" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte38')">V_Texte38</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id513" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id513');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id513" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Nom"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte38"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id514"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / ComplNom</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id514" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id514');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id514" style="display:block"><img alt="Diagram" border="0" src="images/index.html27.png"
+                                   usemap="#index_46_html27" /><map name="index_46_html27" id="index_46_html27">
+                                 <area alt="index3.tmp#id58" href="index3.html#id58" coords="147,78,219,102" />
+                                 <area alt="index3.tmp#id57" href="index3.html#id57" coords="122,3,247,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index3.html#id57" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte38')">Base_Texte38</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id514" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id514');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id514" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id514" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id514');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id514" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index3.html#id58" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index128.html#id59" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte38')">V_Texte38</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id514" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id514');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id514" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"ComplNom"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte38"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id515"></a><div class="componentTitle">Element <span class="qname"><b><a href="index74.html#id503" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                  onclick="updatePageTitle('Schema documentation for component cm:TInfoTiers')">cm:TInfoTiers</a></b> / Prenom</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id515" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id515');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id515" style="display:block"><img alt="Diagram" border="0" src="images/index.html5.png" usemap="#index_46_html5" /><map name="index_46_html5" id="index_46_html5">
+                                 <area alt="index3.tmp#id58" href="index3.html#id58" coords="128,78,200,102" />
+                                 <area alt="index3.tmp#id57" href="index3.html#id57" coords="103,3,228,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="index3.html#id57" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Texte38')">Base_Texte38</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id515" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id515');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id515" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id515" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id515');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id515" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index3.html#id58" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="index128.html#id59" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Texte38')">V_Texte38</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id515" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id515');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id515" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Prenom"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte38"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id503"></a><div class="componentTitle">Complex Type <span class="qname">cm:TInfoTiers</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.minefi.gouv.fr/cp/helios/pes_v2/commun</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id503" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id503');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id503" style="display:block"><img alt="Diagram" border="0" src="images/index.html408.png"
+                                   usemap="#index_46_html408" /><map name="index_46_html408" id="index_46_html408">
+                                 <area alt="index74.tmp#id504" href="index74.html#id504" coords="209,0,277,24" />
+                                 <area alt="index74.tmp#id505" href="index74.html#id505" coords="209,34,295,58" />
+                                 <area alt="index74.tmp#id506" href="index74.html#id506" coords="209,68,287,92" />
+                                 <area alt="index74.tmp#id507" href="index74.html#id507" coords="209,102,295,126" />
+                                 <area alt="index74.tmp#id508" href="index74.html#id508" coords="209,136,295,160" />
+                                 <area alt="index74.tmp#id509" href="index74.html#id509" coords="209,170,284,194" />
+                                 <area alt="index74.tmp#id510" href="index74.html#id510" coords="209,204,285,228" />
+                                 <area alt="index74.tmp#id511" href="index74.html#id511" coords="209,238,273,262" />
+                                 <area alt="index74.tmp#id512" href="index74.html#id512" coords="209,272,276,296" />
+                                 <area alt="index74.tmp#id513" href="index74.html#id513" coords="209,306,265,330" />
+                                 <area alt="index74.tmp#id514" href="index74.html#id514" coords="209,340,300,364" />
+                                 <area alt="index74.tmp#id515" href="index74.html#id515" coords="209,374,281,398" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id503" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id503');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id503" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="index75.html#id665" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/paye_1_1"
+                                             onclick="updatePageTitle('Schema documentation for component TInfoTiersFact')">TInfoTiersFact</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="index74.html#id504" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdTiers{0,1}')">IdTiers{0,1}</a></b> , <b><a href="index74.html#id505" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteMalade{0,1}')">DteMalade{0,1}</a></b> , <b><a href="index74.html#id506" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypTiers{0,1}')">TypTiers{0,1}</a></b> , <b><a href="index74.html#id507" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NatIdTiers{0,1}')">NatIdTiers{0,1}</a></b> , <b><a href="index74.html#id508" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteIdTiers{0,1}')">DteIdTiers{0,1}</a></b> , <b><a href="index74.html#id509" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component RefTiers{0,1}')">RefTiers{0,1}</a></b> , <b><a href="index74.html#id510" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component CatTiers')">CatTiers</a></b> , <b><a href="index74.html#id511" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NatJur')">NatJur</a></b> , <b><a href="index74.html#id512" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Civilite{0,1}')">Civilite{0,1}</a></b> , <b><a href="index74.html#id513" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Nom')">Nom</a></b> , <b><a href="index74.html#id514" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component ComplNom{0,1}')">ComplNom{0,1}</a></b> , <b><a href="index74.html#id515" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Prenom{0,1}')">Prenom{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="index74.html#id510" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component CatTiers')">CatTiers</a></b>, <b><a href="index74.html#id512" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Civilite')">Civilite</a></b>, <b><a href="index74.html#id514" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component ComplNom')">ComplNom</a></b>, <b><a href="index74.html#id508" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteIdTiers')">DteIdTiers</a></b>, <b><a href="index74.html#id505" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteMalade')">DteMalade</a></b>, <b><a href="index74.html#id504" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdTiers')">IdTiers</a></b>, <b><a href="index74.html#id507" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NatIdTiers')">NatIdTiers</a></b>, <b><a href="index74.html#id511" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NatJur')">NatJur</a></b>, <b><a href="index74.html#id513" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Nom')">Nom</a></b>, <b><a href="index74.html#id515" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Prenom')">Prenom</a></b>, <b><a href="index74.html#id509" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component RefTiers')">RefTiers</a></b>, <b><a href="index74.html#id506" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypTiers')">TypTiers</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id503" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id503');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id503" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TInfoTiers"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte30"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteMalade"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Date"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTypTiers"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NatIdTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNatIdTiers"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteIdTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Date"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"RefTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte30"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"CatTiers"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TCatTiers"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NatJur"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNatJur"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Civilite"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte10"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Nom"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte38"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"ComplNom"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte38"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Prenom"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"Base_Texte38"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

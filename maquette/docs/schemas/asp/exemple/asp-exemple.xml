@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<asp:AvisSommesAPayer xmlns:asp="http://xemelios.org/schemas/asp"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xemelios.org/schemas/asp file:/home/cmarchand/devel/SCHEMAS_XEMELIOS/ASP/schema/ASP.xsd">
+    <IdVer V="0.0"/>
+    <Annee V="2011"/>
+    <Date V="2011-05-10"/>
+    <Emetteur>
+        <InfoTiers>
+            <CatTiers V="23"/>
+            <NatJur V="09"/>
+            <Nom V="Ville de Vincennes"/>
+        </InfoTiers>
+        <Adresse>
+            <TypAdr V="1"/>
+            <Adr2 V="147 avenue de Fontenay"/>
+            <CP V="94300"/>
+            <Ville V="Vincennes"/>
+            <CodRes V="1"/>
+        </Adresse>
+        <CpteBancaire>
+            <BIC V="0123"/>
+            <IBAN V="0123456789"/>
+            <TitCpte V="Ville de Vincennes"/>
+        </CpteBancaire>
+    </Emetteur>
+    <EmetteurInfosSuppl>
+        <NumTel V="01 43 74 90 14"/>
+        <HorairesOuv V="Ouvert du lun. au ven. de 9h à 17h30"/>
+        <CodeTipi V="123456"/>
+    </EmetteurInfosSuppl>
+    <Signataire>
+        <Personne>
+            <CatTiers V="01"/>
+            <NatJur V="01"/>
+            <Civilite V="Mr"/>
+            <Nom V="Lafon"/>
+            <Prenom V="Laurent"/>
+        </Personne>
+        <Role V="Le Maire"/>
+    </Signataire>
+    <Destinataire>
+        <InfoTiers>
+            <CatTiers V="29"/>
+            <NatJur V="00"/>
+            <Nom V="Trésorerie municipale"/>
+        </InfoTiers>
+        <Adresse>
+            <TypAdr V="1"/>
+            <Adr2 V="5 rue Eugène Renaud"/>
+            <CP V="94300"/>
+            <Ville V="Vincennes"/>
+            <CodRes V="1"/>
+        </Adresse>
+    </Destinataire>
+    <DestinataireInfosSuppl>
+        <NumTel V="01 43 65 89 45"/>
+        <HorairesOuv V="Lundi de : 08H30 a 12H00 et de 13H00 a 16H45"/>
+        <HorairesOuv V="Mardi de : 08H30 a 12H00 et de 13H00 a 16H45"/>
+        <HorairesOuv V="Mercredi de : 08H30 a 12H00 et de 13H00 a 16H45"/>
+        <HorairesOuv V="Jeudi de : 08H30 a 12H00 et de 13H00 a 16H45"/>
+        <HorairesOuv V="Vendredi de : 08H30 a 12H00 et de 13H30 a 16H00"/>
+    </DestinataireInfosSuppl>
+    <FactureIndiv>
+        <DateEmission V="2011-05-10"/>
+        <DateReglement V="2011-08-10"/>
+        <NumeroFacture V="Fact-1"/>
+        <Debiteur>
+            <InfoTiers>
+                <CatTiers V="01"/>
+                <NatJur V="01"/>
+                <Civilite V="Mr"/>
+                <Nom V="Marchand"/>
+                <Prenom V="Christophe"/>
+            </InfoTiers>
+            <Adresse>
+                <TypAdr V="1"/>
+                <Adr2 V="3 rue de Colmar"/>
+                <CP V="94300"/>
+                <Ville V="Vincennes"/>
+                <CodRes V="0"/>
+            </Adresse>
+        </Debiteur>
+        <Objet V="Cantine Louis Marchand"/>
+        <LigneFacture>
+            <DateDebut V="2011-04-01"/>
+            <DateFin V="2011-04-29"/>
+            <CodeProduit V="023-59"/>
+            <Libelle V="Repas cantine école du Sud"/>
+            <Unite V="Repas"/>
+            <Quantite V="21"/>
+            <MtUnitaire V="1.23"/>
+            <MtHT V="25.83"/>
+            <TauxTVA V="5.5"/>
+            <MtTVA V="1.42"/>
+            <MtTTC V="27.25"/>
+            <Ordre V="1"/>
+        </LigneFacture>
+        <TotalAPayer>
+            <MtTotalHT V="25.83"/>
+            <MtTotalTVA V="1.42"/>
+            <MtTotalTTC V="27.25"/>
+        </TotalAPayer>
+        <RefCompta>
+            <NumBordereau V="0000036"/>
+            <NumTitre V="0001023568762"/>
+            <NumLigne V="215"/>
+        </RefCompta>
+        <ModalitesReglement V="A réception de la facture"/>
+        <ConditionsGen V="La prestation de cantine est soumise au bon appétit des enfants. Si les enfants n'ont pas faim, la cantine ne pourra pas être tenue responsable de leur amaigrissement."/>
+        <TIP>
+            <Ligne1 V="000000 000123 24568797665 3224756 55497 000 0002748 354978         "/>
+            <Ligne2 V="012 3354568 445 7 988875 135151          21355 46 54 555597875312 012"/>
+        </TIP>
+    </FactureIndiv>
+    <Nomenclature>
+        <Description V="Nomenclature des produits"/>
+        <Correspondance>
+            <Libelle V="Repas école du sud"/>
+            <Code V="023-59"/>
+        </Correspondance>
+    </Nomenclature>
+    <RepartitionParNature>
+        <Repartition>
+            <Libelle V="Alimentation pour les cantines et les colonies de vacances"/>
+            <Code V="6023"/>
+            <Mt V="25.83"/>
+        </Repartition>
+    </RepartitionParNature>
+    
+</asp:AvisSommesAPayer>

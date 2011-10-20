@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	This file is part of "bourses".
+	
+	XEMELIOS_NB is free software; you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	"bourses" is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with "bourses" ; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Class_Versement.xsd"/>
+	<xs:include schemaLocation="Class_Tiers.xsd"/>
+	<xs:include schemaLocation="Class_Nomenclature.xsd"/>
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:include schemaLocation="Class_Adresse.xsd"/>
+	<xs:complexType name="TOrganisme">
+		<xs:sequence>
+			<xs:element name="Nom" type="Base_Texte100">
+				<xs:annotation>
+					<xs:documentation>Dénomination de l'organisme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Siret" type="Base_Num15">
+				<xs:annotation>
+					<xs:documentation>Siren/Siret de l'organisme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Adresse" type="TAdresse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Adresse conforme PES</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TNomenclatureAideSociale">
+		<xs:sequence>
+			<xs:element name="NomenclaturePrestation" type="TNomenclature" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Nomenclature des Prestations (dans le cas d'un état multiprestation) - tous les codes prestation de la collectivité</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NomenclatureNatureDecision" type="TNomenclature" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Nomenclature des Natures de décisions</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TBourses">
+		<xs:annotation>
+			<xs:documentation>Etat des versements concernant une  prestation</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdVer" type="Base_Dec2" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Numéro de version du schéma. La liste des numéros de version du schéma est publiée ici : http://xemelios.org/schemas/bourses/index.html#versions</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Annee" type="Base_Annee" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Exercice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sequence" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>En cas d'émission périodique pour l'ensemble des versements, indique le numéro de la séquence</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NumOrdre" type="Base_Num4" form="qualified"/>
+						<xs:element name="NbTotal" type="Base_Num4" form="qualified"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Date" type="Base_Date" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Date d'émission de l'état</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Emetteur" type="TOrganisme" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Informations sur l'organisme emetteur</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReferenceNomenclature" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Informations sur l'id et le libelle de la nomenclature utilisée</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Libelle" type="Base_Texte100" form="qualified"/>
+						<xs:element name="Code" type="Base_Texte25" form="qualified"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DonneesVersement" form="qualified">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Versement" type="TVersement" maxOccurs="unbounded"
+							form="qualified">
+							<xs:annotation>
+								<xs:documentation>Détail des versements des prestations</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Nomenclatures" type="TNomenclatureAideSociale" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Nomenclatures utilisees (Paramétrage du progiciel)
+- en cas d'évolution des nomenclatures, les anciens codes doivent être précisés (de façon incrémentale)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

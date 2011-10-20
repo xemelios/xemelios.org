@@ -1,0 +1,1463 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for </title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    --></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <p><a href="pes-acquit.indexList.html">Components</a><span> | </span><a href="schHierarchy.html">Resource Hierarchy</a></p>
+      <hr />
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: <select id="selectTOC"
+                          onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'pes-acquit.indexList.html', 'pes-acquit.indexListns.html', 'pes-acquit.indexListcomp.html');">
+                     <option value="toc_group_by_namespace" selected="selected">Namespace</option>
+                     <option value="toc_group_by_location">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_namespace" style="display:block">
+            <div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace1" type="image" value="-" src="img/btM.gif"
+                            onclick="switchState('boxIdNamespace1');"
+                            class="control" /><span class="indexGroupTitle">http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour</span></p>
+                  <div id="boxIdNamespace1" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Elements
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace1Element" style="display:block">
+                                    <div><b><a href="PES_V2_Acquit_Autonome_xsd.html#PES_ACQUIT" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for PES_V2_Acquit_Autonome.xsd')">PES_ACQUIT</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace1Complex_Type" style="display:block">
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum1"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum10"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum100"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum11"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum12"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum14"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum15"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum16"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum17"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum20"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum25"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum250"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum30"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum4"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum5"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum50"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum6"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Alphanum80"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum80</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Annee"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Annee</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Booleen"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Booleen</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Date"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Date</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Dec2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Dec2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Dec3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Dec3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Montant"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Montant</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Montant3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Montant3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num1"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num10"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num12"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num13"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num13</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num14"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num15"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num16"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num17"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num20"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num25"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num4"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num5"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num6"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num7"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num8"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num8</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Num9"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num9</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Taux"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Taux</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Taux3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Taux3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte10"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte100"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte11"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte12"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte14"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte15"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte16"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte160"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte160</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte20"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte200"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte200</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte24"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte24</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte25"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte250"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte30"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte32"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte32</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte34"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte34</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte38"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte38</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte5"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte50"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte500"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte500</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte6"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte7"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_Base_Texte70"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte70</a></b></div>
+                                    <div><b><a href="PES_V2_Acquit_Autonome_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_PES_ACQUIT"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for PES_V2_Acquit_Autonome.xsd')">PES_ACQUIT</a></b></div>
+                                    <div><b><a href="CommunAck_xsd.html#TDomaineAck" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for CommunAck.xsd')">TDomaineAck</a></b></div>
+                                    <div><b><a href="PES_V2_Acquit_Autonome_xsd.html#TElementACQUIT" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for PES_V2_Acquit_Autonome.xsd')">TElementACQUIT</a></b></div>
+                                    <div><b><a href="CommunAck_xsd.html#TNumAnoAck" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for CommunAck.xsd')">TNumAnoAck</a></b></div>
+                                    <div><b><a href="PES_V2_Acquit_Autonome_xsd.html#TPES_ACQUIT" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for PES_V2_Acquit_Autonome.xsd')">TPES_ACQUIT</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Simple Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace1Simple_Type" style="display:block">
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum1"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum10"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum100"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum11"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum12"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum14"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum15"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum16"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum17"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum20"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum25"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum250"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum30"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum4"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum5"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum50"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum6"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Alphanum80"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum80</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Annee"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Annee</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Booleen"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Booleen</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Date"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Date</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Dec2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Dec2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Dec3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Dec3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Montant"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Montant</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Montant3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Montant3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num1"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num10"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num12"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num13"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num13</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num14"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num15"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num16"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num17"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num20"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num25"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num4"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num5"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num6"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num7"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num8"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num8</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Num9"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num9</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Taux"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Taux</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Taux3"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Taux3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte10"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte100"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte11"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte12"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte14"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte15"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte16"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte160"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte160</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte2"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte20"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte200"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte200</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte24"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte24</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte25"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte250"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte30"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte32"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte32</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte34"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte34</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte38"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte38</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte5"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte50"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte500"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte500</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte6"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte7"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#http___www.minefi.gouv.fr_cp_helios_pes_v2_Rev0_retour_V_Texte70"
+                                             target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/retour"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte70</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace2" type="image" value="-" src="img/btM.gif"
+                            onclick="switchState('boxIdNamespace2');"
+                            class="control" /><span class="indexGroupTitle">http://www.minefi.gouv.fr/cp/helios/pes_v2/commun</span></p>
+                  <div id="boxIdNamespace2" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Complex Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace2Complex_Type" style="display:block">
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum1" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum10" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum100" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum11" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum12" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum15" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum16" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum17" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum25" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum250" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum30" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum4" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum5" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum50" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum6" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Alphanum80" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Alphanum80</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Annee" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Annee</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Booleen" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Booleen</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Date" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Date</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Dec2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Dec2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Dec3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Dec3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Montant" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Montant</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Montant3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Montant3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num1" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num10" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num12" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num13" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num13</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num15" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num16" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num17" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num25" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num4" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num5" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num6" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num7" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num8" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num8</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Num9" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Num9</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Taux" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Taux</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Taux3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Taux3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte10" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte100" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte11" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte12" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte15" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte16" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte160" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte160</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte200" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte200</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte24" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte24</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte25" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte250" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte30" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte32" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte32</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte34" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte34</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte38" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte38</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte5" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte50" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte500" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte500</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte6" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte7" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#Base_Texte70" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">Base_Texte70</a></b></div>
+                                    <div><b><a href="Class_Adresse_xsd.html#TAdresse" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_Adresse.xsd')">TAdresse</a></b></div>
+                                    <div><b><a href="Class_Bancaire_xsd.html#TBancaire" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_Bancaire.xsd')">TBancaire</a></b></div>
+                                    <div><b><a href="Class_Enveloppe_xsd.html#TCarteVisite" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_Enveloppe.xsd')">TCarteVisite</a></b></div>
+                                    <div><b><a href="CommunPES_xsd.html#TCatTiers" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for CommunPES.xsd')">TCatTiers</a></b></div>
+                                    <div><b><a href="CommunPES_xsd.html#TDomaine" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for CommunPES.xsd')">TDomaine</a></b></div>
+                                    <div><b><a href="Class_EntetePES_xsd.html#TEnTetePES" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_EntetePES.xsd')">TEnTetePES</a></b></div>
+                                    <div><b><a href="Class_Enveloppe_xsd.html#TEnveloppe" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_Enveloppe.xsd')">TEnveloppe</a></b></div>
+                                    <div><b><a href="CommunPES_xsd.html#TNatIdTiers" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for CommunPES.xsd')">TNatIdTiers</a></b></div>
+                                    <div><b><a href="CommunPES_xsd.html#TNatJur" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for CommunPES.xsd')">TNatJur</a></b></div>
+                                    <div><b><a href="Class_PJReference_xsd.html#TPJReference" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_PJReference.xsd')">TPJReference</a></b></div>
+                                    <div><b><a href="Class_Enveloppe_xsd.html#TParametres" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_Enveloppe.xsd')">TParametres</a></b></div>
+                                    <div><b><a href="CommunPES_xsd.html#TTypTiers" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for CommunPES.xsd')">TTypTiers</a></b></div>
+                                    <div><b><a href="Class_InfoTiers_xsd.html#TInfoTiers" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Class_InfoTiers.xsd')">cm:TInfoTiers</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <div class="componentGroupTitle">Simple Types
+                                    
+                                 </div>
+                                 <div id="boxIdNamespace2Simple_Type" style="display:block">
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum1" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum10" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum100" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum11" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum12" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum15" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum16" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum17" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum25" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum250" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum30" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum4" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum5" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum50" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum6" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Alphanum80" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Alphanum80</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Annee" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Annee</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Booleen" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Booleen</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Date" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Date</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Dec2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Dec2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Dec3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Dec3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Montant" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Montant</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Montant3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Montant3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num1" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num1</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num10" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num12" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num13" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num13</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num15" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num16" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num17" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num17</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num25" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num4" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num4</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num5" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num6" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num7" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num8" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num8</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Num9" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Num9</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Taux" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Taux</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Taux3" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Taux3</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte10" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte10</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte100" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte100</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte11" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte11</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte12" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte12</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte14" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte14</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte15" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte15</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte16" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte16</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte160" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte160</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte2" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte2</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte20" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte20</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte200" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte200</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte24" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte24</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte25" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte25</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte250" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte250</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte30" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte30</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte32" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte32</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte34" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte34</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte38" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte38</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte5" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte5</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte50" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte50</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte500" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte500</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte6" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte6</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte7" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte7</a></b></div>
+                                    <div><b><a href="Simple_Type_xsd.html#V_Texte70" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for Simple_Type.xsd')">V_Texte70</a></b></div>
+                                 </div>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div>
+   </body>
+</html>

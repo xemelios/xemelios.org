@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	This file is part of "bourses".
+	
+	XEMELIOS_NB is free software; you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	"bourses" is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with "bourses" ; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:include schemaLocation="Class_Tiers.xsd"/>
+	<xs:complexType name="TDecision">
+		<xs:sequence>
+			<xs:element name="Date" type="Base_Date">
+				<xs:annotation>
+					<xs:documentation>Date de la décision</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateEffet" type="Base_Date">
+				<xs:annotation>
+					<xs:documentation>Date d'effet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFin" type="Base_Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date de fin d'effet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nature" type="Base_Alphanum14">
+				<xs:annotation>
+					<xs:documentation>Nature de la décision (les codes/libellés sont déclarés en nomenclature)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Mt" type="Base_Montant">
+				<xs:annotation>
+					<xs:documentation>Montant total de la décision (si montant mentionné sur la décision)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--xs:complexType name="TDetailTVA">
+		<xs:sequence>
+			<xs:element name="TauxTVA" type="Base_Taux"/>
+			<xs:element name="MtBaseHT" type="Base_Montant"/>
+			<xs:element name="MtTVA" type="Base_Montant"/>
+		</xs:sequence>
+	</xs:complexType-->
+	<xs:complexType name="TSequence">
+		<xs:sequence>
+			<xs:element name="NumOrdre" type="Base_Num3"/>
+			<xs:element name="NbTotal" type="Base_Num3"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TVersement">
+		<xs:annotation>
+			<xs:documentation>Données de versement concernant une prestation</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Date" type="Base_Date" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Date du versement (si état produit après mandatement, sinon date de demande de versement par l'ordonnateur)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdVerst" type="Base_Texte50" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Identifiant de versement (Numéro de pièce AGLAE)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Prestation" type="Base_Texte50" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Code de la prestation. Les codes utilisés ici doivent être déclarés dans la nomenclature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdDossier" type="Base_Texte50" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Identifiant du dossier d'aide - Numéro d'étudiant</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Beneficiaire" type="TBeneficiaire" maxOccurs="unbounded"
+				form="qualified">
+				<xs:annotation>
+					<xs:documentation>Liste des bénéficiaires</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Destinataire" type="TDestinataire" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>identifiant du destinataire si différent du bénéficiaire</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Decision" type="TDecision" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Décision justifiant du versement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Mt" type="Base_Montant" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Montant total du versement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sequence" type="TSequence" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Sequence spécifique concernant ce versement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Commentaire" type="Base_Texte250" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Commentaire éventuel (NIR exclu)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumMandat" type="Base_Num7" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>Numéro de mandat correspondant au versement (si connu par le progiciel générant l'état)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

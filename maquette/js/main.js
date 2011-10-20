@@ -100,15 +100,17 @@ function hideShowMenu(menuId){
     var element = document.getElementById(menuId);
     
     var isSousSousMenu=(element.parentNode.getAttribute("class")!=null?element.parentNode.getAttribute("class").search('level-menu-2')>-1:false);
+    var isSousSousSousMenu=(element.parentNode.getAttribute("class")!=null?element.parentNode.getAttribute("class").search('level-menu-3')>-1:false);
+
     var menuIdToKeepBlock = null;
-    if(isSousSousMenu){
+    if(isSousSousMenu || isSousSousSousMenu){
         menuIdToKeepBlock=element.parentNode.parentNode.parentNode.getAttribute("id");
     }
 
     var lis = document.getElementById('menu').getElementsByTagName("li");
     for(var i=0;i<lis.length;i++){
         var li=lis[i];
-        if(li.getAttribute("class")!=null && li.getAttribute("class").search('level-menu-1') > 0 && menuIdToKeepBlock==null){
+        if(li.getAttribute("class")!=null && (li.getAttribute("class").search('level-menu-1') || li.getAttribute("class").search('level-menu-2')) > 0 && menuIdToKeepBlock==null){
             var uls = li.getElementsByTagName("ul");
             for(var j=0;j<lis.length;j++){
                 var ul=uls[j];
@@ -126,6 +128,25 @@ function hideShowMenu(menuId){
     } else {
         element.style.display = 'block';
         element.parentNode.style.paddingBottom = '0';
+    }
+    //derouleMenu(element.parentNode);
+}
+
+function derouleMenu(element){
+        if (element.getElementsByTagName('span')[0].className=='close'){
+            element.getElementsByTagName('span')[0].className='open';
+        } else {
+            element.getElementsByTagName('span')[0].className='close';
+        }
+        
+}
+
+function display(id){
+    var element = document.getElementById(id);
+    if (element.style.display == 'block'){
+        element.style.display = 'none';
+    } else {
+        element.style.display = 'block';
     }
 }
 

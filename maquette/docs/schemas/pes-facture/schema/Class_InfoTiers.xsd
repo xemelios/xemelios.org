@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:cm="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="Simple_Type.xsd"/>
+	<xs:include schemaLocation="CommunPES.xsd"/>
+	<xs:complexType name="TInfoTiers">
+		<xs:sequence>
+			<xs:element name="IdTiers" type="Base_Texte30" minOccurs="0"/>
+			<xs:element name="DteMalade" type="Base_Date" minOccurs="0"/>
+			<xs:element name="TypTiers" type="TTypTiers" minOccurs="0"/>
+			<xs:element name="NatIdTiers" type="TNatIdTiers" minOccurs="0"/>
+			<xs:element name="DteIdTiers" type="Base_Date" minOccurs="0"/>
+			<xs:element name="RefTiers" type="Base_Texte30" minOccurs="0"/>
+			<xs:element name="CatTiers" type="TCatTiers"/>
+			<xs:element name="NatJur" type="TNatJur"/>
+			<xs:element name="Civilite" type="Base_Texte10" minOccurs="0"/>
+			<xs:element name="Nom" type="Base_Texte38"/>
+			<xs:element name="ComplNom" type="Base_Texte38" minOccurs="0"/>
+			<xs:element name="Prenom" type="Base_Texte38" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

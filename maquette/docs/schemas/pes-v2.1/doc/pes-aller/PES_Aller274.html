@@ -1,0 +1,1946 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component TPESFacture</title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id1019', 
+				'properties_id1020', 
+				'properties_id1021', 
+				'properties_id1022', 
+				'properties_id1023', 
+				'properties_id1024', 
+				'properties_id1032', 
+				'properties_id1078', 
+				'properties_id1079');
+
+        
+        
+        var sourceBoxes= new Array('source_id1019', 
+				'source_id1020', 
+				'source_id1021', 
+				'source_id1022', 
+				'source_id1023', 
+				'source_id1024', 
+				'source_id1032', 
+				'source_id1078', 
+				'source_id1079', 
+				'source_id1018');
+
+        var instanceBoxes= new Array('instance_id1024', 
+				'instance_id1032', 
+				'instance_id1078', 
+				'instance_id1079');
+
+        var diagramBoxes= new Array('diagram_id1019', 
+				'diagram_id1020', 
+				'diagram_id1021', 
+				'diagram_id1022', 
+				'diagram_id1023', 
+				'diagram_id1024', 
+				'diagram_id1032', 
+				'diagram_id1078', 
+				'diagram_id1079', 
+				'diagram_id1018');
+
+        var annotationBoxes= new Array('annotations_id1019', 
+				'annotations_id1021', 
+				'annotations_id1022', 
+				'annotations_id1023', 
+				'annotations_id1024', 
+				'annotations_id1032', 
+				'annotations_id1078', 
+				'annotations_id1079');
+
+        var attributesBoxes= new Array('attributes_id1019', 
+				'attributes_id1020', 
+				'attributes_id1021', 
+				'attributes_id1022', 
+				'attributes_id1023');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, annotationBoxes);"
+                                     class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, instanceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id1019"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / IdVer</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1019" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1019');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1019" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Numéro de version (exemple 1.0)</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1019" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1019');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1019" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html17.png"
+                                   usemap="#PES_Aller_46_html17" /><map name="PES_Aller_46_html17" id="PES_Aller_46_html17">
+                                 <area alt="PES_Aller21.tmp#id714" href="PES_Aller21.html#id714"
+                                       coords="135,78,207,102" />
+                                 <area alt="PES_Aller21.tmp#id713" href="PES_Aller21.html#id713" coords="110,3,237,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller21.html#id713" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Dec2')">Base_Dec2</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1019" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1019');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1019" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id1019" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id1019');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id1019" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller21.html#id714" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller404.html#id715" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Dec2')">V_Dec2</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1019" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1019');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1019" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdVer"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Dec2"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Numéro de version (exemple 1.0)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1020"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / Annee</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1020" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1020');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1020" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html861.png"
+                                   usemap="#PES_Aller_46_html861" /><map name="PES_Aller_46_html861" id="PES_Aller_46_html861">
+                                 <area alt="PES_Aller81.tmp#id102" href="PES_Aller81.html#id102"
+                                       coords="121,78,193,102" />
+                                 <area alt="PES_Aller81.tmp#id101" href="PES_Aller81.html#id101" coords="96,3,230,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller81.html#id101" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Annee')">Base_Annee</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1020" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1020');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1020" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id1020" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id1020');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id1020" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller81.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller325.html#id103" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Annee')">V_Annee</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1020" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1020');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1020" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Annee"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Annee"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1021"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / NumSequence</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1021" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1021');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1021" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">En cas d'émission périodique, indique le numéro de la séquence</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1021" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1021');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1021" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html36.png"
+                                   usemap="#PES_Aller_46_html36" /><map name="PES_Aller_46_html36" id="PES_Aller_46_html36">
+                                 <area alt="PES_Aller42.tmp#id651" href="PES_Aller42.html#id651"
+                                       coords="183,78,255,102" />
+                                 <area alt="PES_Aller42.tmp#id650" href="PES_Aller42.html#id650" coords="158,3,290,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller42.html#id650" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Num4')">Base_Num4</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1021" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1021');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1021" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id1021" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id1021');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id1021" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller42.html#id651" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller405.html#id652" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num4')">V_Num4</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1021" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1021');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1021" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NumSequence"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num4"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">En cas d'émission périodique, indique le numéro de la séquence</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1022"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / TypeFact</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1022" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1022');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1022" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Type de Facturation</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1022" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1022');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1022" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html206.png"
+                                   usemap="#PES_Aller_46_html206" /><map name="PES_Aller_46_html206" id="PES_Aller_46_html206">
+                                 <area alt="PES_Aller143.tmp#id200" href="PES_Aller143.html#id200"
+                                       coords="155,78,227,102" />
+                                 <area alt="PES_Aller143.tmp#id199" href="PES_Aller143.html#id199"
+                                       coords="130,3,299,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller143.html#id199" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Alphanum10')">Base_Alphanum10</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1022" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1022');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1022" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id1022" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id1022');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id1022" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller143.html#id200" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller340.html#id201" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Alphanum10')">V_Alphanum10</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1022" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1022');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1022" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypeFact"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Alphanum10"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Type de Facturation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1023"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / Date</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1023" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1023');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1023" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Date d'émission de la facture ou de l'état de facturation</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1023" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1023');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1023" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html437.png"
+                                   usemap="#PES_Aller_46_html437" /><map name="PES_Aller_46_html437" id="PES_Aller_46_html437">
+                                 <area alt="PES_Aller43.tmp#id63" href="PES_Aller43.html#id63" coords="131,78,203,102" />
+                                 <area alt="PES_Aller43.tmp#id62" href="PES_Aller43.html#id62" coords="106,3,230,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller43.html#id62" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1023" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1023');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1023" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id1023" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id1023');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id1023" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller43.html#id63" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller318.html#id64" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1023" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1023');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1023" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Date"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date d'émission de la facture ou de l'état de facturation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1024"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / Emetteur</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1024" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1024');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1024" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Informations sur l'emetteur</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1024" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1024');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1024" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html817.png"
+                                   usemap="#PES_Aller_46_html817" /><map name="PES_Aller_46_html817" id="PES_Aller_46_html817">
+                                 <area alt="PES_Aller23.tmp#id1026" href="PES_Aller23.html#id1026"
+                                       coords="212,40,291,64" />
+                                 <area alt="PES_Aller23.tmp#id1028" href="PES_Aller23.html#id1028"
+                                       coords="212,74,287,98" />
+                                 <area alt="PES_Aller23.tmp#id1029" href="PES_Aller23.html#id1029"
+                                       coords="212,108,313,132" />
+                                 <area alt="PES_Aller23.tmp#id1030" href="PES_Aller23.html#id1030"
+                                       coords="212,142,290,166" />
+                                 <area alt="PES_Aller23.tmp#id1031" href="PES_Aller23.html#id1031"
+                                       coords="212,176,281,200" />
+                                 <area alt="PES_Aller23.tmp#id1025" href="PES_Aller23.html#id1025"
+                                       coords="130,3,215,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller23.html#id1025" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                                 onclick="updatePageTitle('Schema documentation for component TTiers')">TTiers</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1024" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1024');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1024" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller23.html#id1026" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component InfoTiers')">InfoTiers</a></b> , <b><a href="PES_Aller23.html#id1028" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Adresse{0,1}')">Adresse{0,1}</a></b> , <b><a href="PES_Aller23.html#id1029" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component CpteBancaire{0,1}')">CpteBancaire{0,1}</a></b> , <b><a href="PES_Aller23.html#id1030" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NumTVA{0,1}')">NumTVA{0,1}</a></b> , <b><a href="PES_Aller23.html#id1031" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Service{0,1}')">Service{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller23.html#id1028" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Adresse')">Adresse</a></b>, <b><a href="PES_Aller23.html#id1029" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component CpteBancaire')">CpteBancaire</a></b>, <b><a href="PES_Aller23.html#id1026" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component InfoTiers')">InfoTiers</a></b>, <b><a href="PES_Aller23.html#id1030" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NumTVA')">NumTVA</a></b>, <b><a href="PES_Aller23.html#id1031" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Service')">Service</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id1024" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('instance_id1024');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id1024" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;Emetteur</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;InfoTiers</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/InfoTiers&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Adresse</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/Adresse&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;CpteBancaire</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/CpteBancaire&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;NumTVA</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/NumTVA&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Service</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/Service&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/Emetteur&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1024" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1024');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1024" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Emetteur"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTiers"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Informations sur l'emetteur</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1032"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / FactureIndiv</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1032" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1032');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1032" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Données individuelles de facturation (par défaut une seule facture individuelle) - (état de facturation collectif : plusieurs factures individuelles)</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1032" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1032');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1032" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html584.png"
+                                   usemap="#PES_Aller_46_html584" /><map name="PES_Aller_46_html584" id="PES_Aller_46_html584">
+                                 <area alt="PES_Aller188.tmp#id1034" href="PES_Aller188.html#id1034"
+                                       coords="251,40,354,64" />
+                                 <area alt="PES_Aller188.tmp#id1035" href="PES_Aller188.html#id1035"
+                                       coords="251,74,362,98" />
+                                 <area alt="PES_Aller188.tmp#id1036" href="PES_Aller188.html#id1036"
+                                       coords="251,138,365,162" />
+                                 <area alt="PES_Aller188.tmp#id1037" href="PES_Aller188.html#id1037"
+                                       coords="251,202,328,226" />
+                                 <area alt="PES_Aller188.tmp#id1038" href="PES_Aller188.html#id1038"
+                                       coords="251,266,311,290" />
+                                 <area alt="PES_Aller188.tmp#id1039" href="PES_Aller188.html#id1039"
+                                       coords="251,330,351,354" />
+                                 <area alt="PES_Aller188.tmp#id1060" href="PES_Aller188.html#id1060"
+                                       coords="251,364,334,388" />
+                                 <area alt="PES_Aller188.tmp#id1065" href="PES_Aller188.html#id1065"
+                                       coords="251,454,346,478" />
+                                 <area alt="PES_Aller188.tmp#id1070" href="PES_Aller188.html#id1070"
+                                       coords="251,488,389,512" />
+                                 <area alt="PES_Aller188.tmp#id1071" href="PES_Aller188.html#id1071"
+                                       coords="251,522,372,546" />
+                                 <area alt="PES_Aller188.tmp#id1072" href="PES_Aller188.html#id1072"
+                                       coords="251,599,362,623" />
+                                 <area alt="PES_Aller188.tmp#id1073" href="PES_Aller188.html#id1073"
+                                       coords="251,663,378,687" />
+                                 <area alt="PES_Aller188.tmp#id1033" href="PES_Aller188.html#id1033"
+                                       coords="148,3,290,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller188.html#id1033" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                                 onclick="updatePageTitle('Schema documentation for component TFacturePESIndiv')">TFacturePESIndiv</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1032" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1032');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1032" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">maxOccurs:
+                                       
+                                    </td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller188.html#id1034" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateEmission')">DateEmission</a></b> , <b><a href="PES_Aller188.html#id1035" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateReglement{0,1}')">DateReglement{0,1}</a></b> , <b><a href="PES_Aller188.html#id1036" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NumeroFacture')">NumeroFacture</a></b> , <b><a href="PES_Aller188.html#id1037" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Debiteur')">Debiteur</a></b> , <b><a href="PES_Aller188.html#id1038" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Objet')">Objet</a></b> , <b><a href="PES_Aller188.html#id1039" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component LigneFacture+')">LigneFacture+</a></b> , <b><a href="PES_Aller188.html#id1060" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DetailTVA*')">DetailTVA*</a></b> , <b><a href="PES_Aller188.html#id1065" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TotalAPayer')">TotalAPayer</a></b> , <b><a href="PES_Aller188.html#id1070" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component ModalitesReglement')">ModalitesReglement</a></b> , <b><a href="PES_Aller188.html#id1071" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TexteGenerateur{0,1}')">TexteGenerateur{0,1}</a></b> , <b><a href="PES_Aller188.html#id1072" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component ConditionsGen')">ConditionsGen</a></b> , <b><a href="PES_Aller188.html#id1073" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component RepartitionBudget*')">RepartitionBudget*</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller188.html#id1072" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component ConditionsGen')">ConditionsGen</a></b>, <b><a href="PES_Aller188.html#id1034" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateEmission')">DateEmission</a></b>, <b><a href="PES_Aller188.html#id1035" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DateReglement')">DateReglement</a></b>, <b><a href="PES_Aller188.html#id1037" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Debiteur')">Debiteur</a></b>, <b><a href="PES_Aller188.html#id1060" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DetailTVA')">DetailTVA</a></b>, <b><a href="PES_Aller188.html#id1039" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component LigneFacture')">LigneFacture</a></b>, <b><a href="PES_Aller188.html#id1070" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component ModalitesReglement')">ModalitesReglement</a></b>, <b><a href="PES_Aller188.html#id1036" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NumeroFacture')">NumeroFacture</a></b>, <b><a href="PES_Aller188.html#id1038" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Objet')">Objet</a></b>, <b><a href="PES_Aller188.html#id1073" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component RepartitionBudget')">RepartitionBudget</a></b>, <b><a href="PES_Aller188.html#id1071" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TexteGenerateur')">TexteGenerateur</a></b>, <b><a href="PES_Aller188.html#id1065" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TotalAPayer')">TotalAPayer</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id1032" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('instance_id1032');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id1032" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;FactureIndiv</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;DateEmission</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/DateEmission&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;DateReglement</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/DateReglement&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;NumeroFacture</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/NumeroFacture&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Debiteur</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/Debiteur&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Objet</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/Objet&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;LigneFacture</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/LigneFacture&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;DetailTVA</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/DetailTVA&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TotalAPayer</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/TotalAPayer&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;ModalitesReglement</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/ModalitesReglement&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;TexteGenerateur</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/TexteGenerateur&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;ConditionsGen</span><span class="tokenText"> </span><span class="tokenAttrName">V=</span><span class="tokenAttrValue">""</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,1}</span><span class="tokenElement">&lt;/ConditionsGen&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;RepartitionBudget</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,unbounded}</span><span class="tokenElement">&lt;/RepartitionBudget&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/FactureIndiv&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1032" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1032');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1032" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"FactureIndiv"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TFacturePESIndiv"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Données individuelles de facturation (par défaut une seule facture individuelle) - (état de facturation collectif : plusieurs factures individuelles)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1078"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / Nomenclatures</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1078" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1078');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1078" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Nomenclatures utilisees (Paramétrage du progiciel)</span><span class="tokenIndent">
+</span><span class="tokenText">- en cas d'évolution des nomenclatures, les anciens codes doivent être précisés (de façon incrémentale)</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1078" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1078');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1078" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html255.png"
+                                   usemap="#PES_Aller_46_html255" /><map name="PES_Aller_46_html255" id="PES_Aller_46_html255">
+                                 <area alt="PES_Aller171.tmp#id1001" href="PES_Aller171.html#id1001"
+                                       coords="245,40,390,64" />
+                                 <area alt="PES_Aller171.tmp#id1008" href="PES_Aller171.html#id1008"
+                                       coords="245,117,387,141" />
+                                 <area alt="PES_Aller171.tmp#id1009" href="PES_Aller171.html#id1009"
+                                       coords="245,194,388,218" />
+                                 <area alt="PES_Aller171.tmp#id1000" href="PES_Aller171.html#id1000"
+                                       coords="163,3,336,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller171.html#id1000" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                                 onclick="updatePageTitle('Schema documentation for component TNomenclatureFacture')">TNomenclatureFacture</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1078" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1078');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1078" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller171.html#id1001" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomenclatureProduit{0,1}')">NomenclatureProduit{0,1}</a></b> , <b><a href="PES_Aller171.html#id1008" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomenclatureNature{0,1}')">NomenclatureNature{0,1}</a></b> , <b><a href="PES_Aller171.html#id1009" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomenclatureBudget{0,1}')">NomenclatureBudget{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller171.html#id1009" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomenclatureBudget')">NomenclatureBudget</a></b>, <b><a href="PES_Aller171.html#id1008" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomenclatureNature')">NomenclatureNature</a></b>, <b><a href="PES_Aller171.html#id1001" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NomenclatureProduit')">NomenclatureProduit</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id1078" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('instance_id1078');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id1078" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;Nomenclatures</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;NomenclatureProduit</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/NomenclatureProduit&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;NomenclatureNature</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/NomenclatureNature&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;NomenclatureBudget</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{0,1}</span><span class="tokenElement">&lt;/NomenclatureBudget&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/Nomenclatures&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1078" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1078');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1078" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Nomenclatures"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNomenclatureFacture"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Nomenclatures utilisees (Paramétrage du progiciel) - en cas d'évolution des nomenclatures, les anciens codes doivent être précisés (de façon incrémentale)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1079"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller274.html#id1018" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TPESFacture')">TPESFacture</a></b> / RepartitionParNature</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_id1079" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('annotations_id1079');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_id1079" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                        class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tokenText">Repartition des dépenses par Nature (et budget le cas échéant)</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1079" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1079');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1079" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html95.png"
+                                   usemap="#PES_Aller_46_html95" /><map name="PES_Aller_46_html95" id="PES_Aller_46_html95">
+                                 <area alt="PES_Aller88.tmp#id1017" href="PES_Aller88.html#id1017"
+                                       coords="297,44,387,68" />
+                                 <area alt="PES_Aller88.tmp#id1016" href="PES_Aller88.html#id1016"
+                                       coords="194,3,364,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller88.html#id1016" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller"
+                                 onclick="updatePageTitle('Schema documentation for component TRepartitionParNature')">TRepartitionParNature</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id1079" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id1079');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id1079" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller88.html#id1017" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Repartition+')">Repartition+</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller88.html#id1017" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Repartition')">Repartition</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_id1079" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('instance_id1079');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_id1079" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;RepartitionParNature</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;Repartition</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">{1,unbounded}</span><span class="tokenElement">&lt;/Repartition&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/RepartitionParNature&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1079" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1079');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1079" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"RepartitionParNature"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TRepartitionParNature"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Repartition des dépenses par Nature (et budget le cas échéant)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id1018"></a><div class="componentTitle">Complex Type <span class="qname">TPESFacture</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.minefi.gouv.fr/cp/helios/pes_v2/Rev0/aller</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id1018" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id1018');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id1018" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html825.png"
+                                   usemap="#PES_Aller_46_html825" /><map name="PES_Aller_46_html825" id="PES_Aller_46_html825">
+                                 <area alt="PES_Aller274.tmp#id1019" href="PES_Aller274.html#id1019"
+                                       coords="240,0,299,24" />
+                                 <area alt="PES_Aller274.tmp#id1020" href="PES_Aller274.html#id1020"
+                                       coords="240,64,305,88" />
+                                 <area alt="PES_Aller274.tmp#id1021" href="PES_Aller274.html#id1021"
+                                       coords="240,98,347,122" />
+                                 <area alt="PES_Aller274.tmp#id1022" href="PES_Aller274.html#id1022"
+                                       coords="240,175,319,199" />
+                                 <area alt="PES_Aller274.tmp#id1023" href="PES_Aller274.html#id1023"
+                                       coords="240,239,295,263" />
+                                 <area alt="PES_Aller274.tmp#id1024" href="PES_Aller274.html#id1024"
+                                       coords="240,316,319,340" />
+                                 <area alt="PES_Aller274.tmp#id1032" href="PES_Aller274.html#id1032"
+                                       coords="240,380,337,404" />
+                                 <area alt="PES_Aller274.tmp#id1078" href="PES_Aller274.html#id1078"
+                                       coords="240,470,352,494" />
+                                 <area alt="PES_Aller274.tmp#id1079" href="PES_Aller274.html#id1079"
+                                       coords="240,560,383,584" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller274.html#id1019" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdVer')">IdVer</a></b> , <b><a href="PES_Aller274.html#id1020" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Annee')">Annee</a></b> , <b><a href="PES_Aller274.html#id1021" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NumSequence{0,1}')">NumSequence{0,1}</a></b> , <b><a href="PES_Aller274.html#id1022" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypeFact{0,1}')">TypeFact{0,1}</a></b> , <b><a href="PES_Aller274.html#id1023" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Date')">Date</a></b> , <b><a href="PES_Aller274.html#id1024" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Emetteur')">Emetteur</a></b> , <b><a href="PES_Aller274.html#id1032" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component FactureIndiv+')">FactureIndiv+</a></b> , <b><a href="PES_Aller274.html#id1078" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Nomenclatures')">Nomenclatures</a></b> , <b><a href="PES_Aller274.html#id1079" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component RepartitionParNature{0,1}')">RepartitionParNature{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller274.html#id1020" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Annee')">Annee</a></b>, <b><a href="PES_Aller274.html#id1023" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Date')">Date</a></b>, <b><a href="PES_Aller274.html#id1024" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Emetteur')">Emetteur</a></b>, <b><a href="PES_Aller274.html#id1032" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component FactureIndiv')">FactureIndiv</a></b>, <b><a href="PES_Aller274.html#id1019" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdVer')">IdVer</a></b>, <b><a href="PES_Aller274.html#id1078" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Nomenclatures')">Nomenclatures</a></b>, <b><a href="PES_Aller274.html#id1021" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NumSequence')">NumSequence</a></b>, <b><a href="PES_Aller274.html#id1079" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component RepartitionParNature')">RepartitionParNature</a></b>, <b><a href="PES_Aller274.html#id1022" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypeFact')">TypeFact</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id1018" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id1018');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id1018" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TPESFacture"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdVer"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Dec2"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Numéro de version (exemple 1.0)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Annee"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Annee"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NumSequence"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num4"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">En cas d'émission périodique, indique le numéro de la séquence</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypeFact"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Alphanum10"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Type de Facturation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Date"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Date d'émission de la facture ou de l'état de facturation</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Emetteur"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTiers"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Informations sur l'emetteur</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"FactureIndiv"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TFacturePESIndiv"</span><span class="tokenAttrName"> maxOccurs=</span><span class="tokenAttrValue">"unbounded"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Données individuelles de facturation (par défaut une seule facture individuelle) - (état de facturation collectif : plusieurs factures individuelles)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Nomenclatures"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TNomenclatureFacture"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Nomenclatures utilisees (Paramétrage du progiciel) - en cas d'évolution des nomenclatures, les anciens codes doivent être précisés (de façon incrémentale)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"RepartitionParNature"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TRepartitionParNature"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;xs:annotation</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+        </span><span class="tokenElement">&lt;xs:documentation</span><span class="tokenElement">&gt;</span><span class="tokenText" style="white-space:normal">Repartition des dépenses par Nature (et budget le cas échéant)</span><span class="tokenElement">&lt;/xs:documentation&gt;</span><span class="tokenIndent">
+      </span><span class="tokenElement">&lt;/xs:annotation&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;/xs:element&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>

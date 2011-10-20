@@ -19,7 +19,7 @@
             <xsl:element name="a">
                 <xsl:attribute name="href">javascript:hideShowMenu('<xsl:value-of select="$idMenu"/>');</xsl:attribute>
                 <xsl:if test="@onClick"><xsl:attribute name="onClick"><xsl:value-of select="@onClick"/></xsl:attribute></xsl:if>
-                <xsl:value-of select="./@title"/>
+                <!--span class="close">&#160;--><xsl:value-of select="./@title"/><!--/span-->
             </xsl:element>
 <!--a href="javascript:hideShowMenu('{$idMenu}');"><xsl:value-of select="./@title"/></a-->
 <ul class="inner" id="{$idMenu}" style="display: none;"><xsl:apply-templates/></ul>

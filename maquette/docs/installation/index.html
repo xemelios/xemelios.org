@@ -1,0 +1,254 @@
+<html>
+    <head>
+        <title>XeMeLios v5 - Documentation d'installation</title>
+        <meta name="xemelios.version" content="5.0.0.0"/>
+        <meta name="date.revision" content="2011-01-31"/>
+		<link href="http://xemelios.org/favicon.ico" rel="shortcut icon"/>
+		<link rel="stylesheet" type="text/css" href="http://xemelios.org/site/css/main.css"/>
+        <style type="text/css">
+          	/*html {
+                background: #f4f5f0;
+            }*/
+            p.header {
+                text-align: center;
+                margin: 0 10 5 10;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            p {
+                text-align: justify;
+                text-justify: auto;
+            }
+            .p1 {
+                margin-left: 10px;
+                 
+            }
+            .p2 {
+                margin-left: 20px;
+            }
+            .p3 {
+                margin-left: 30px;
+                 
+            }
+            .p4 {
+                margin-left: 40px;
+                 
+            }
+            p.center {
+                text-align: center;
+                 
+            }
+			.code {
+				background: url(http://xemelios.org/site/img/code.png) no-repeat 0 100%;
+				padding: 0 30px 30px;
+				margin-top: 10px 0 0; 
+			}
+            h1 {
+                font-family: Helvetica;
+                font-size: 22px;
+                font-weight: bold;
+            }
+            h2 {
+                margin-left: 10px;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            h3 {
+                margin-left: 20px;
+                font-family: Helvetica;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            table {
+                background-color: black;
+                cell-spacing: 1px;
+            }
+            td {
+                background-color: white;
+            }
+            td.center {
+                text-align:center;
+            }
+            th {
+                background-color: #9F9F9F;
+                text-align: left;
+            }
+            .under {
+                text-decoration: underline;
+            }
+            .menu {
+                text-decoration: underline;
+            }
+			img { margin-left: 45px;}
+			a > img { margin-left: 0px;}
+        </style>
+    </head>
+    <body class="master">
+	    <div class="content">
+	    	<a name="top">&#160;</a>
+	        <h1><a href="http://xemelios.org/index.html"><img src="http://xemelios.org/site/img/xemelios.png" width="487" height="77" alt="X&#233;M&#233;Lios"/></a></h1>
+	        <h1>XeMeLios v5 - Documentation d'installation</h1>
+	        <!-- p class="p1">L'objet de ce document est d'expliciter l'installation de XeMeLios.</p-->
+	        
+	        <h2>Table des mati&egrave;res</h2>
+	        <ol>
+	            <li><a href="#download">T&eacute;l&eacute;chargement de XeMeLios</a></li>
+	            <li><a href="#requisites">Pr&eacute;-requis</a></li>
+	            <li><a href="#start">Lancement du setup</a></li>
+	            <li><a href="#first.start">Premier d&eacute;marrage</a></li>
+	        	<li><a href="#abonnements">Abonnements</a></li>
+				<li><a href="#maj.bdd">Mise &agrave; jour de la Base De Donn&eacute;es vers la V5</a></li>
+	            <li><a href="#troubleshooting">Si &ccedil;a ne marche pas</a></li>
+				<li><a href="#desinstallation">D&eacute;sinstallation</a></li>
+	        </ol>
+	        
+	    	<a name="download">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;1. T&eacute;l&eacute;chargement de XeMeLios</h2>
+	        <p class="p2">Le programme d'installation de XeMeLios est disponible <a href="http://xemelios.org/v5/setup-xemelios-v5.exe">ici</a></p>
+	        
+	        <a name="requisites">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;2. Pr&eacute;-requis</h2>
+	        <p class="p2">Pour pouvoir &ecirc;tre install&eacute;, XeMeLios n&eacute;cessite plusieurs pr&eacute;-requis :</p>
+	        <ul>
+	        	<li class="p4">Pr&eacute;sence d'une machine virtuelle <b>Java 6</b> <a class="surligne">minimum</a>, active par d&eacute;faut et disponible <a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jre-6u23-oth-JPR@CDS-CDS_Developer">ici</a>.</li>
+	        	<li class="p4">Version de Windows sup&eacute;rieure ou &eacute;gale &agrave; <a class="surligne">Windows 2000</a>. <b>Windows XP, Windows Vista et Windows Seven</b> <a class="surligne">sont support&eacute;s</a> et <i>Windows 95, Windows 98, Windows Me et Windows NT4 ne le sont plus</i>.</li>
+	        	<li class="p4">MySql <b>ne doit pas &ecirc;tre install&eacute;</b> avant d'effectuer l'installation de la <a class="surligne">partie Serveur de XeMeLios</a>. Si vous souhaitez installer XeMeLios <a class="surligne">sur une machine o&ugrave; MySql est d&eacute;j&agrave; install&eacute;</a>, veuillez vous reporter &agrave; la documentation d'installation de la <a href="setup-mysql.html">base de donn&eacute;es XeMeLios</a>.</li>
+	        	<li class="p4"><b>Aucune version pr&eacute;c&eacute;dente de XeMeLios</b> ne doit &ecirc;tre <a class="surligne">install&eacute;e</a>. Si vous aviez d&eacute;j&agrave; une version pr&eacute;c&eacute;dente de XeMeLios install&eacute;e, reportez-vous aux <a href="desinstall-xemelios.html">conseils de d&eacute;sinstallation de XeMeLios</a>.</li>
+	            <li class="p4">Pour installer la partie Serveur de XeMeLios, vous devez faire partie du groupe des utilisateurs avec pouvoir, ou &ecirc;tre administrateur du poste.</li>
+		    </ul>
+	        
+	        <a name="start">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;3. Lancement du setup</h2>
+	    	<p class="p2"><a class="surligne">Apr&egrave;s avoir t&eacute;l&eacute;charg&eacute;</a> le programme d'installation de XeMeLios, il est n&eacute;cessaire de l'ex&eacute;cuter afin d'installer le logiciel.</p>
+	    	<p class="p2">Si vous utilisez <b>Windows Vista</b> <i>ou</i> <b>Windows Seven</b>, il se peut que Windows vous demande l'autorisation de lancer le programme.<br/><br/>Il faudra accepter afin de poursuivre l'installation.</p>
+	        <img src="images/autorisation.png" alt="Autorisation"/>
+	        <p class="p2">Le programme d'installation se lance. Cliquez sur suivant pour poursuivre.</p>
+	        <img src="images/welcome.png" alt="Accueil"/>
+	    	<p class="p2">Les termes de la licence de XeMeLios s'affichent. Veuillez les accepter pour avancer dans la proc&eacute;dure d'installation et cliquez sur <a class="surligne">suivant</a>.</p>
+	        <img src="images/licence.png" alt="Licence"/>
+	        <p class="p2">Le choix du type d'installation appara&icirc;t</p>
+	        <img src="images/type-install.png" alt="Type installation"/>
+	        <p class="p2">Choisissez alors le type d'installation de XeMeLios que vous souhaitez :</p>
+	        <ul>
+	        	<li class="p4"><a href="#install.complete">Installation "compl&egrave;te"</a>&nbsp;: Cette option permet d'installer <a class="surligne">un serveur XeMeLios</a> <b>et</b> <a class="surligne">un client XeMeLios</a> permettant d'acc&eacute;der &agrave; ce serveur.</li>
+	        	<li class="p4"><a href="#client.only">Installation "client seul"</a>&nbsp;: Cette option n'installe <a class="surligne">qu'un client XeMeLios</a>, qui se connectera &agrave; un serveur pr&eacute;c&eacute;demment install&eacute; sur une autre machine.</li>
+	        </ul>
+	        <p class="p2">Le param&eacute;trage avanc&eacute; permet de sp&eacute;cifier un port diff&eacute;rent pour le serveur MySql de celui par d&eacute;faut.</p>
+	        
+	        <a name="install.complete">&#160;</a>
+	        <h3>Installation compl&egrave;te</h3>
+	    	<p class="p3">Cette option installe un <a class="surligne">XeMeLios complet</a>, avec <a class="surligne">un serveur</a> <b>et</b> <a class="surligne">un client</a>.
+	    		<br/><br/>Si le <b>Param&eacute;trage avanc&eacute;</b> <a class="surligne">n'est pas s&eacute;lectionn&eacute;</a>, par d&eacute;faut le port 3306 est utilis&eacute; pour MySql. Sinon, l'utilisateur se voit proposer de choisir un autre port.
+	    		<br/><br/>Le XeMeLios client est param&eacute;tr&eacute; pour se connecter sur le serveur install&eacute;.
+			</p>
+	        
+	        <a name="client.only">&#160;</a>
+	        <h3>Installation client seul</h3>
+	    	<p class="p3">Cette option installe un <a class="surligne">client seul est install&eacute;</a>. 
+	    		<br/><br/>Si le <b>param&eacute;trage avanc&eacute;</b> est s&eacute;lectionn&eacute;, l'utilisateur se voit demander de s&eacute;lectionner <a class="surligne">le serveur, le port, le nom d'utilisateur et le mot de passe</a>.
+	    		<br/><br/>Sinon, seul le nom de serveur sera demand&eacute;.
+			</p>
+	        
+	    	<a name="first.start">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;4. Premier d&eacute;marrage</h2>
+	        <p class="p2">Lors du premier d&eacute;marrage, XeMeLios effectue plusieurs contr&ocirc;les et propose &agrave; l'utilisateur un param&eacute;trage adapt&eacute;.</p>
+	        
+	        <a name="first.start.server">&#160;</a>
+	        <h3>Serveur</h3>
+	    	<p class="p3">Si le <a class="surligne">client est lanc&eacute;</a> sur le serveur, et si l'<a class="surligne">authentification n'a jamais &eacute;t&eacute; param&eacute;tr&eacute;e</a>, XeMeLios proposera de configurer le mode d'authentification.</p>
+	        <img src="images/first-start-server.png" alt="Premier lancement serveur"/>
+	    	<p class="p3">Si l'utilisateur annule, le lancement de XeMeLios est interrompu.
+	    		<br/><br/>A tout moment, il est possible de re param&eacute;trer le mode d'authentification, en allant dans le menu <a class="surligne">Fichier</a> puis <a class="surligne">Configuration...</a> et enfin onglet <a class="surligne">Authentification</a>.
+			</p>
+	        
+	        <a name="first.start.client">&#160;</a>
+	        <h3>Client</h3>
+	    	<p class="p3">Au premier lancement du client, XeMeLios propose un assistant qui permettra de param&eacute;trer l'acc&egrave;s &agrave; <a class="surligne">Internet et les Abonnements</a>.</p>
+	        <img src="images/first-start-client-proxy.png" alt="Configuration de l&apos;acc&egrave;s &agrave; Internet"/>
+	    	<p class="p3">L'utilisateur, doit obtenir les informations n&eacute;cessaires aupr&egrave;s de son SAU (Service d'Assistance Utilisateur) et de son Administrateur R&eacute;seau.
+	    		<br/><br/>Avec ses informations, l'utilisateur pourra param&eacute;trer la fa&ccedil;on dont XeMeLios acc&egrave;dera &agrave; Internet.
+	    		<br/><br/>XeMeLios pourra par cons&eacute;quent r&eacute;cup&eacute;rer les mises &agrave; jour disponibles.
+			</p>
+	    	<p class="p3">Afin de param&eacute;trer un poste qui est dans le r&eacute;seau du Tr&eacute;sor, il suffit de cocher le bouton radio <b><a class="surligne">Je&nbsp;fais&nbsp;partie&nbsp;du&nbsp;r&eacute;seau&nbsp;du&nbsp;Tr&eacute;sor</a></b>.
+	    		<br/><br/>Les utilisateurs en dehors du r&eacute;seau du Tr&eacute;sor devront conna&icirc;tre les modalit&eacute;s d'acc&egrave;s &agrave; Internet afin de param&eacute;trer l'acc&egrave;s.</p>
+	        
+	    	<a name="abonnements">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;5.Abonnements</h2>
+			<img src="images/first-start-client-abo.png" alt="Abonnements"/>
+	        <p class="p2">Le syst&egrave;me des mises &agrave; jour a &eacute;t&eacute; profond&eacute;ment modifi&eacute; avec la version 5.
+				<br/><br/>D&eacute;sormais, XeMeLios ne sait pas g&eacute;rer par d&eacute;faut les types de document.
+				<br/><br/>XeMeLios propose plusieurs types d'usage, en fonction de profils d'utilisateurs.
+	        	<br/><br/>Cet &eacute;cran vous permet de s&eacute;lectionner le type d'usage que vous comptez faire de XeMeLios, afin que les composants requis soient install&eacute;s.
+	        	<br/><br/>Si vous voulez changer, affiner ou supprimer des abonnements; il vous suffira d'aller dans le menu <a class="surligne">Fichier</a> puis <a class="surligne">Configuration...</a> et enfin onglet <a class="surligne">Abonnements</a>.</p>
+			
+			<a name="maj.bdd">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;6. La mise &agrave; jour de la base de donn&eacute;es.</h2>
+	    	<p class="p2">Une fois l'installation effectu&eacute;e et le profil d'utilisation d&eacute;fini, <a class="surligne">le red&eacute;marrage de XeMeLios</a> permettra &agrave; <a class="surligne">votre base de donn&eacute;es</a> d'&ecirc;tre &agrave; jour et <a class="surligne">compatible avec la version 5</a> tout <b>en gardant vos donn&eacute;es import&eacute;es</b> avec d'anciennes version de XeMeLios.</p>
+	    	<p class="p2">Attention toutefois, <a class="surligne">cette mise &agrave; jour</a> <b>peut &ecirc;tre longue</b>, voire tr&egrave;s longue (plusieurs heures, parfois plusieurs jours pour certaines bases exceptionnellement volumineuses).</p>
+	    	<p class="p2">Cela d&eacute;pendra des performances de votre ordinateur, de la taille de votre base de donn&eacute;es et de la nature des fichiers que vous avez import&eacute;s.</p>
+	    	<p class="p2">A ce titre, nous conseillons aux utilisateurs de bases de donn&eacute;es volumineuses (plusieurs ann&eacute;es de fichiers stock&eacute;s sans suppressions), de supprimer les donn&eacute;es obsol&egrave;tes ou qui ne sont plus utilis&eacute;es avant de faire la mise &agrave; jour.</p>
+			<p class="p2">XeMeLios proposera &eacute;galement de supprimer certains types de donn&eacute;es, si vous le souhaitez.</p>
+	    	<p class="p2">Il est <b>imp&eacute;ratif</b> <a class="surligne">de ne pas &eacute;teindre votre ordinateur <b>et</b> de ne pas fermer XeMeLios</a> pendant cette mise &agrave; jour.</p>
+	    	
+			<a name="troubleshooting">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;7. Si &ccedil;a ne marche pas</h2>
+	        <p class="p2">Nous avons essay&eacute; de lister les probl&egrave;mes les plus fr&eacute;quemment rencontr&eacute;s.
+				<br/><br/>Si vous avez des propositions &agrave; faire pour enrichir cette liste, merci d'envoyer un mail &agrave; <a href="mailto:adrien.daversa@dgfip.finances.gouv.fr">adrien.daversa@dgfip.finances.gouv.fr</a>.
+			</p>
+	        
+	    	<a name="another.instance">&#160;</a>
+			<h3>XeMeLios est d&eacute;j&agrave; en cours d'ex&eacute;cution</h3>
+	        <p class="p2">Au premier message, j'ai ce message d'erreur :</p>
+	        <img src="images/another-instance.png" alt="Un autre XeMeLios..."/>
+	        <p class="p2">XeMeLios interdit d&eacute;sormais que deux instances de XeMeLios s'ex&eacute;cutent en m&ecirc;me temps sur le m&ecirc;me poste.
+				<br/><br/>Pour contr&ocirc;ler cela, il utilise un port TCP/IP en &eacute;coute.
+	        	<br/><br/>Par d&eacute;faut, le port sur lequel &eacute;coute XeMeLios est le 8973.
+	        	<br/><br/>Si sur votre poste, ce port est utilis&eacute; par une autre application, XeMeLios refusera de d&eacute;marrer.
+	        	<br/><br/>Il suffira donc d'indiquer &agrave; XeMeLios quel port disponible doit &ecirc;tre utilisé.</p>
+	        <p class="p2">Modifions ensemble le fichier <tt>xemelios.properties</tt> et g&eacute;n&eacute;ralement pr&eacute;sent dans le r&eacute;pertoire <tt>C:\Program&nbsp;Files\DGCP\XeMeLios\XeMeLios\root</tt>.
+	        	<br/><br/>Ce fichier peut s'ouvrir avec le bloc-notes Windows ou tout autre &eacute;diteur de texte.
+	        	<br/><br/>Ajoutons la ligne suivante au fichier : <tt>xemelios.isolation.port=<span style="color: red; font-weight: bold;">8384</span></tt> o&ugrave; <span style="color: red;">8384</span> est le port que vous aurez choisit.</p>
+	    	<p class="p2">En g&eacute;n&eacute;ral, tout port au-dessus de 8100 convient.</p>
+	        <!--p style="margin-left: 30px; font-family: courier, monotype;">xemelios.isolation.port=<span style="color: red;">8384</span></p-->
+	        	        
+	        <h2>Probl&egrave;me de JVM (Java)</h2>
+	        <p class="p2">Lorsque je lance XeMeLios, j'ai ce message d'erreur :</p>
+	        <img src="images/bad-jvm.png" alt="Could not find main class..."/>
+	        <p class="p2">... et XeMeLios ne se lance pas !</p>
+	    	<p class="p2">Dans la plupart des cas, cela arrive quand <b>Java 6</b> <a class="surligne">est install&eacute;</a>, mais que ce n'est pas la <a class="surligne">version utilis&eacute;e par d&eacute;faut</a>.
+	    		<br/><br/>Il faut <a class="surligne">soit modifier le param&eacute;trage de Windows</a> pour que <b>Java 6</b> devienne la version lanc&eacute;e par d&eacute;faut, <a class="surligne">soit modifier le script de lancement</a> de XeMeLios.
+			</p>
+	        <ul>
+	        	<li class="p3">La modification du param&eacute;trage de Windows n'est pas un sujet traitable ici. Rapprochez-vous de vos SAU (Service d'Assistance Utilisateur), administrateur R&eacute;seau,  etc... pour r&eacute;aliser cette op&eacute;ration.</li>
+	        	<li class="p3">La modification du script de lancement de XeMeLios est ais&eacute;e :
+	                <ol>
+	                	<li>Tout d'abord il faut savoir o&ugrave; Java 6 est install&eacute;. G&eacute;n&eacute;ralement, il faut chercher dans le r&eacute;pertoire <tt>C:\Program&nbsp;Files\Java\jre6</tt></li>
+	                	<li>Ensuite, modifiez le fichier <tt>C:\Program Files\DGCP\Xemelios\Xemelios\root\xemelios.bat</tt></li>
+	                	<li>Apr&egrave;s, remplacez la derni&egrave;re ligne <tt>START javaw.exe&nbsp;-xms64m&nbsp;-xmx384m&nbsp;-jar&nbsp;xemelios.jar&nbsp;%1%</tt> par <tt>"<i>C:\Program&nbsp;Files\Java\jre6</i>\bin\javaw.exe"&nbsp;-xms64m&nbsp;-xmx384m&nbsp;-jar&nbsp;xemelios.jar&nbsp;%1%</tt> en mettant le chemin not&eacute; au point 1.</li>
+	                	<li>Modifiez le fichier <tt>C:\Program Files\DGCP\Xemelios\Xemelios\root\viewdoc.cmd</tt></li>
+	                	<li>Remplacez l'avant-derni&egrave;re ligne <tt>start&nbsp;javaw&nbsp;-cp&nbsp;%CP%&nbsp;-Dxemelios.documents.def.dir="%HERE%\documents-def"&nbsp;fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument&nbsp;"%1"&nbsp;"%2"</tt> par <tt><i>C:\Program&nbsp;Files\Java\jre6</i>\bin\javaw -cp %CP% -Dxemelios.documents.def.dir="%HERE%\documents-def" fr.gouv.finances.cp.xemelios.ui.ViewXemeliosDocument "%1" "%2"</tt> en mettant le chemin not&eacute; au point 1.</li>
+	                </ol>
+	            </li>
+	        </ul>
+
+	    	<a name="desinstallation">&#160;</a>
+	    	<h2><a href="#top"><img src="images/top.png" alt="Aller en haut de la page"/></a>&#160;8. D&eacute;sinstallation de pr&eacute;c&eacute;dentes versions de XeMeLios</h2>
+			<p class="p2">Afin de pouvoir installer XeMeLios 5, vous devez pr&eacute;alablement avoir d&eacute;sinstall&eacute; les pr&eacute;c&eacute;dentes versions de XeMeLios (V3 et V4).</p>
+			<p class="p2">Vous pouvez cependant conserver votre base de donn&eacute;es sans avoir &agrave; r&eacute;importer toutes vos donn&eacute;es (XeMeLios vous le proposera pendant l'installation de la V5).</p>
+			<p class="p2">Si votre base de donn&eacute;es est trop volumineuse pour &ecirc;tre adapt&eacute;e au fonctionnement de XeMeLios 5, l'installeur de XeMeLios vous avertira que certaines donn&eacute;es devront &ecirc;tre supprim&eacute;es pour pouvoir terminer correctement l'installation de XeMeLios.</p>
+	    	<p class="p2">Il vous sera alors n&eacute;cessaire de les r&eacute;importer manuellement.</p>
+			
+			<h3>D&eacute;sinstallation</h3>
+	    	<p class="p3">Le plus simple est de passer par le <a class="surligne">panneau de configuration</a> puis <a class="surligne">Ajout/suppression de programme</a>, s&eacute;lectionnez XeMeLios et enfin faites <a class="surligne">Modifier/Supprimer</a>.</p>
+			<p class="p3">Ceci d&eacute;sinstallera XeMeLios mais laissera certains fichiers tels que votre base de donn&eacute;es.
+				<br/><br/>Les diff&eacute;rents raccourcis qui resteront seront supprim&eacute;s par le programme d'installation de XeMeLios V5.
+			</p>
+			
+			<h3>Suppression des fichiers</h3>
+	    	<p class="p3">Si vous ne souhaitez pas conserver votre base de donn&eacute;es, supprimez le dossier <tt>C:\Program Files\DGCP</tt></p>
+			<p class="p3">Apr&egrave;s les suppressions, pensez &agrave; vider la corbeille Windows.</p>
+		</div>
+    </body>
+</html>

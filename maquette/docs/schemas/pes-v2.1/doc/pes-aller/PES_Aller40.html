@@ -1,0 +1,2691 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for component TBlocBordereau</title>
+      <link rel="stylesheet" href="xsdDocHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_id100', 
+				'properties_id104', 
+				'properties_id108', 
+				'properties_id109', 
+				'properties_id112', 
+				'properties_id116', 
+				'properties_id120', 
+				'properties_id121', 
+				'properties_id430', 
+				'properties_id431', 
+				'properties_id432', 
+				'properties_id433', 
+				'properties_id436', 
+				'properties_id437', 
+				'properties_id438', 
+				'properties_id439');
+
+        
+        var usedByBoxes= new Array('usedBy_id99', 
+				'usedBy_id429');
+
+        var sourceBoxes= new Array('source_id100', 
+				'source_id104', 
+				'source_id108', 
+				'source_id109', 
+				'source_id112', 
+				'source_id116', 
+				'source_id120', 
+				'source_id121', 
+				'source_id430', 
+				'source_id431', 
+				'source_id432', 
+				'source_id433', 
+				'source_id436', 
+				'source_id437', 
+				'source_id438', 
+				'source_id439', 
+				'source_id99', 
+				'source_id429');
+
+        
+        var diagramBoxes= new Array('diagram_id100', 
+				'diagram_id104', 
+				'diagram_id108', 
+				'diagram_id109', 
+				'diagram_id112', 
+				'diagram_id116', 
+				'diagram_id120', 
+				'diagram_id121', 
+				'diagram_id430', 
+				'diagram_id431', 
+				'diagram_id432', 
+				'diagram_id433', 
+				'diagram_id436', 
+				'diagram_id437', 
+				'diagram_id438', 
+				'diagram_id439', 
+				'diagram_id99', 
+				'diagram_id429');
+
+        
+        var attributesBoxes= new Array('attributes_id100', 
+				'attributes_id104', 
+				'attributes_id108', 
+				'attributes_id109', 
+				'attributes_id112', 
+				'attributes_id116', 
+				'attributes_id120', 
+				'attributes_id121', 
+				'attributes_id430', 
+				'attributes_id431', 
+				'attributes_id432', 
+				'attributes_id433', 
+				'attributes_id436', 
+				'attributes_id437', 
+				'attributes_id438', 
+				'attributes_id439');
+
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "images/button_minus.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "images/button_plus.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+            var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+            // Make all the tabs invisible.
+            for (i = 0; i < 3; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, attributesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, diagramBoxes);"
+                                     class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, propertiesBoxes);"
+                                     class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="id100"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / Exer</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id100" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id100');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id100" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html260.png"
+                                   usemap="#PES_Aller_46_html260" /><map name="PES_Aller_46_html260" id="PES_Aller_46_html260">
+                                 <area alt="PES_Aller81.tmp#id102" href="PES_Aller81.html#id102"
+                                       coords="111,78,183,102" />
+                                 <area alt="PES_Aller81.tmp#id101" href="PES_Aller81.html#id101" coords="86,3,220,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller81.html#id101" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Annee')">Base_Annee</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id100" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id100');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id100" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id100" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id100');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id100" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller81.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller325.html#id103" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Annee')">V_Annee</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id100" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id100');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id100" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Exer"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Annee"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id104"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / IdBord</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id104" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id104');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id104" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html490.png"
+                                   usemap="#PES_Aller_46_html490" /><map name="PES_Aller_46_html490" id="PES_Aller_46_html490">
+                                 <area alt="PES_Aller231.tmp#id106" href="PES_Aller231.html#id106"
+                                       coords="122,78,194,102" />
+                                 <area alt="PES_Aller231.tmp#id105" href="PES_Aller231.html#id105"
+                                       coords="97,3,229,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller231.html#id105" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Num7')">Base_Num7</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id104" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id104');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id104" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id104" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id104');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id104" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller231.html#id106" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller326.html#id107" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num7')">V_Num7</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id104" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id104');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id104" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num7"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id108"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / DteBordEm</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id108" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id108');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id108" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html201.png"
+                                   usemap="#PES_Aller_46_html201" /><map name="PES_Aller_46_html201" id="PES_Aller_46_html201">
+                                 <area alt="PES_Aller43.tmp#id63" href="PES_Aller43.html#id63" coords="146,78,218,102" />
+                                 <area alt="PES_Aller43.tmp#id62" href="PES_Aller43.html#id62" coords="121,3,245,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller43.html#id62" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id108" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id108');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id108" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id108" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id108');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id108" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller43.html#id63" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller318.html#id64" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id108" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id108');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id108" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteBordEm"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id109"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / TypBord</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id109" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id109');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id109" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html204.png"
+                                   usemap="#PES_Aller_46_html204" /><map name="PES_Aller_46_html204" id="PES_Aller_46_html204">
+                                 <area alt="PES_Aller144.tmp#id111" href="PES_Aller144.html#id111"
+                                       coords="132,78,204,102" />
+                                 <area alt="PES_Aller144.tmp#id110" href="PES_Aller144.html#id110"
+                                       coords="107,3,235,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller144.html#id110" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                                 onclick="updatePageTitle('Schema documentation for component TTypBordAller')">TTypBordAller</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id109" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id109');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id109" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id109" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id109');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id109" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller144.html#id111" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id109" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id109');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id109" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTypBordAller"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id112"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / NbrPce</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id112" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id112');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id112" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html261.png"
+                                   usemap="#PES_Aller_46_html261" /><map name="PES_Aller_46_html261" id="PES_Aller_46_html261">
+                                 <area alt="PES_Aller173.tmp#id114" href="PES_Aller173.html#id114"
+                                       coords="125,78,197,102" />
+                                 <area alt="PES_Aller173.tmp#id113" href="PES_Aller173.html#id113"
+                                       coords="100,3,232,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller173.html#id113" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Num5')">Base_Num5</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id112" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id112');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id112" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id112" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id112');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id112" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller173.html#id114" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller327.html#id115" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num5')">V_Num5</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id112" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id112');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id112" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NbrPce"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num5"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id116"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / MtCumulAnnuel</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id116" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id116');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id116" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html619.png"
+                                   usemap="#PES_Aller_46_html619" /><map name="PES_Aller_46_html619" id="PES_Aller_46_html619">
+                                 <area alt="PES_Aller84.tmp#id118" href="PES_Aller84.html#id118"
+                                       coords="173,78,245,102" />
+                                 <area alt="PES_Aller84.tmp#id117" href="PES_Aller84.html#id117" coords="148,3,292,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller84.html#id117" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id116" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id116');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id116" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id116" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id116');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id116" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller84.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller328.html#id119" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id116" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id116');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id116" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtCumulAnnuel"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id120"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / MtBordHT</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id120" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id120');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id120" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html589.png"
+                                   usemap="#PES_Aller_46_html589" /><map name="PES_Aller_46_html589" id="PES_Aller_46_html589">
+                                 <area alt="PES_Aller84.tmp#id118" href="PES_Aller84.html#id118"
+                                       coords="140,78,212,102" />
+                                 <area alt="PES_Aller84.tmp#id117" href="PES_Aller84.html#id117" coords="115,3,259,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller84.html#id117" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id120" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id120');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id120" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id120" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id120');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id120" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller84.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller328.html#id119" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id120" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id120');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id120" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordHT"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id121"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id99" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / MtBordTVA</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id121" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id121" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html269.png"
+                                   usemap="#PES_Aller_46_html269" /><map name="PES_Aller_46_html269" id="PES_Aller_46_html269">
+                                 <area alt="PES_Aller84.tmp#id118" href="PES_Aller84.html#id118"
+                                       coords="147,78,219,102" />
+                                 <area alt="PES_Aller84.tmp#id117" href="PES_Aller84.html#id117" coords="122,3,266,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller84.html#id117" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id121" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id121" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id121" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id121" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller84.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller328.html#id119" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id121" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id121');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id121" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordTVA"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id430"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / Exer</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id430" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id430');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id430" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html302.png"
+                                   usemap="#PES_Aller_46_html302" /><map name="PES_Aller_46_html302" id="PES_Aller_46_html302">
+                                 <area alt="PES_Aller81.tmp#id102" href="PES_Aller81.html#id102"
+                                       coords="111,78,183,102" />
+                                 <area alt="PES_Aller81.tmp#id101" href="PES_Aller81.html#id101" coords="86,3,220,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller81.html#id101" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Annee')">Base_Annee</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id430" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id430');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id430" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id430" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id430');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id430" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller81.html#id102" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller325.html#id103" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Annee')">V_Annee</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id430" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id430');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id430" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Exer"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Annee"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id431"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / IdBord</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id431" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id431');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id431" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html553.png"
+                                   usemap="#PES_Aller_46_html553" /><map name="PES_Aller_46_html553" id="PES_Aller_46_html553">
+                                 <area alt="PES_Aller231.tmp#id106" href="PES_Aller231.html#id106"
+                                       coords="122,78,194,102" />
+                                 <area alt="PES_Aller231.tmp#id105" href="PES_Aller231.html#id105"
+                                       coords="97,3,229,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller231.html#id105" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Num7')">Base_Num7</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id431" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id431');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id431" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id431" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id431');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id431" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller231.html#id106" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller326.html#id107" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num7')">V_Num7</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id431" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id431');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id431" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num7"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id432"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / DteBordEm</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id432" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id432');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id432" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html320.png"
+                                   usemap="#PES_Aller_46_html320" /><map name="PES_Aller_46_html320" id="PES_Aller_46_html320">
+                                 <area alt="PES_Aller43.tmp#id63" href="PES_Aller43.html#id63" coords="146,78,218,102" />
+                                 <area alt="PES_Aller43.tmp#id62" href="PES_Aller43.html#id62" coords="121,3,245,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller43.html#id62" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Date')">Base_Date</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id432" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id432');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id432" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id432" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id432');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id432" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller43.html#id63" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller318.html#id64" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Date')">V_Date</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id432" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id432');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id432" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteBordEm"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id433"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / TypBord</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id433" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id433');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id433" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html62.png"
+                                   usemap="#PES_Aller_46_html62" /><map name="PES_Aller_46_html62" id="PES_Aller_46_html62">
+                                 <area alt="PES_Aller64.tmp#id435" href="PES_Aller64.html#id435"
+                                       coords="132,78,204,102" />
+                                 <area alt="PES_Aller64.tmp#id434" href="PES_Aller64.html#id434" coords="107,3,210,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller64.html#id434" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                                 onclick="updatePageTitle('Schema documentation for component TTypBord')">TTypBord</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id433" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id433');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id433" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id433" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id433');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id433" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller64.html#id435" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td>restriction of <b>xs:string</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id433" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id433');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id433" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTypBord"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id436"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / NbrPce</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id436" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id436');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id436" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html430.png"
+                                   usemap="#PES_Aller_46_html430" /><map name="PES_Aller_46_html430" id="PES_Aller_46_html430">
+                                 <area alt="PES_Aller173.tmp#id114" href="PES_Aller173.html#id114"
+                                       coords="125,78,197,102" />
+                                 <area alt="PES_Aller173.tmp#id113" href="PES_Aller173.html#id113"
+                                       coords="100,3,232,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller173.html#id113" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Num5')">Base_Num5</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id436" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id436');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id436" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id436" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id436');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id436" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller173.html#id114" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller327.html#id115" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Num5')">V_Num5</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id436" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id436');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id436" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NbrPce"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num5"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id437"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / MtCumulAnnuel</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id437" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id437');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id437" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html746.png"
+                                   usemap="#PES_Aller_46_html746" /><map name="PES_Aller_46_html746" id="PES_Aller_46_html746">
+                                 <area alt="PES_Aller84.tmp#id118" href="PES_Aller84.html#id118"
+                                       coords="173,78,245,102" />
+                                 <area alt="PES_Aller84.tmp#id117" href="PES_Aller84.html#id117" coords="148,3,292,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller84.html#id117" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id437" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id437');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id437" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id437" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id437');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id437" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller84.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller328.html#id119" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id437" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id437');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id437" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtCumulAnnuel"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id438"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / MtBordHt</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id438" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id438');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id438" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html477.png"
+                                   usemap="#PES_Aller_46_html477" /><map name="PES_Aller_46_html477" id="PES_Aller_46_html477">
+                                 <area alt="PES_Aller84.tmp#id118" href="PES_Aller84.html#id118"
+                                       coords="137,78,209,102" />
+                                 <area alt="PES_Aller84.tmp#id117" href="PES_Aller84.html#id117" coords="112,3,256,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller84.html#id117" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id438" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id438');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id438" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id438" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id438');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id438" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller84.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller328.html#id119" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id438" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id438');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id438" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordHt"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id439"></a><div class="componentTitle">Element <span class="qname"><b><a href="PES_Aller40.html#id429" target="mainFrame"
+                  title="http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller"
+                  onclick="updatePageTitle('Schema documentation for component TBlocBordereau')">TBlocBordereau</a></b> / MtBordTVA</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id439" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id439');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id439" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html528.png"
+                                   usemap="#PES_Aller_46_html528" /><map name="PES_Aller_46_html528" id="PES_Aller_46_html528">
+                                 <area alt="PES_Aller84.tmp#id118" href="PES_Aller84.html#id118"
+                                       coords="147,78,219,102" />
+                                 <area alt="PES_Aller84.tmp#id117" href="PES_Aller84.html#id117" coords="122,3,266,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="PES_Aller84.html#id117" target="mainFrame"
+                                 title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                 onclick="updatePageTitle('Schema documentation for component Base_Montant')">Base_Montant</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_id439" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('properties_id439');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_id439" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn">content:
+                                       
+                                    </td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">minOccurs:
+                                       
+                                    </td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_id439" type="image" src="images/button_minus.gif"
+                                     value="-"
+                                     onclick="switchState('attributes_id439');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_id439" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Type</th>
+                                       <th>Fixed</th>
+                                       <th>Default</th>
+                                       <th>Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="PES_Aller84.html#id118" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component V')">V</a></b></td>
+                                    <td><b><a href="PES_Aller328.html#id119" target="mainFrame"
+                                             title="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun"
+                                             onclick="updatePageTitle('Schema documentation for component V_Montant')">V_Montant</a></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id439" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id439');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id439" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordTVA"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id99"></a><div class="componentTitle">Complex Type <span class="qname">TBlocBordereau</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.minefi.gouv.fr/cp/helios/pes_v2/depense/r0/aller</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id99" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id99');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id99" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html33.png"
+                                   usemap="#PES_Aller_46_html33" /><map name="PES_Aller_46_html33" id="PES_Aller_46_html33">
+                                 <area alt="PES_Aller40.tmp#id100" href="PES_Aller40.html#id100" coords="238,0,293,24" />
+                                 <area alt="PES_Aller40.tmp#id104" href="PES_Aller40.html#id104"
+                                       coords="238,34,304,58" />
+                                 <area alt="PES_Aller40.tmp#id108" href="PES_Aller40.html#id108"
+                                       coords="238,68,328,92" />
+                                 <area alt="PES_Aller40.tmp#id109" href="PES_Aller40.html#id109"
+                                       coords="238,102,314,126" />
+                                 <area alt="PES_Aller40.tmp#id112" href="PES_Aller40.html#id112"
+                                       coords="238,136,307,160" />
+                                 <area alt="PES_Aller40.tmp#id116" href="PES_Aller40.html#id116"
+                                       coords="238,170,355,194" />
+                                 <area alt="PES_Aller40.tmp#id120" href="PES_Aller40.html#id120"
+                                       coords="238,204,322,228" />
+                                 <area alt="PES_Aller40.tmp#id121" href="PES_Aller40.html#id121"
+                                       coords="238,238,329,262" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id99" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id99');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id99" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="PES_Aller181.html#id98" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TBordereau/BlocBordereau')">TBordereau/BlocBordereau</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller40.html#id100" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Exer')">Exer</a></b> , <b><a href="PES_Aller40.html#id104" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdBord')">IdBord</a></b> , <b><a href="PES_Aller40.html#id108" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteBordEm')">DteBordEm</a></b> , <b><a href="PES_Aller40.html#id109" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypBord')">TypBord</a></b> , <b><a href="PES_Aller40.html#id112" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NbrPce')">NbrPce</a></b> , <b><a href="PES_Aller40.html#id116" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtCumulAnnuel{0,1}')">MtCumulAnnuel{0,1}</a></b> , <b><a href="PES_Aller40.html#id120" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordHT')">MtBordHT</a></b> , <b><a href="PES_Aller40.html#id121" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordTVA{0,1}')">MtBordTVA{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller40.html#id108" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteBordEm')">DteBordEm</a></b>, <b><a href="PES_Aller40.html#id100" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Exer')">Exer</a></b>, <b><a href="PES_Aller40.html#id104" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdBord')">IdBord</a></b>, <b><a href="PES_Aller40.html#id120" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordHT')">MtBordHT</a></b>, <b><a href="PES_Aller40.html#id121" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordTVA')">MtBordTVA</a></b>, <b><a href="PES_Aller40.html#id116" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtCumulAnnuel')">MtCumulAnnuel</a></b>, <b><a href="PES_Aller40.html#id112" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NbrPce')">NbrPce</a></b>, <b><a href="PES_Aller40.html#id109" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypBord')">TypBord</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id99" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id99');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id99" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TBlocBordereau"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Exer"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Annee"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num7"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteBordEm"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTypBordAller"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NbrPce"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num5"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtCumulAnnuel"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordHT"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordTVA"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="id429"></a><div class="componentTitle">Complex Type <span class="qname">TBlocBordereau</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.minefi.gouv.fr/cp/helios/pes_v2/recette/r0/aller</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_id429" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('diagram_id429');"
+                                     class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_id429" style="display:block"><img alt="Diagram" border="0" src="images/PES_Aller.html777.png"
+                                   usemap="#PES_Aller_46_html777" /><map name="PES_Aller_46_html777" id="PES_Aller_46_html777">
+                                 <area alt="PES_Aller40.tmp#id430" href="PES_Aller40.html#id430" coords="238,0,293,24" />
+                                 <area alt="PES_Aller40.tmp#id431" href="PES_Aller40.html#id431"
+                                       coords="238,34,304,58" />
+                                 <area alt="PES_Aller40.tmp#id432" href="PES_Aller40.html#id432"
+                                       coords="238,68,328,92" />
+                                 <area alt="PES_Aller40.tmp#id433" href="PES_Aller40.html#id433"
+                                       coords="238,102,314,126" />
+                                 <area alt="PES_Aller40.tmp#id436" href="PES_Aller40.html#id436"
+                                       coords="238,136,307,160" />
+                                 <area alt="PES_Aller40.tmp#id437" href="PES_Aller40.html#id437"
+                                       coords="238,170,355,194" />
+                                 <area alt="PES_Aller40.tmp#id438" href="PES_Aller40.html#id438"
+                                       coords="238,204,319,228" />
+                                 <area alt="PES_Aller40.tmp#id439" href="PES_Aller40.html#id439"
+                                       coords="238,238,329,262" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_id429" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('usedBy_id429');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_id429" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="PES_Aller181.html#id428" target="mainFrame" title="No namespace"
+                                             onclick="updatePageTitle('Schema documentation for component TBordereau/BlocBordereau')">TBordereau/BlocBordereau</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b></td>
+                        <td><b><a href="PES_Aller40.html#id430" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Exer')">Exer</a></b> , <b><a href="PES_Aller40.html#id431" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdBord')">IdBord</a></b> , <b><a href="PES_Aller40.html#id432" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteBordEm')">DteBordEm</a></b> , <b><a href="PES_Aller40.html#id433" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypBord')">TypBord</a></b> , <b><a href="PES_Aller40.html#id436" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NbrPce')">NbrPce</a></b> , <b><a href="PES_Aller40.html#id437" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtCumulAnnuel{0,1}')">MtCumulAnnuel{0,1}</a></b> , <b><a href="PES_Aller40.html#id438" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordHt')">MtBordHt</a></b> , <b><a href="PES_Aller40.html#id439" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordTVA{0,1}')">MtBordTVA{0,1}</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="PES_Aller40.html#id432" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component DteBordEm')">DteBordEm</a></b>, <b><a href="PES_Aller40.html#id430" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component Exer')">Exer</a></b>, <b><a href="PES_Aller40.html#id431" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component IdBord')">IdBord</a></b>, <b><a href="PES_Aller40.html#id438" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordHt')">MtBordHt</a></b>, <b><a href="PES_Aller40.html#id439" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtBordTVA')">MtBordTVA</a></b>, <b><a href="PES_Aller40.html#id437" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component MtCumulAnnuel')">MtCumulAnnuel</a></b>, <b><a href="PES_Aller40.html#id436" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component NbrPce')">NbrPce</a></b>, <b><a href="PES_Aller40.html#id433" target="mainFrame" title="No namespace"
+                                 onclick="updatePageTitle('Schema documentation for component TypBord')">TypBord</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_id429" type="image" src="images/button_minus.gif" value="-"
+                                     onclick="switchState('source_id429');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_id429" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;"
+                                     class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tokenElement">&lt;xs:complexType</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TBlocBordereau"</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;xs:sequence</span><span class="tokenElement">&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"Exer"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Annee"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"IdBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num7"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"DteBordEm"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Date"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenComment">&lt;!-- HLS00052096 --&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"TypBord"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"TTypBord"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"NbrPce"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Num5"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtCumulAnnuel"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordHt"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+    </span><span class="tokenElement">&lt;xs:element</span><span class="tokenAttrName"> name=</span><span class="tokenAttrValue">"MtBordTVA"</span><span class="tokenAttrName"> type=</span><span class="tokenAttrValue">"cm:Base_Montant"</span><span class="tokenAttrName"> minOccurs=</span><span class="tokenAttrValue">"0"</span><span class="tokenElement">/&gt;</span><span class="tokenIndent">
+  </span><span class="tokenElement">&lt;/xs:sequence&gt;</span><span class="tokenIndent">
+</span><span class="tokenElement">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                     
+                     // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                                // It can be null when having chunking, the combo of the TOC is in another frame.
+                                selectToc.selectedIndex = 2;
+                            }
+                        
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>
