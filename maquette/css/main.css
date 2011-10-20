@@ -36,8 +36,8 @@ ul, li {
 	margin: 0;
 	padding: 0;
 }
-a, a:link, a:visited { text-decoration: none }
-a:focus, a:active, a:hover { text-decoration: underline }
+a, a:link, a:visited { text-decoration: none; }
+a:focus, a:active, a:hover { text-decoration: underline; }
 a img { border: 0 }
 
 
@@ -82,6 +82,17 @@ a img { border: 0 }
 	padding-bottom: 12px;
 	line-height: 1.071em;
 }
+/*
+#nav span.close {
+	 background: url('../img/plus.png') no-repeat;
+     padding-left: 15px;
+}
+
+#nav span.open {
+	 background: url('../img/moins.png') no-repeat;
+     padding-left: 15px;
+}
+*/
 #nav a { 
 	padding-left: 30px;
 	color: #2a475d;
@@ -122,10 +133,14 @@ a img { border: 0 }
 
 /* Realeases */
 #releases ul { list-style: inside }
-#releases li { margin-left: 15px }
+#releases li { margin-left: 30px }
+#releases li > ul > li { margin-left: 15px; list-style: circle inside; }
 
-#releases a { color: #ac5303; font-size: 14px }
-#releases a:hover {cursor: pointer;}
+#releases span.title { color: #2a475d; font-weight: bold;}
+
+#releases a.surligne, a.surligne:hover { cursor: text; text-decoration: none; border-top: 0px #2a475d none; border-right: 0px #2a475d none; border-left: 0px #2a475d none; border-bottom: 1px #2a475d dotted; color: #2a475d;}
+
+div.faq { padding-left: 30px; }
 
 /* Titres */
 h1 {
@@ -150,6 +165,11 @@ h3 {
 a { color: #ac5303 }
 a:hover {cursor: pointer;}
 
+/*a.surligne:focus, a.surligne:active, a.surligne:hover, a.surligne:link, a.surligne:visited { text-decoration: underline; border: 1px #2a475d dotted; }*/
+a.surligne, a.surligne:hover { cursor: text; text-decoration: none; border-top: 0px #2a475d none; border-right: 0px #2a475d none; border-left: 0px #2a475d none; border-bottom: 1px #2a475d dotted; color: #2a475d;} 
+
+b { color: #2a475d; font-size: 0.975em;}
+
 table { background-color: #fcfcf7; border: #000000 solid 1px; width: 95%; border-collapse: collapse; padding: 10px;}
 
 th {  
@@ -159,6 +179,9 @@ th {
 td { 
     border: #2a475d solid 1px; 
 }
+
+tt { color: green; font-family: courier, fixed, monospace; font-weight: bold; white-space:nowrap; }    /* background-color: #ffffff; */
+
 /* Actualite */
 #actualite li {
 	margin-left: 0;
