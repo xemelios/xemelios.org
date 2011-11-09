@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun" xmlns="http://www.minefi.gouv.fr/cp/helios/pes_v2/commun" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
-	<xs:include schemaLocation="Simple_Type.xsd"/>
-	<xs:include schemaLocation="CommunPES.xsd"/>
-	<xs:include schemaLocation="Class_Adresse.xsd"/>
-	<xs:include schemaLocation="Class_Bancaire.xsd"/>
-	<xs:include schemaLocation="Class_InfoTiers.xsd"/>
-</xs:schema>
