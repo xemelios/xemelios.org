@@ -113,7 +113,7 @@
 	        <p class="p2">Pour pouvoir &ecirc;tre install&eacute;, XeMeLios n&eacute;cessite plusieurs pr&eacute;-requis :</p>
 	        <ul>
 	        	<li class="p4">Pr&eacute;sence d'une machine virtuelle <b>Java 6</b> <a class="surligne">minimum</a>, active par d&eacute;faut et disponible <a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jre-6u23-oth-JPR@CDS-CDS_Developer">ici</a>.</li>
-	        	<li class="p4">Version de Windows sup&eacute;rieure ou &eacute;gale &agrave; <a class="surligne">Windows 2000</a>. <b>Windows XP, Windows Vista et Windows Seven</b> <a class="surligne">sont support&eacute;s</a> et <i>Windows 95, Windows 98, Windows Me et Windows NT4 ne le sont plus</i>.</li>
+	        	<li class="p4">Version de Windows sup&eacute;rieure ou &eacute;gale &agrave; <a class="surligne">Windows 2000</a>. <b>Windows XP, Windows Vista et Windows Seven</b> <a class="surligne">sont support&eacute;s</a> et <i>Windows 95, Windows 98, Windows Me et Windows NT4 ne le sont plus</i>. Sous Windows 2000, il n'est possible d'installer qu'un XeMeLios client seul.</li>
 	        	<li class="p4">MySql <b>ne doit pas &ecirc;tre install&eacute;</b> avant d'effectuer l'installation de la <a class="surligne">partie Serveur de XeMeLios</a>. Si vous souhaitez installer XeMeLios <a class="surligne">sur une machine o&ugrave; MySql est d&eacute;j&agrave; install&eacute;</a>, veuillez vous reporter &agrave; la documentation d'installation de la <a href="setup-mysql.html">base de donn&eacute;es XeMeLios</a>.</li>
 	        	<li class="p4"><b>Aucune version pr&eacute;c&eacute;dente de XeMeLios</b> ne doit &ecirc;tre <a class="surligne">install&eacute;e</a>. Si vous aviez d&eacute;j&agrave; une version pr&eacute;c&eacute;dente de XeMeLios install&eacute;e, reportez-vous aux <a href="desinstall-xemelios.html">conseils de d&eacute;sinstallation de XeMeLios</a>.</li>
 	            <li class="p4">Pour installer la partie Serveur de XeMeLios, vous devez faire partie du groupe des utilisateurs avec pouvoir, ou &ecirc;tre administrateur du poste.</li>
@@ -206,7 +206,7 @@
 				<br/><br/>Pour contr&ocirc;ler cela, il utilise un port TCP/IP en &eacute;coute.
 	        	<br/><br/>Par d&eacute;faut, le port sur lequel &eacute;coute XeMeLios est le 8973.
 	        	<br/><br/>Si sur votre poste, ce port est utilis&eacute; par une autre application, XeMeLios refusera de d&eacute;marrer.
-	        	<br/><br/>Il suffira donc d'indiquer &agrave; XeMeLios quel port disponible doit &ecirc;tre utilisé.</p>
+	        	<br/><br/>Il suffira donc d'indiquer &agrave; XeMeLios quel port disponible doit &ecirc;tre utilisï¿½.</p>
 	        <p class="p2">Modifions ensemble le fichier <tt>xemelios.properties</tt> et g&eacute;n&eacute;ralement pr&eacute;sent dans le r&eacute;pertoire <tt>C:\Program&nbsp;Files\DGCP\XeMeLios\XeMeLios\root</tt>.
 	        	<br/><br/>Ce fichier peut s'ouvrir avec le bloc-notes Windows ou tout autre &eacute;diteur de texte.
 	        	<br/><br/>Ajoutons la ligne suivante au fichier : <tt>xemelios.isolation.port=<span style="color: red; font-weight: bold;">8384</span></tt> o&ugrave; <span style="color: red;">8384</span> est le port que vous aurez choisit.</p>
