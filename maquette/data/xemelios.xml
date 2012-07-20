@@ -17,10 +17,17 @@
         <li>en ligne au format <a href="http://xemelios.org/v5/doc_install/index.html" target="_blank">HTML</a></li>
         <li>en t&#233;l&#233;chargement au format <a href="http://xemelios.org/v5/doc_install/install_xemelios.pdf" target="_blank">PDF</a></li>
     </ul>
+
+    <h2>Documentation d'utilisation</h2>
+    <p>La documentation d'utilisation de X&#233;M&#233;Lios V5 personnalis&#233;e &#224; votre profil est disponible dans l'outil, en cliquant sur le &#171; ? &#187; situ&#233; en haut &#224; droite dans X&#233;M&#233;Lios</p>
+    <p>La documentation d'utilisation de X&#233;M&#233;Lios V5 est disponible sous deux formats :</p>
+    <ul>
+        <li>en ligne au format <a href="http://xemelios.org/user-guide/index.html" target="_blank">HTML</a></li>
+        <li>en t&#233;l&#233;chargement au format <a href="http://xemelios.org/v5/user-guide/utilisation_xemelios.pdf" target="_blank">PDF</a></li>
+    </ul>
+    <h2>Notes de version</h2>
+    <p>Les notes de version sont disponibles <a href="http://xemelios.org/updatesV5/release-notes-PRODUCTION.html" target="_blank">ici</a>.</p>
     
-    <h3>Notes de version</h3>
-    <p>Les notes de version sont disoinibles <a href="http://xemelios.org/updatesV5/release-notes-PRODUCTION.html" target="_blank">ici</a>.</p>
-    
-    <h3>Licence</h3>
+    <h2>Licence</h2>
     <p>X&#233;M&#233;Lios est un logiciel sous licence de logiciel libre (LGPL) : <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" target="_blank">Licence LGPL</a></p>
 </data>
