@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Guide utilisateur X&eacute;M&eacute;Lios</title>
+<meta name="xemelios.version" content="3.1.0"/>
+<meta name="date.revision" content="2006-11-23"/>
+<style media="all" type="text/css">
+p.header { text-align: center; margin: 0 10 5 10; font-family: Helvetica; font-size: 18px; font-weight: bold; }
+p { text-align: justify; text-justify: auto;}
+p.p1 { margin-left: 10px; }
+p.p2 { margin-left: 20px; }
+h1 { font-family: Helvetica; font-size: 22px; font-weight: bold; }
+h2 { margin-left: 10px; font-family: Helvetica; font-size: 18px; font-weight: bold; }
+.strong { font-weight: bold; text-decoration: underline; }
+</style>
+</head>
+<body>
+<p class="header"><img src="images/logo_xemelios.png" alt="Logo Xemelios"/></p>
+<p class="header">Importations et suppressions de documents</p>
+
+    <p>Avant de pouvoir exploiter des documents XML avec X&eacute;M&eacute;Lios, il faut importer les fichiers g&eacute;n&eacute;r&eacute;s par les progiciels comptables ou RH. Les exemples suivants sont r&eacute;alis&eacute;s avec des Documents de paye.</p>
+
+<h1>Importer un fichier</h1>
+    <p class="p1">Les fichiers importables dans X&eacute;M&eacute;Lios ont en g&eacute;n&eacute;ral l'extension <tt>.xhl</tt> ou <tt>.xml</tt>. X&eacute;M&eacute;Lios sait aussi importer des fichiers compress&eacute;s au format ZIP.<br/>
+        L'importation permet &agrave; l'outil de prendre en compte les donn&eacute;es transmises par l'ordonnateur pour effectuer des recherches.<br/>
+        Les donn&eacute;es import&eacute;es sont stock&eacute;es dans la base X&eacute;M&eacute;Lios et y seront conserv&eacute;es sans limitation de temps.</p>
+    <h2>Proc&eacute;dure d'importation</h2>
+    <p class="p2"><span class="strong">Important :</span> il est fortement conseill&eacute; de copier les fichiers &agrave; importer sur le disque dur avant de les importer dans X&eacute;M&eacute;Lios.<br/>L'import direct de fichier depuis un CD-ROM dans X&eacute;M&eacute;Lios peut poser des probl&egrave;mes ; dans certains cas  (CD-ROM  sale, lecteur d&eacute;fectueux ou tr&egrave;s ancien) le syst&egrave;me n'arrive pas &agrave; lire les fichiers, X&eacute;M&eacute;Lios affiche des messages d'erreur que l'utilisateur impute &agrave; tort &agrave; l'outil.<br/>En copiant d'abord les fichiers sur le disque dur, c'est l'explorateur Windows qui remontera ce type d'erreur et non plus X&eacute;M&eacute;Lios.<br/>Un m&ecirc;me fichier (i.e de m&ecirc;me nom) ne doit &ecirc;tre import&eacute; qu'une seule fois. Dans le cas d'un travail d'&eacute;quipe sur des donn&eacute;es en base partag&eacute;e, il convient donc de confier la t&acirc;che d'importation &agrave; une seule personne (ayant les droits pour le faire). Si un fichier pr&eacute;c&eacute;demment import&eacute; est r&eacute;import&eacute;, les anciennes donn&eacute;es pr&eacute;c&eacute;demment import&eacute;es sont &eacute;cras&eacute;es par les nouvelles ; ceci permet par exemple d'importer successivement plusieurs versions d'un m&ecirc;me fichier et de ne conserver que les donn&eacute;es les plus r&eacute;centes.<br/>Plusieurs fichiers peuvent &ecirc;tre import&eacute;s en m&ecirc;me temps : dans ce cas, la barre de progression sup&eacute;rieure indique la progression de l'ensemble de l'import, la barre de progression inf&eacute;rieure indique la progression d'import du fichier en cours.</p>
+<p class="p2">1 - Cliquez sur Fichier / importer et choisissez le type de document &agrave; importer.</p><p class="header"><img src="images/menu_import.png" alt="Fichier / Import"/></p>
+    <p class="p2">2 - S&eacute;lectionnez le ou les fichiers &agrave; importer.</p><p class="header"><img src="images/boite_fichiers.png" alt="Ouvrir"/></p>
+    <p class="p2">3 - Si vous avez s&eacute;l&eacute;ctionn&eacute; un r&eacute;pertoire, X&eacute;M&eacute;lios vous propose de choisir dans ce r&eacute;pertoire et ses sous-r&eacute;pertoires les fichiers &agrave; importer :</p><p class="header"><img src="images/open_tree.png" alt="Ouverture Arbre"/></p>
+    <p class="p2">4 - L'import d&eacute;marre. Si X&eacute;M&eacute;Lios n'arrive pas &agrave; d&eacute;terminer sur quel budget porte un fichier en particulier, il affiche la boite de dialogue suivante :</p><p class="header"><img src="images/query_budget.png" alt="Saisie budget"/></p>
+    <p class="p2">Cette boite de dialogue permet &agrave; l'utilisateur de sp&eacute;cifier sur quel budget porte ce fichier. L'utilisateur peut s&eacute;lectionner dans la liste l'un des budgets propos&eacute;s (budget par d&eacute;faut ou budgets pour lesquels il y a d&eacute;j&agrave; des donn&eacute;es), ou peut saisir un nouveau budget (code et libell&eacute;) dans les champs appropri&eacute;s ; <strong>attention</strong>, ce libell&eacute; est r&eacute;utilis&eacute; dans les fen&ecirc;tres de recherche de X&eacute;M&eacute;Lios.</p>
+    <p class="p2">5 - Pendant l'import, X&eacute;M&eacute;Lios affiche une boite indiquant la progression de l'import. La ligne de progression sup&eacute;rieure indique la progression globale de l'import, la ligne inf&eacute;rieure la progression du fichier en cours. Lorsque l'utilisateur n'importe qu'un seul fichier, les deux lignes de progression avancent en m&ecirc;me temps. Le temps d'import d&eacute;pend grandement du volume des donn&eacute;es &agrave; importer, mais aussi des performances de la machine ; &agrave; titre indicatif, une machine &quot;standard&quot; est capable d'importer 400 bulletins de paye par minute.</p><p class="header"><img src="images/progression_import.png" alt="progression import"/></p>
+    <p class="p2">6 - A la fin de l'import, X&eacute;M&eacute;Lios affiche une boite de dialogue indiquant le type et la quantit&eacute; de donn&eacute;es import&eacute;es.</p><p class="header"><img src="images/report_import.png" alt="rapport import"/></p>
+    <h1>Supprimer des donn&eacute;es import&eacute;es</h1>
+    <p class="p1">Pour supprimer des donn&eacute;es import&eacute;es, cliquez sur Fichier / Supprimer. Cette fonction n'est pas accessible aux utilisateurs ne disposant pas des droits d'&eacute;criture. Une boite de dialogue pr&eacute;sentant les donn&eacute;es pr&eacute;c&eacute;dement import&eacute;es s'affiche. Ces informations sont pr&eacute;sent&eacute;es sous forme d'un arbre. L'utilisateur peut s&eacute;lectionner n'importe quel niveau  et cliquer sur Supprimer pour supprimer les donn&eacute;es s&eacute;lectionn&eacute;es.</p><p class="header"><img src="images/dlg_suppression.png" alt="suppression"/></p>
+    <p class="p1">Dans cet exemple, les relev&eacute;s de carte achat de la collectivit&eacute; 450 344 189 00 pour le budget principal seront supprim&eacute;s. Il est aussi possible de choisir les donn&eacute;es &agrave; supprimer par fichier import&eacute;. Par mesure de s&eacute;curit&eacute;, X&eacute;M&eacute;Lios demande &agrave; l'utilisateur de confirmer la suppression des donn&eacute;es.</p><p class="header"><img src="images/confirm_suppr.png" alt="confirmation suppression"/></p>
+</body>
+</html>

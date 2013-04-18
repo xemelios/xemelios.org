@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Guide utilisateur X&eacute;M&eacute;Lios</title>
+<meta name="xemelios.version" content="3.2.0"/>
+<meta name="date.revision" content="2007-05-02"/>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<style type="text/css">
+p.header { text-align: center; margin: 0 10 5 10; font-family: Helvetica; font-size: 18px; font-weight: bold; }
+p { text-align: justify; text-justify: auto;}
+p.p1 { margin-left: 10px; }
+p.p2 { margin-left: 20px; }
+p.p3 { margin-left: 30px; }
+p.center { text-align: center; }
+h1 { font-family: Helvetica; font-size: 22px; font-weight: bold; }
+h2 { margin-left: 10px; font-family: Helvetica; font-size: 18px; font-weight: bold; }
+h3 { margin-left: 20px; font-family: Helvetica; font-size: 16px; font-weight: bold; }
+table { background-color: black; cell-spacing: 1px; }
+td { background-color: white; }
+td.center { text-align:center; }
+th { background-color: #9F9F9F; text-align: left; }
+</style>
+</head>
+<body>
+<p class="header"><img src="images/logo_xemelios.png" alt="logo"/></p>
+    <p class="header">Configuration et param&eacute;trage de X&eacute;M&eacute;lios</p>
+<h3 style="left-margin: 0px">Index</h3>
+<p>&nbsp;&nbsp;<a href="#env">Environnement</a><br/>
+&nbsp;&nbsp;<a href="#config">Configuration</a></p>
+    <h1><a name="env"/>Environnement</h1>
+    <p class="p1">Dans X&eacute;M&eacute;Lios, l'environnemnent conditionne le comportement des recherches. Suivant les types de documents, certains param&egrave;tres sont modifiables, comme le nombre maximal de lignes de r&eacute;sultat affich&eacute;s en recherche par exemple.</p>
+    <p class="p1">Les donn&eacute;es d'environnement peuvent &eacute;tre modifi&eacute;es soit au <a href="#global">niveau global</a> de X&eacute;M&eacute;Lios, soit pour chaque <a href="#local">fen&ecirc;tre de recherche</a>.</p>
+    <p class="p1"><a name="global"/>Pour modifier l'environnement au niveau global, il faut passer par le menu Fichier&nbsp;/&nbsp;Environnement...</p>
+<p class="center"><img src="images/mnu_env.png" alt="menu"/></p>
+    <p class="p1">Les modifications d'environnement faites par ce biais seront appliqu&eacute;es &agrave; chaque nouvelle fen&ecirc;tre de recherche. Ces modifications ne seront pas appliqu&eacute;es aux fen&ecirc;tre de recherche d&eacute;j&agrave; ouvertes.</p>
+    <p class="p1"><a name="local"/>Pour modifier l'environnement d'une fen&ecirc;tre de recherche, il faut passer par le bouton d'environnement de la barre d'outil de la fen&ecirc;tre de recherche :</p>
+<p class="center"><img src="images/btn_environnement.png" alt="environnement"/></p>
+    <p class="p1">Les modifications d'environnement apport&eacute;es &agrave; une fen&ecirc;tre de recherche ne concernent pas les autres fen&ecirc;tres de recherche d&eacute;j&agrave; ouvertes ou celles qui seront ouvertes par la suite.</p>
+<p class="p1">Dans les deux cas, on acc&egrave;de &agrave; une boite de dialogue qui propose l'ensemble des informations environnementales modifiables :</p>
+<p class="center"><img src="images/dlg_env.png" alt="dialogue"/></p>
+    <p class="p1">Comme l'illustre la copie d'&eacute;cran ci-dessus, il est notamment possible de modifier le nombre maximum de lignes de r&eacute;sultats affich&eacute;s sur une page.</p>
+    <p class="p1">Les modifications environnementales r&eacute;alis&eacute;es soit au niveau global, soit au niveau local ne sont jamais enregistr&eacute;es : lorsque l'utilisateur quitte X&eacute;M&eacute;Lios, ces modifications sont perdues. Ceci permet de conserver une configuration par d&eacute;faut adapt&eacute;e aux diff&eacute;rents types de documents et &agrave; l'usage courant.</p>
+<h1><a name="config"/>Configuration</h1>
+    <p class="p1">Ce menu permet de modifier la configuration g&eacute;n&eacute;rale de X&eacute;M&eacute;Lios. Il donne acc&egrave;s &agrave; une boite de dialogue comportant plusieurs onglets.<ul><li><a href="#proxy">Configuration du proxy</a></li><li><a href="#exports">Configuration des exports</a></li><li><a href="#updates">Configuration de la mise &agrave; jour</a></li></ul></p>
+    <h2>Proxy</h2>
+    <p class="p1"><a name="proxy"/>Cet onglet permet de configurer l'acc&egrave;s &agrave; internet depuis X&eacute;M&eacute;Lios. Pour pouvoir se mettre &agrave; jour, X&eacute;M&eacute;Lios doit acc&eacute;der &agrave; internet. Certains sites utilisent un proxy pour acc&eacute;der &agrave; internet. Cet onglet permet de d&eacute;finir l'ensemble des informations n&eacute;cessaires &agrave; l'utilisation d'un proxy.</p>
+    <p class="center"><img src="images/proxy.png" alt="proxy"/></p>
+    <p class="p1">Les informations n&eacute;cessaires sont &agrave; demander &agrave; l'administrateur r&eacute;seau du site. Pour le r&eacute;seau du tr&eacute;sor, le serveur proxy est <tt>proxy.bercy.cp</tt> et le port est <tt>3128</tt>.</p>
+    <p class="p1">Il est possible de tester les valeurs saisies : X&eacute;M&eacute;Lios tentera d'acc&eacute;der au fichier de mise &agrave; jour. Si le param&eacute;trage est incorrect, X&eacute;M&eacute;Lios affichera le message d'erreur.<br/>Il est aussi possible de charger l'ancien param&eacute;trage (celui des version 3.1.x).</p>
+    <h2>Exports</h2>
+    <p class="p1"><a name="exports"/>Cet onglet permet de configurer la fa&ccedil;on dont les exports de donn&eacute;es seront r&eacute;alis&eacute;s.</p>
+    <p class="center"><img src="images/exports.png" alt="exports"/></p>
+    <p class="p1">Plusieurs m&eacute;thodes d'exports sont propos&eacute;es :</p>
+    <ul>
+        <li>Exports CSV : cette m&eacute;thode la plus simple g&eacute;n&egrave;re un fichier dont les champs sont d&eacute;limit&eacute;s par des points-virgules. La mise en forme est inexistante, mais ces fichiers peuvent &ecirc;tre exploit&eacute;s par tous les types de tableurs.</li>
+        <li>Exports Excel 2000 / 2003 / 2007 : cette m&eacute;thode permet d'exporter de grosses quantit&eacute;s d'informations avec une mise en forme minimaliste. Elle n&eacute;cessite qu'Excel 2000 ou ult&eacute;rieur soit install&eacute; sur le poste. Le fichier export&eacute; comporte une macro qui doit &ecirc;tre execut&eacute;e &agrave; l'ouverture du fichier pour reconstituer les donn&eacute;es - ce traitement peut &ecirc;tre un peu long..</li>
+        <li>Exports Excel 97 : cette m&eacute;thode permet d'exporter de grosses quantit&eacute;s d'informations avec une mise en forme minimaliste. Elle n&eacute;cessite qu'Excel 97 soit install&eacute; sur le poste. Le fichier export&eacute; comporte une macro qui doit &ecirc;tre execut&eacute;e &agrave; l'ouverture du fichier pour reconstituer les donn&eacute;es - ce traitement peut &ecirc;tre un peu long.</li>
+        <li>Exports Excel 97 SR1 : cette m&eacute;thode permet d'exporter de grosses quantit&eacute;s d'informations avec une mise en forme minimaliste. Elle n&eacute;cessite qu'Excel 97 SR1 ou ult&eacute;rieur soit install&eacute; sur le poste. Le fichier export&eacute; comporte une macro qui doit &ecirc;tre execut&eacute;e &agrave; l'ouverture du fichier pour reconstituer les donn&eacute;es - ce traitement peut &ecirc;tre un peu long.</li>
+        <li>Exports Excel simples : cette m&eacute;thode permet d'exporter de petites quantit&eacute;s d'information, mais en contrepartie, elle fonctionne avec toutes les versions d'Excel et ne comporte pas de macro.</li>
+    </ul>
+    <h2>Mises &agrave; jour</h2>
+    <p class="p1"><a name="updates"/>Cet onglet permet de configurer l'adresse &agrave; partir de laquelle Xemelios cherche les mises &agrave; jour disponibles.</p>
+    <p class="center"><img src="images/updates.png" alt="mises a jour"/></p>
+    <p class="p1">Normalement, cette valeur n'a pas de raison d'&ecirc;tre modifi&eacute;e. Il existe cependant deux cas o&ugrave; elle peut l'&ecirc;tre :</p>
+    <ul class="p1">
+        <li>Vous &ecirc;tes dans une organisation qui a un acc&egrave;s limit&eacute; &agrave; Internet et qui a d&eacute;cid&eacute; de proposer son propre serveur de mises &agrave; jour ; dans ce cas, votre admisnistrateur syst&egrave;me a d&ucirc; vous communiquer l'adresse &agrave; laquelle les mises &agrave; jour sont disponibles.</li>
+        <li>Vous &ecirc;tes b&ecirc;ta-testeur ou site pilote pour recetter une fonctionnalit&eacute; encore exp&eacute;rimentale ; dans ce cas, le p&ocirc;le D&eacute;mat ou l'&eacute;quipe Xemelios vous a communiqu&eacute; l'adresse o&ugrave; les mises &agrave; jour vous concernant sont disponibles.</li>
+    </ul>
+    <p class="p1">Attention, une adresse invalide entr&eacute;e ici emp&ecirc;chera Xemelios de se mettre &agrave; jour.</p>
+</body>
+</html>

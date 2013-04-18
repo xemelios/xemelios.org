@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>Guide utilisateur X&eacute;M&eacute;Lios</title>
+<meta name="xemelios.version" content="3.1.0"/>
+<meta name="date.revision" content="2006-11-23"/>
+<style type="text/css">
+p.header { text-align: center; margin: 0 10 5 10; font-family: Helvetica; font-size: 18px; font-weight: bold; }
+p { text-align: justify; text-justify: auto;}
+p.p1 { margin-left: 10px; }
+p.p2 { margin-left: 20px; }
+p.p3 { margin-left: 30px; }
+p.p4 { margin-left: 40px; margin-top: 2px; }
+p.center { text-align: center; }
+h1 { font-family: Helvetica; font-size: 22px; font-weight: bold; }
+h2 { margin-left: 10px; font-family: Helvetica; font-size: 18px; font-weight: bold; }
+h3 { margin-left: 20px; font-family: Helvetica; font-size: 16px; font-weight: bold; }
+h4 { margin-left: 30px; margin-bottom: 0px; }
+table { background-color: black; cell-spacing: 1px; }
+td { background-color: white; }
+td.center { text-align:center; }
+th { background-color: #9F9F9F; text-align: left; }
+</style>
+</head>
+<body>
+<p class="header"><img src="../images/logo_xemelios.png" alt="logo"/></p>
+<p class="header">Etat de paye</p>
+    <p class="p1"><ul><li><a href="#recherches">Recherches et visualisations</a></li><li><a href="#analyses">Analyses</a></li></ul></p>
+    <p style="font-weight: bold; font-size: 36px;"><a name="recherches"/>Recherches et visualisations</p>
+    <p class="p1">L'&eacute;tat de paye regroupe les <a href="#payeIndiv">bulletins de paye</a> et la <a href="#repartition">r&eacute;partition par nature</a>.</p>
+<h1><a name="payeIndiv"/>Bulletins de paye</h1>
+    <p class="p1">Le bulletin de paye est l'&eacute;l&eacute;ment principal de cet &eacute;tat. C'est le bulletin de paye que l'utilisateur peut visualiser. On peut acc&eacute;der &agrave; un bulletin de paye par une <a href="#searchBulletin">recherche sur bulletin</a>, ou par une <a href="#searchLignes">recherche sur lignes de bulletins</a>.</p>
+<h2><a name="searchBulletin"/>Recherche sur bulletins</h2>
+<p class="p2">On acc&egrave;de aux recherche sur Bulletins de paye par le menu Recherche / Etat de paye / Bulletins de paye</p><p class="center"><img src="images/mnu_search_paye_paye.png" alt="menu"/></p>
+<p class="p2">Ces recherches renvoient toujours une liste de bulletins de paye.</p>
+<h3>Crit&egrave;res</h3>
+<p class="p3">Les crit&egrave;res de recherche possibles sont :</p>
+    <h4>Ann&eacute;e et Mois</h4><p class="p4">Permet de filtrer sur une ann&eacute;e et un mois. X&eacute;M&eacute;Lios ne propose dans les listes Ann&eacute;e et Mois que des Ann&eacute;es et des Mois pour lesquels il y a des valeurs</p>
+    <h4>Ev&egrave;nement</h4><p class="p4">Permet de filtrer les bulletins pour lesquels il y a l'&eacute;v&egrave;nement s&eacute;l&eacute;ctionn&eacute;. X&eacute;M&eacute;Lios affiche les &eacute;v&egrave;nements d&eacute;clar&eacute;s dans la nomenclature du fichier</p>
+    <h4>Tous les Ev&egrave;nements</h4><p class="p4">Permet de filter les bulletins pour lesquel il y a au moins un &eacute;v&egrave;nement.</p>
+    <h4>Montant Net</h4><p class="p4">Permet de filtrer les bulletins pour lesquels le montant net est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; un montant donn&eacute;.</p>
+    <h4>Montant Brut</h4><p class="p4">Permet de filtrer les bulletins pour lesquels le montant brut est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; un montant donn&eacute;.</p>
+    <h4>Montant Imposable</h4><p class="p4">Permet de filtrer les bulletins pour lesquels le montant imposable est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; un montant donn&eacute;. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Heures suppl&eacute;mentaires</h4><p class="p4">Permet de filtrer les bulletins pour lesquels le nombre d'heures suppl&eacute;mentaires est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; une valeur donn&eacute;e. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Heures travaill&eacute;es</h4><p class="p4">Permet de filtrer les bulletins pour lesquels le nombre d'heures travaill&eacute;es est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; une valeur donn&eacute;e. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Temps de travail</h4><p class="p4">Permet de filtrer les bulletins pour lesquels le temps de travail est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; une valeur donn&eacute;e. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Indice</h4><p class="p4">Permet de filtrer les bulletins pour lesquels l'indice de l'Agent est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; une valeur donn&eacute;e.</p>
+    <h4>NBI</h4><p class="p4">Permet de filtrer les bulletins dont le NBI est &eacute;gal, sup&eacute;rieur ou inf&eacute;rieur &agrave; une valeur donn&eacute;e. Ce champ peut &ecirc;tre affich&eacute; optionnellement en r&eacute;sultat de recherche.</p>
+    <h4>Emploi</h4><p class="p4">Permet de filtrer les bulletins dont l'emploi de l'agent vaut une certaine valeur. Un assistant affiche la liste des valeurs disponibles pour l'emploi.</p>
+    <h4>Service</h4><p class="p4">Permet de filtrer les bulletins dont l'agent est rattach&eacute; au service sp&eacute;cifi&eacute;. Un assistant affiche la liste des valeurs disponibles pour le service.</p>
+    <h4>Cat&eacute;gorie de Rubriques</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de la cat&eacute;gorie de rubrique pr&eacute;cis&eacute;e, et pour laquelle le montant sera &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubrique d&eacute;taill&eacute;e</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne dont la rubrique d&eacute;taill&eacute;e est celle sp&eacute;cifi&eacute;e et dont le montant est &eacute;gal, inf&eacute;rieur ou sup&eacute;rieur &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Caisse (cotisation)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne portant sur la caisse de cotisation sp&eacute;cifi&eacute;e.</p>
+    <h4>Agent (nom)</h4><p class="p4">Permet de filtrer les bulletins par nom d'agent</p>
+    <h4>Agent (pr&eacute;nom)</h4><p class="p4">Permet de filtrer les bulletins par pr&eacute;nom d'agent</p>
+    <h4>Agent (matricule)</h4><p class="p4">Permet de filtrer les bulletins par matricule d'agent</p>
+    <h4>Agent (nir)</h4><p class="p4">Permet de filtrer les bulletins par NIR d'agent. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Agent (statut)</h4><p class="p4">Permet de filtrer les bulletins dont le statut de l'agent est celui sp&eacute;cifi&eacute;.</p>
+    <h4>Agent (enfants &agrave; charge)</h4><p class="p4">Permet de filtrer les bulletins dont l'agent a le nombre sp&eacute;cifi&eacute; d'enfants. Ce champ peut &ecirc;tre affich&eacute; optionnellement en r&eacute;sultat de recherche.</p>
+    <h4>Grade</h4><p class="p4">Permet de filtrer les bulletins dont l'agent a le grade sp&eacute;cifi&eacute;. Un assistant affiche l'ensemble des valeurs disponibles pour le grade. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Echelon</h4><p class="p4">Permet de filtrer les bulletins dont l'agent a l'&eacute;chelon sp&eacute;cifi&eacute;. Un assistant affiche l'ensemble des valeurs disponibles pour le grade. Ce champ peut &ecirc;tre optionnellement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h4>Rubriques (Traitement Principal)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de traitement principal dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Indemnit&eacute; de R&eacute;sidence)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne d'indemnit&eacute; de r&eacute;sidence dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Suppl&eacute;ment Familial)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de suppl&eacute;ment familial dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Autre Indemnit&eacute;)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne d'autres indemnit&eacute;s dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Avantage en Nature)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne d'avantage en nature dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (D&eacute;duction sur brut)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de d&eacute;duction sur brut dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Rappel)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de rappel dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Acompte)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne d'acompte dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Retenue sur net)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de retenue sur net dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Cotisation Patronale)</h4><p class="p4">Permet de filtrer les bulletins sur des informations des lignes. X&eacute;M&eacute;Lios n'affichera que les bulletins ayant au moins une ligne de cotisation patronale dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Budget</h4><p class="p4">Permet de filtrer les bulletins portant au moins sur ce budget.</p>
+    <h4>R&eacute;f. Nomencl. Statutaire</h4><p class="p4">Permet de filtrer les bulletins dont la r&eacute;f&eacute;rence statutaire de l'agent correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>R&eacute;f. Nomencl. Statutaire (code)</h4><p class="p4">Permet de filtrer les bulletins dont le code de la r&eacute;f&eacute;rence statutaire de l'agent correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>R&eacute;f. Nomencl. Statutaire (libell&eacute;)</h4><p class="p4">Permet de filtrer les bulletins dont le libell&eacute; de la r&eacute;f&eacute;rence statutaire de l'agent correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>RIB</h4><p class="p4">Permet de filtrer les bulletins dont le RIB de l'agent correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Ann&eacute;e</h4><p class="p4">Permet de filtrer les bulletins portant sur l'ann&eacute;e sp&eacute;cifi&eacute;e.</p>
+    <h4>Mois</h4><p class="p4">Permet de filtrer les bulletins portant sur le mois sp&eacute;cifi&eacute;.</p>
+    <h4>Avec PJ</h4><p class="p4">Permet de ne chercher que les bulletins avec au moins une Pi&egrave;ce justificative.</p>
+    <h4>PJ (Id Unique)</h4><p class="p4">Permet de chercher les bulletins ayant une Pi&egrave;ce justificative dont l'ID unique correspond &agrave; la valeur saisie.</p>
+    <h4>PJ (Nom)</h4><p class="p4">Permet de chercher les bulletins ayant une Pi&egrave;ce justificative dont le nom correspond &agrave; la valeur saisie.</p>
+    <h4>Etablissement</h4><p class="p4">Permet de chercher les bulletins rattach&eacute;s &agrave; un &eacute;tablissement. Un assistant affiche l'ensemble des &eacute;tablissements disponibles pour la collectivit&eacute;. Ce champ peut &ecirc;tre optionnelement affich&eacute; en r&eacute;sultat de recherche.</p>
+    <h3>Recherches pr&eacute;d&eacute;finies</h3>
+    <h4>Entrants</h4><p class="p4">Cette recherche permet de trouver les agents qui sont entr&eacute;s entre la p&eacute;riode 1 et la p&eacute;riode 2. C'est &agrave; dire ceux n'ayant pas de bulletin de paye sur la p&eacute;riode 1 mais en ayant un sur la p&eacute;riode 2.</p>
+    <h4>Sortants</h4><p class="p4">Cette recherche permet de trouver les agents qui sont sortis entre la p&eacute;riode 1 et la p&eacute;riode 2. C'est &agrave; dire ceux ayant un bulletin de paye sur la p&eacute;riode 1 mais n'en ayant pas sur la p&eacute;riode 2.</p>
+    <h4>Entrants et sortants</h4><p class="p4">Cette recherche permet de trouver les agents &eacute;tant entr&eacute;s ou sortis entre la p&eacute;riode 1 et la p&eacute;riode 2. Le r&eacute;sultat de cette recherche est la combinaison du r&eacute;sultat des 2 pr&eacute;c&eacute;dentes recherches.</p>
+    <h4>Variations de revenu</h4><p class="p4">Cette recherche permet de trouver les bulletins des agents dont le revenu a vari&eacute; plus qu'indiqu&eacute;. Cette recherche peut porter sur les variation de montant brut ou de montant net. La variation peut &ecirc;tre exprim&eacute;e en pourcentage ou en montant.</p>
+    <h4>Variations d'indice</h4><p class="p4">Cette recherche permet de trouver les bulletins des agents dont l'indice a vari&eacute; plus qu'indiqu&eacute; entre les deux p&eacute;riodes. Cette variation peut &ecirc;tre exprim&eacute;e en pourcentage ou en points.</p>
+    <h4>Variation de RIB</h4><p class="p4">Cette recherche permet de trouver les bulletins des agents dont le RIB a chang&eacute; entre les deux p&eacute;riodes.</p>
+    <h4>Agents multi-budgets</h4><p class="p4">Cette recherche permet de trouver les bulletins des agents ayant &eacute;t&eacute; imput&eacute;s sur plusieurs budgets.</p>
+<h3>Exports de lignes</h3><p class="p3">Ces quatres exports permettent d'exporter les informations des lignes de paye pour les consulter et les re-travailler dans Excel.</p>
+    <h4>Export de toutes les lignes de paye</h4><p class="p4">Cet export exporte toutes les lignes de paye d'une p&eacute;riode.</p>
+    <h4>Export par cat&eacute;gorie</h4><p class="p4">Cet export exporte toutes les lignes de paye de la cat&eacute;gorie sp&eacute;cifi&eacute;e et dont le montant correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Export par rubrique</h4><p class="p4">Cet export exporte les lignes de paye dont la rubrique correspond &agrave; la valeur sp&eacute;cifi&eacute;e et dont le montant est &eacute;gal, sup&eacute;rieur ou inf&eacute;rieur &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Export par caisse</h4><p class="p4">Cet export exporte les lignes se rapportant &agrave; la caisse sp&eacute;cifi&eacute;e.</p>
+<h3>Outils annexes</h3>
+    <h4>Acc&egrave;s &agrave; tous les bulletins d'un agent</h4><p class="p4">Depuis un r&eacute;sultat de recherche, en faisant un clic-droit sur une ligne, on peut acc&eacute;der &agrave; tous les bulletins de l'agent :<br/><img src="images/widget_tous-bulletins.png" alt="menu"/></p>
+<!-- lignes bulletins -->
+<h2><a name="searchLignes"/>Recherches sur lignes de bulletins de paye</h2>
+    <p class="p2">On acc&egrave;de aux recherches sur lignes de bulletins de paye par le menu Recherche / Etat de paye / Lignes de paye</p><p class="center"><img src="images/mnu_search_paye_lignes.png" alt="menu"/></p><p class="p2">Ces recherches renvoient toujours des lignes de bulletin. Un double-clic sur une ligne de r&eacute;sultat affiche le bulletin correspondant &agrave; la ligne s&eacute;l&eacute;ctionn&eacute;e, avec la ligne s&eacute;lectionn&eacute;e mise en surbrillance.</p>
+<h3>Crit&egrave;res</h3>
+    <h4>Ann&eacute;e Mois</h4><p class="p4">Permet de filtrer sur une ann&eacute;e et un mois. X&eacute;M&eacute;Lios ne propose dans les listes Ann&eacute;e et Mois que des Ann&eacute;es et des Mois pour lesquels il y a des valeurs.</p>
+    <h4>Cat&eacute;gorie de Rubriques</h4><p class="p4">Permet de filtrer sur une cat&eacute;gorie de rubrique. X&eacute;M&eacute;Lios ne renvoie que les lignes de la cat&eacute;gorie sp&eacute;cifi&eacute;e et dont le montant est &eacute;gal, sup&eacute;rieur ou inf&eacute;rieur au montant sp&eacute;cifi&eacute;.</p>
+    <h4>Rubrique d&eacute;taill&eacute;e</h4><p class="p4">Ne renvoie que les lignes dont la rubrique d&eacute;taill&eacute;e est celle sp&eacute;cifi&eacute;e et dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;e.</p>
+    <h4>Agent (nom)</h4><p class="p4">Ne renvoie que les lignes des bulletins dont le nom de l'agent correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Agent (pr&eacute;nom)</h4><p class="p4">Ne renvoie que les lignes des bulletins dont le pr&eacute;nom de l'agent correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Agent (matricule)</h4><p class="p4">Ne renvoie que les lignes des bulletins dont le matricule de l'agent correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Agent (nir)</h4><p class="p4">Ne renvoie que les lignes des bulletins dont le nir de l'agent correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Agent (statut)</h4><p class="p4">Ne renvoie que les lignes des bulletins dont le statut de l'agent est celui sp&eacute;cifi&eacute;.</p>
+    <h4>Caisse (cotisation)</h4><p class="p4">Ne renvoie que les lignes des bulletins dont la caisse de cotisation correspond &agrave; celle sp&eacute;cifi&eacute;e.</p>
+    <h4>Rubriques (Traitement Principal)</h4><p class="p4">Ne renvoie que les lignes de Traitement principal dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Indemnit&eacute; de R&eacute;sidence)</h4><p class="p4">Ne renvoie que les lignes d'indemnit&eacute; de r&eacute;sidence dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Suppl&eacute;ment Familial)</h4><p class="p4">Ne renvoie que les lignes de Suppl&eacute;ment Familial dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Autre Indemnit&eacute;)</h4><p class="p4">Ne renvoie que les lignes d'autres indemnit&eacute;s dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Avantage en Nature)</h4><p class="p4">Ne renvoie que les lignes d'avantage en nature dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (D&eacute;duction sur brut)</h4><p class="p4">Ne renvoie que les lignes de d&eacute;duction sur brut dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Rappel)</h4><p class="p4">Ne renvoie que les lignes de rappel dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Acompte)</h4><p class="p4">Ne renvoie que les lignes d'acompte dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Retenue sur net)</h4><p class="p4">Ne renvoie que les lignes de retenue sur net dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+    <h4>Rubriques (Cotisation Patronale)</h4><p class="p4">Ne renvoie que les lignes de cotisations patronales dont le montant correspond &agrave; celui sp&eacute;cifi&eacute;.</p>
+ <h3>Outils annexes</h3>
+    <h4>Acc&egrave;s &agrave; tous les bulletins d'un agent</h4><p class="p4">Depuis un r&eacute;sultat de recherche, en faisant un clic-droit sur une ligne, on peut acc&eacute;der &agrave; tous les bulletins de l'agent :<br/><img src="images/widget_tous-bulletins.png" alt="menu"/></p>
+    <!-- repartition -->
+    <h1><a name="repartition"/>R&eacute;partition par nature</h1>
+    <p class="p1">On acc&egrave;de aux recherches sur r&eacute;partition par nature par le menu Recherche / Etat de paye / R&eacute;partition par Nature</p><p class="center"><img src="images/mnu_search_paye_repartition.png" alt="menu"/></p>
+    <p class="p1">Ces recherches renvoient syst&eacute;matiquement des lignes de r&eacute;partition par nature. Un double-clic sur une ligne de r&eacute;sultat n'affiche rien.</p>
+<h3>Crit&egrave;res</h3>
+    <h4>Ann&eacute;e et Mois</h4><p class="p4">Permet de filtrer sur une ann&eacute;e et un mois. X&eacute;M&eacute;Lios ne propose dans les listes Ann&eacute;e et Mois que des Ann&eacute;es et des Mois pour lesquels il y a des valeurs.</p>
+    <h4>Fonction</h4><p class="p4">Ne renvoie que les lignes de r&eacute;partition dont la fonction correspond &agrave; la valeur choisie.</p>
+    <h4>Budget</h4><p class="p4">Ne renvoie que les lignes de r&eacute;partition dont le budget correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Ann&eacute;e</h4><p class="p4">Ne renvoie que les lignes de r&eacute;partition dont l'ann&eacute;e correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+    <h4>Mois</h4><p class="p4">Ne renvoie que les lignes de r&eacute;partition dont le mois correspond &agrave; la valeur sp&eacute;cifi&eacute;e.</p>
+<p style="font-weight: bold; font-size: 36px;"><a name="analyses"/>Analyses de flux</p>
+    <p class="p1">Les flux de paye peuvent &ecirc;tre analys&eacute;s. L'acc&egrave;s se fait comme pour le PES, par le menu Fichier / Analyser / Paye. L'analyse v&eacute;rifie la conformit&eacute; du fichier au sch&eacute;ma de paye <a href="http://admisource.gouv.fr/frs/?group_id=9">1.2a</a>. Elle v&eacute;rifie plusieurs r&egrave;gles m&eacute;tier sur les bulletins de paye, mais ne fait <b>aucun contr&ocirc;le sur la r&eacute;partition par nature</b>.</p>
+    
+</body>
+</html>

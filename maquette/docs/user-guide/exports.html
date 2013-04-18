@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <title>Guide utilisateur X&eacute;M&eacute;Lios</title>
+        <meta name="xemelios.version" content="3.1.0" />
+        <meta name="date.revision" content="2006-11-23" />
+        <style type="text/css">
+            p.header {
+                text-align: center;
+                margin: 0 10 5 10;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            p {
+                text-align: justify;
+                text-justify: auto;
+            }
+            p.p1 {
+                margin-left: 10px;
+            }
+            .p2 {
+                margin-left: 20px;
+            }
+            p.p3 {
+                margin-left: 30px;
+            }
+            p.center {
+                text-align: center;
+            }
+            h1 {
+                font-family: Helvetica;
+                font-size: 22px;
+                font-weight: bold;
+            }
+            h2 {
+                margin-left: 10px;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            h3 {
+                margin-left: 20px;
+                font-family: Helvetica;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            table {
+                background-color: black;
+                cell-spacing: 1px;
+            }
+            td {
+                background-color: white;
+            }
+            td.center {
+                text-align:center;
+            }
+            th {
+                background-color: #9F9F9F;
+                text-align: left;
+            }
+            .under {
+                text-decoration: underline;
+            }</style>
+    </head>
+    <body>
+        <p class="header">
+            <img src="images/logo_xemelios.png" alt="Logo Xemelios" />
+        </p>
+        <p class="header">Exports</p>
+        <p>Depuis la version 3.3, Xemelios permet de r&eacute;aliser des exports au format
+            Excel. Ces nouveaux exports permettent d'exporter des donn&eacute;es non
+            affich&eacute;es et beaucoup plus compl&egrave;tes que les
+            pr&eacute;c&eacute;dentes versions.<br/>
+            Ces nouveaux exports n&eacute;cessitent de la configuration et quelques manipulations.</p>
+        <p>Le format des exports est configurable depuis le menu de <a href="configs.html#exports">configuration</a>.</p>
+        <p>
+            <a href="#conf">Configurer un export</a><br/>
+            <a href="#search">Exporter les donn&eacute;es trouv&eacute;es</a><br/>
+            <a href="#big">Exporter une grande quantit&eacute; de donn&eacute;es</a><br/>
+            <a href="#perf">Consid&eacute;rations de performances</a><br/>
+            <a href="#cc">Copier - Coller</a>
+        </p>
+        <h1><a name="conf"/>Configurer un Export</h1>
+        <p class="p1">On acc&egrave;de &agrave; la configuration d'un export par le menu Export / Configurer...<br/>
+            <img src="images/mnu_export_config.png" alt="Menu Export / Configurer..."/><br/>
+            Un export n'est valable que pour un type de document et un &eacute;tat.<br/>
+            On arrive dans la boite de dialogue de choix de configuration d'Export.
+            Pour pouvoir cr&eacute;er une nouvelle configuration d'export, il faut s&eacute;lectionner le type de Document et l'&eacute;tat sur lequel portera cette configuration.<br/>
+            <img src="images/dlg_cfg_export_1.png" alt="Choix de l'etat"/><br/>
+            Ensuite, cliquer sur <img src="images/btn_nouveau.png" alt="Nouveau" style="margin-top: 3px;"/>.<br/>
+            Xemelios pr&eacute;sente alors la liste des champs exportables pour l'&eacute;tat s&eacute;lectionn&eacute; :<br/>
+            <img src="images/dlgChooseChamps.png" alt="Choix des champs"/><br/>
+            Il suffit alors de choisir les champs que l'on veut exporter puis de cliquer sur <img src="images/btn_enregistrer.png" alt="Enregistrer" style="margin-top: 3px;"/>.
+        </p>
+        <h1><a name="search"/>Exporter les donn&eacute;es trouv&eacute;es</h1>
+        <p class="p1">Pour exporter un r&eacute;sultat de recherche, il suffit, comme avec les pr&eacute;c&eacute;dentes versions de Xemelios, d'utiliser le menu Fichier / Exporter... apr&egrave;s avoir effectu&eacute; une recherche. Pour cet exemple, nous exporterons des lignes de R&eacute;partition par Nature de Payes.<br/>
+        On commence par effectuer une recherche pour obtenir les &eacute;l&eacute;ments que l'on souhaite exporter :<br/>
+        <img src="images/search_export.png" alt="Recherche"/><br/>
+        L'action sur le menu Fichier / Exporter... ouvre la boite de choix de configuration d'export. Les configurations existantes pour l'&eacute;tat s&eacute;lectionn&eacute; sont d&eacute;j&agrave; affich&eacute;es, mais il est possible d'en cr&eacute;er de nouvelles ou de modifier des configurations existantes.<br/>
+            <img src="images/cfg_export_from_search.png" alt="config export"/><br/>
+        Cette fois, un double-clic sur l'une des configurations propose &agrave; l'utilisateur de choisir un nom de fichier pour l'export, puis l'export se lance.</p>
+        <h1><a name="big"/>Exporter une grande quantit&eacute; de donn&eacute;es</h1>
+        <p class="p1">Il est possible d'exporter des donn&eacute;es sans faire pr&eacute;alablement de recherche ; ceci est utile pour exporter des donn&eacute;es pas forc&eacute;ment homog&egrave;nes ou facilement cherchables.<br/>
+        Pour ce faire, il suffit de passer par le menu Exporter / Executer<br/>
+        Xemelios ouvre alors la boite de s&eacute;lection de donn&eacute;es. Dans l'onglet "Par donn&eacute;es", on peut choisir en d&eacute;pliant les diff&eacute;rentes branches de l'arbre les donn&eacute;es &agrave; exporter. Suivant les types de documents, la structure des branches peut &ecirc;tre diff&eacute;rente.<br/>
+            <img src="images/tab_par_donnees.png" alt="par donnees"/><br/>
+        <br/>L'onglet "Par fichier" permet de s&eacute;lectionner les donn&eacute;es par fichier import&eacute;<br/>
+        <img src="images/tab_par_fichiers.png" alt="par fichiers"/><br/>
+        Il suffit de s&eacute;lectionner &eacute;ventuellement un type de document, une collectivit&eacute; et un budget pour chercher l'ensemble des fichiers import&eacute;s. Ensuite, en d&eacute;pliant les branches de l'arbre, il est possible de s&eacute;lectionner le fichier &agrave; exporter &agrave; l'aide des boutons radios de l'arbre.<br/>
+            Ensuite, en cliquant sur Exporter, on revient &agrave; la <a href="#conf">boite de choix de configuration</a>.
+        </p>
+        <h1><a name="perf"/>Consid&eacute;rations de performances</h1>
+        <p class="p1">Les exports sont des processus gourmands en terme de performance. Afin d'optimiser les temps d'export, il est important de bien respecter quelques r&egrave;gles simples :
+        <ul>
+            <li>Exporter uniquement les donn&eacute;es n&eacute;cessaires. Si vous d&eacute;sirez n'obtenir dans votre export que des informations sur les lignes de bulletins de paye, il est conseill&eacute; de configurer un export ne comportant aucune information sur les agents, sur les montant globaux, sur les NBI ou les &eacute;v&egrave;nements.</li>
+            <li>Exporter toujours l'&eacute;l&eacute;ment le plus &quot;gros&quot; : si vous souhaitez exporter toutes les lignes de payes du janvier 2007 dont le nom de l'agent commence par &quot;M&quot;, vous pouvez soit effectuer une recherche de bulletins, soit une recherche de lignes de bulletins. L'export sera bien plus rapide si vous le faites depuis une recherche de bulletins, m&ecirc;me si vous n'exportez que des donn&eacute;es des lignes. Il est cependant certains cas o&ugrave; cela n'est pas possible : par exemple, si vous souhaitez exporter les lignes de traitement principal, vous &ecirc;tes oblig&eacute;s de passer par une recherche de lignes de bulletins de paye car il n'est pas possible d'exprimer une telle recherche sur des bulletins.</li>
+        </ul></p>
+        <h1><a name="cc"/>Copier - Coller</h1>
+        <p class="p1">Dans tous les r&eacute;sultats de recherche il reste possible d'exporter des informations par Copier / Coller. Pour cela, il faut s&eacute;lectionner les donn&eacute;es que l'on veut exporter, puis faire Ctrl + C.<br/>
+        Ensuite, dans Excel, il suffit de faire Ctrl + V ou de passer par le menu Edition / Coller.</p>
+    </body>
+</html>
